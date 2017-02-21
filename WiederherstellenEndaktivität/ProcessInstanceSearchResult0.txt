@@ -1,0 +1,123 @@
+'Product specific script for ProcessInstanceSearchResult 0
+
+'Private Const c_RigthReactivate = "Objekte/Verfahren reaktivieren"
+Private Const c_RigthReactivate = "Pi Metadaten anzeigen" '--> zum Testen
+
+Private Sub ProcessInstanceList_ContextMenuItem(ByVal MenuID As Long, ByVal ProcessInstances As WFLOBJ.SCBWflProcessInstances, ByVal IsObjectSelected As Long, ByRef Handled As Boolean)
+If MenuID = 2001 Then
+	Dim PAAusleihe As New PapieraktAusleihe.NETConnector
+    PAAusleihe.ShowProcessInstanceHierachyByIGZ ProcessInstanceList.Session,  ProcessInstances.Item(1).ID.ToLong(wflLocalKey)
+    WFLBroadCast.RefreshWorkItems ProcessInstanceList, WorkContextForControl(ProcessInstanceList), ProcessInstances.Item(1).GetWorkItems.Item(1)
+End If
+'****************************************************************
+'Test für das Wiederherstellen von Akten aus der Endaktivität
+'****************************************************************
+If MenuID = 2002 Then
+On Error GoTo errH:
+   Dim PI As SCBWflProcessInstance
+
+   Dim sysPI As SCBWflProcessInstance
+   Dim sysWI As SCBWflWorkItem
+   Dim sysSession As SCBWflSession
+   Dim manActivity As SCBWflManualActivity
+   Dim Participant As SCBWflParticipant
+   Dim HistoryEvent As SCBWflHistoryEventType
+   'SystemSession aufbauen
+   Set sysSession = createSystemSession
+   Set Participant = ProcessInstanceList.Session.GetLoggedOnUser
+   Set HistoryEvent = sysSession.System.GetHistoryEventTypeByID(sysSession.System.NewIDByLocalKey(99))
+   For Each PI In ProcessInstances
+      'ProcessInstance als System User anfordern
+      Set sysPI = sysSession.System.GetProcessInstanceByID(sysSession.System.NewIDByLocalKey (PI.ID.ToLong(wflLocalKey)))
+      'Startaktivität und aktuellen Benuzter setzen
+      Set manActivity = sysPI.GetProcess.GetStartProcessObjects.Item(1)
+      manActivity.AddParticipant Participant
+      'Aktives WorkItem setzen
+      sysPI.SetActiveWorkItem sysPI.GetWorkItems.Item(1)
+      'in die Startaktivität mit ChangeProcessAndStartAt bringen
+      sysPI.SetLock wflProcInstWhole
+         sysPI.ChangeProcessAndStartAt sysPI.GetProcessClass, sysPI.GetProcess, manActivity
+      sysPI.ReleaseLock wflProcInstWhole
+      'an den angemeldeten Benutzer delegieren
+      Set sysPI = sysSession.System.GetProcessInstanceByID(sysSession.System.NewIDByLocalKey (PI.ID.ToLong(wflLocalKey)))
+      Set sysWI = sysPI.GetWorkItems.Item(1)
+      sysWI.SetLock wflWIWhole
+      sysWI.DelegateToParticipant Participant
+      sysWI.ReleaseLock wflWIWhole
+      'HistoryEintrag schreiben
+      sysWI.WriteHistoryEvent HistoryEvent, 30, "Der Akt wurde durch den Benutzer '" & Participant.Name & "' aus der Endaktivität wiederhergestellt!"
+
+      MsgBox "Das Objekt/Verfahren '" & PI.Name & "' wurde wiederhergestellt und befindet sich in Ihrem Arbeitskorb!", vbInformation, PI.Name
+  Next
+  sysSession.logout
+  GoTo finishFunction:
+ errH:
+  MsgBox Err.Number & vbNewLine & Err.Description, vbExclamation, "Fehler beim Wiederherstellen"
+ finishFunction:
+ On Error GoTo 0
+End If
+End Sub
+
+Private Sub ProcessInstanceList_ShowingContextMenu(ByVal ProcessInstances As WFLOBJ.SCBWflProcessInstances, ByVal IsObjectSelected As Long, ByRef Handled As Boolean)
+	Const MF_SEPARATOR = &H800&
+    ProcessInstanceList.AppendContextMenuItem MF_SEPARATOR,2001,""
+	If ProcessInstanceList.SelectionCount = 1 Then
+		ProcessInstanceList.AppendContextMenuItem 0,2001,"Papieraktausleihe"
+        If checkRightExecute(ProcessInstanceList.Session, c_RigthReactivate) And ProcessInstances.Item(1).IsCompleted Then
+        	ProcessInstanceList.AppendContextMenuItem 0,2002,"Objekte/Verfahren reaktivieren"
+		Else
+	        ProcessInstanceList.AppendContextMenuItem 1,2002,"Objekte/Verfahren reaktivieren"
+        End If
+	Else
+		ProcessInstanceList.AppendContextMenuItem 1,2001,"Papieraktausleihe"
+		ProcessInstanceList.AppendContextMenuItem 1,2002,"Objekte/Verfahren reaktivieren"
+	End If
+End Sub
+
+Private Function createSystemSession As SCBWflSession
+	Dim sysSession As New SCBWflSession
+	sysSession.ConnectServer ProcessInstanceList.Session.HostName, ProcessInstanceList.Session.PortNo
+	sysSession.SystemLogin "SampleAppCode", 0
+	Set createSystemSession = sysSession
+End Function
+
+Private Function checkRightExecute(ByVal LoggedOnSession As SCBWflSession, ByVal RightExecute As String) As Boolean
+'Variablendeklaration
+Dim Right As SCBWflRight
+Dim entry As SCBWflRightEntry
+Dim entries As SCBWflRightEntries
+
+'Errorhandling ein
+On Error GoTo errhndl
+
+  'Defaultwert der Funktion setzen
+  checkRightExecute = False
+
+    'Rechteeinträge für diese Session holen
+    Set entries = LoggedOnSession.GetResolvedFunctionRightEntries
+
+    'jeden Eintrag checken, ob er zu dem gesuchten Recht gehört
+    For Each entry In entries
+      If entry.GetRight.Name = RightExecute Then
+        Debug.Print "Check Right >> " & entry.GetRight.Name
+        ' wenn Rechteeintrag gefunden, AccessType überprüfen - nur granted is true
+        If entry.AccessType = wflAccessGranted Then
+           checkRightExecute = True
+        Else
+           checkRightExecute = False
+        End If
+        Exit For
+      End If
+    Next
+
+'Exit before Errorhandling
+  Exit Function
+
+'Errorhandling
+errhndl:
+
+  Debug.Print Err.Description
+  checkRightExecute = False
+  Exit Function
+
+End Function
