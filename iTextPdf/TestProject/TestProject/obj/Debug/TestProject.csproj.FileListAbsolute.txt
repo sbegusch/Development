@@ -10,3 +10,14 @@ C:\GitHub\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.csproj.Generate
 C:\GitHub\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.exe
 C:\GitHub\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.pdb
 C:\GitHub\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.csprojResolveAssemblyReference.cache
+C:\GitHub.com\iTextPdf\TestProject\TestProject\bin\Debug\TestProject.exe.config
+C:\GitHub.com\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.exe
+C:\GitHub.com\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.pdb
+C:\GitHub.com\iTextPdf\TestProject\TestProject\bin\Debug\TestProject.exe
+C:\GitHub.com\iTextPdf\TestProject\TestProject\bin\Debug\TestProject.pdb
+C:\GitHub.com\iTextPdf\TestProject\TestProject\bin\Debug\itextsharp.pdb
+C:\GitHub.com\iTextPdf\TestProject\TestProject\bin\Debug\itextsharp.xml
+C:\GitHub.com\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.csprojResolveAssemblyReference.cache
+C:\GitHub.com\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.Form1.resources
+C:\GitHub.com\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.Properties.Resources.resources
+C:\GitHub.com\iTextPdf\TestProject\TestProject\obj\Debug\TestProject.csproj.GenerateResource.Cache

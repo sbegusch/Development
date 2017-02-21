@@ -33,15 +33,19 @@
             this.btnLoadPDF = new System.Windows.Forms.Button();
             this.txtWatermark = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtWatermark2 = new System.Windows.Forms.TextBox();
             this.btnAddWatermark2 = new System.Windows.Forms.Button();
+            this.txtWatermark2 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblITextSharpAllPages = new System.Windows.Forms.Label();
+            this.lblITextSharpFirstPage = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddWatermark
             // 
             this.btnAddWatermark.Enabled = false;
-            this.btnAddWatermark.Location = new System.Drawing.Point(299, 38);
+            this.btnAddWatermark.Location = new System.Drawing.Point(298, 24);
             this.btnAddWatermark.Name = "btnAddWatermark";
             this.btnAddWatermark.Size = new System.Drawing.Size(178, 23);
             this.btnAddWatermark.TabIndex = 0;
@@ -69,7 +73,7 @@
             // 
             // txtWatermark
             // 
-            this.txtWatermark.Location = new System.Drawing.Point(79, 38);
+            this.txtWatermark.Location = new System.Drawing.Point(78, 24);
             this.txtWatermark.Name = "txtWatermark";
             this.txtWatermark.Size = new System.Drawing.Size(214, 20);
             this.txtWatermark.TabIndex = 3;
@@ -78,33 +82,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 41);
+            this.label1.Location = new System.Drawing.Point(11, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Watermark:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Watermark:";
-            // 
-            // txtWatermark2
-            // 
-            this.txtWatermark2.Location = new System.Drawing.Point(79, 67);
-            this.txtWatermark2.Name = "txtWatermark2";
-            this.txtWatermark2.Size = new System.Drawing.Size(214, 20);
-            this.txtWatermark2.TabIndex = 6;
-            this.txtWatermark2.Text = "CONFIDENTIAL";
-            // 
             // btnAddWatermark2
             // 
             this.btnAddWatermark2.Enabled = false;
-            this.btnAddWatermark2.Location = new System.Drawing.Point(299, 67);
+            this.btnAddWatermark2.Location = new System.Drawing.Point(298, 50);
             this.btnAddWatermark2.Name = "btnAddWatermark2";
             this.btnAddWatermark2.Size = new System.Drawing.Size(178, 23);
             this.btnAddWatermark2.TabIndex = 5;
@@ -112,24 +99,74 @@
             this.btnAddWatermark2.UseVisualStyleBackColor = true;
             this.btnAddWatermark2.Click += new System.EventHandler(this.btnAddWatermark2_Click);
             // 
+            // txtWatermark2
+            // 
+            this.txtWatermark2.Location = new System.Drawing.Point(78, 50);
+            this.txtWatermark2.Name = "txtWatermark2";
+            this.txtWatermark2.Size = new System.Drawing.Size(214, 20);
+            this.txtWatermark2.TabIndex = 6;
+            this.txtWatermark2.Text = "CONFIDENTIAL";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Watermark:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.lblITextSharpFirstPage);
+            this.groupBox1.Controls.Add(this.lblITextSharpAllPages);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.btnAddWatermark);
+            this.groupBox1.Controls.Add(this.txtWatermark2);
+            this.groupBox1.Controls.Add(this.txtWatermark);
+            this.groupBox1.Controls.Add(this.btnAddWatermark2);
+            this.groupBox1.Location = new System.Drawing.Point(0, 48);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(643, 84);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "iTextSharp";
+            // 
+            // lblITextSharpAllPages
+            // 
+            this.lblITextSharpAllPages.AutoSize = true;
+            this.lblITextSharpAllPages.Location = new System.Drawing.Point(482, 29);
+            this.lblITextSharpAllPages.Name = "lblITextSharpAllPages";
+            this.lblITextSharpAllPages.Size = new System.Drawing.Size(70, 13);
+            this.lblITextSharpAllPages.TabIndex = 9;
+            this.lblITextSharpAllPages.Text = "Milliseconds: ";
+            // 
+            // lblITextSharpFirstPage
+            // 
+            this.lblITextSharpFirstPage.AutoSize = true;
+            this.lblITextSharpFirstPage.Location = new System.Drawing.Point(482, 55);
+            this.lblITextSharpFirstPage.Name = "lblITextSharpFirstPage";
+            this.lblITextSharpFirstPage.Size = new System.Drawing.Size(70, 13);
+            this.lblITextSharpFirstPage.TabIndex = 10;
+            this.lblITextSharpFirstPage.Text = "Milliseconds: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(486, 97);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtWatermark2);
-            this.Controls.Add(this.btnAddWatermark2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtWatermark);
+            this.ClientSize = new System.Drawing.Size(642, 266);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnLoadPDF);
             this.Controls.Add(this.txtFilePath);
-            this.Controls.Add(this.btnAddWatermark);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(502, 135);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(502, 135);
             this.Name = "Form1";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -142,9 +179,12 @@
         private System.Windows.Forms.Button btnLoadPDF;
         private System.Windows.Forms.TextBox txtWatermark;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtWatermark2;
         private System.Windows.Forms.Button btnAddWatermark2;
+        private System.Windows.Forms.TextBox txtWatermark2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lblITextSharpFirstPage;
+        private System.Windows.Forms.Label lblITextSharpAllPages;
     }
 }
 

@@ -25,11 +25,14 @@ namespace TestProject
         
         #region private Member
         private byte[] SourceFile { get; set; }
+        private Stopwatch stopWatch { get; set; }
+
         #endregion
 
         public Form1()
         {
             InitializeComponent();
+            stopWatch = new Stopwatch();
         }
 
         private void btnLoadPDF_Click(object sender, EventArgs e)
@@ -55,8 +58,12 @@ namespace TestProject
         private void btnAddWatermark_Click(object sender, EventArgs e)
         {
             iTextSharp.text.pdf.BaseFont bf = iTextSharp.text.pdf.BaseFont.CreateFont(iTextSharp.text.pdf.BaseFont.HELVETICA, iTextSharp.text.pdf.BaseFont.CP1252, false);
-            byte[] retValue = Watermark.AddWatermark(SourceFile , bf, txtWatermark.Text);
 
+            stopWatch.Reset();
+            stopWatch.Start();
+            byte[] retValue = Watermark.AddWatermark(SourceFile , bf, txtWatermark.Text);
+            stopWatch.Stop();
+            lblITextSharpAllPages.Text = "Milliseconds: " + stopWatch.Elapsed.Milliseconds;
             string tmpFile = DestinationFile;
             File.WriteAllBytes(tmpFile, retValue);
 
@@ -70,8 +77,11 @@ namespace TestProject
         private void btnAddWatermark2_Click(object sender, EventArgs e)
         {
             string tmpFile = DestinationFile;
+            stopWatch.Reset();
+            stopWatch.Start();
             Watermark.manipulatePdf(txtFilePath.Text, tmpFile, txtWatermark2.Text);
-            
+            stopWatch.Stop();
+            lblITextSharpFirstPage.Text = "Milliseconds: " + stopWatch.Elapsed.Milliseconds;
             DialogResult dr = MessageBox.Show(MsgText, MsgCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
