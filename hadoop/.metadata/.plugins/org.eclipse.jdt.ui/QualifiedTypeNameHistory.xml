@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="java.lang.Iterable"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.mapreduce.Reducer.Context"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="java.lang.InterruptedException"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.IntWritable"/>
+<fullyQualifiedTypeName name="org.apache.hadoop.io.FloatWritable"/>
+</qualifiedTypeNameHistroy>

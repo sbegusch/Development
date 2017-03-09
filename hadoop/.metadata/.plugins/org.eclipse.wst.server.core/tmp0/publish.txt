@@ -1,0 +1,3 @@
+#GlassFish 3
+#Wed Mar 08 21:14:20 CET 2017
+org.eclipse.jst.jee.server\:TestProjekt=C\:\\Program Files\\glassfish-4.1.1\\glassfish\\domains\\domain1\\eclipseApps\\TestProjekt

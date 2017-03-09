@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+C:\Github.com\Development\hadoop\.metadata\.plugins\org.eclipse.jdt.core
+198483198.index
