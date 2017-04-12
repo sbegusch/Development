@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:DocMan.service.livelink.opentext.com" elementFormDefault="qualified" targetNamespace="urn:DocMan.service.livelink.opentext.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://svecme04.server.intra.net:8080/cws/services/WorkflowService?xsd=4" namespace="urn:Core.service.livelink.opentext.com" />
+  <xs:complexType name="AttributeGroupDefinition">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Attributes" type="tns:Attribute" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DisplayName" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Key" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Type" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ServiceDataObject" abstract="true" />
+  <xs:complexType name="Attribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="DisplayName" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Key" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MaxValues" nillable="true" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MinValues" nillable="true" type="xs:int" />
+          <xs:element xmlns:q1="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="ReadOnly" type="q1:BooleanObject" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Required" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Searchable" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Type" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="SetAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Attribute">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Attributes" type="tns:Attribute" />
+          <xs:element xmlns:q2="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="unbounded" name="Values" type="q2:RowValue" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="PrimitiveAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Attribute" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="BooleanAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PrimitiveAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Values" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="DateAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PrimitiveAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ShowTime" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidValues" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Values" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="UserAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PrimitiveAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="AllowGroups" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidValues" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Values" nillable="true" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="IntegerAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PrimitiveAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidValues" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Values" nillable="true" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="RealAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PrimitiveAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidValues" type="xs:double" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Values" nillable="true" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MultiLineAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PrimitiveAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Columns" nillable="true" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Rows" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Values" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ItemReferenceAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PrimitiveAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidTypes" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Values" nillable="true" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="StringAttribute">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PrimitiveAttribute">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="DisplayLength" nillable="true" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MaxLength" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ValidValues" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Values" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

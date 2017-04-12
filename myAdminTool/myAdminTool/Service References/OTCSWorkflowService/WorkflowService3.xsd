@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="urn:WorkflowService.service.livelink.opentext.com" elementFormDefault="qualified" targetNamespace="urn:WorkflowService.service.livelink.opentext.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://svecme04.server.intra.net:8080/cws/services/WorkflowService?xsd=1" namespace="urn:DocMan.service.livelink.opentext.com" />
+  <xs:import schemaLocation="http://svecme04.server.intra.net:8080/cws/services/WorkflowService?xsd=4" namespace="urn:Core.service.livelink.opentext.com" />
+  <xs:element name="AcceptWorkItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AcceptWorkItemResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="ArchiveProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ArchiveProcessResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="CompleteWorkItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="1" name="disposition" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CompleteWorkItemResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="CreateProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="processDef" type="tns:ProcessDefinition" />
+        <xs:element minOccurs="0" maxOccurs="1" name="processName" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="attachments" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="memberRoleIDs" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ProcessDefinition">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Activities" type="tns:Activity" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ApplicationData" type="tns:ApplicationData" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CompleteAction" type="tns:ActionOnComplete" />
+          <xs:element minOccurs="1" maxOccurs="1" name="DeleteMap" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="EmailAction" type="tns:EmailAttachmentAction" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Message" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ObjectID" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ResumeOnComplete" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Roles" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SkipWeekends" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TransitionLinks" type="tns:TransitionLink" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ServiceDataObject" abstract="true" />
+  <xs:complexType name="ActivityInstance">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="CompletedDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Disposition" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="DueDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ID" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MemberID" nillable="true" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MilestoneDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ProcessID" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ReadyDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Status" type="tns:ActivityStatus" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SubProcessID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="ActivityStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Deleted" />
+      <xs:enumeration value="Done" />
+      <xs:enumeration value="Executing" />
+      <xs:enumeration value="Finished" />
+      <xs:enumeration value="Killed" />
+      <xs:enumeration value="Ready" />
+      <xs:enumeration value="ReadyBackground" />
+      <xs:enumeration value="SendingOn" />
+      <xs:enumeration value="Started" />
+      <xs:enumeration value="Suspended" />
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="Waiting" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ProcessInstance">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Activities" type="tns:ActivityInstance" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CompletedDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="DueDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="InitiatedDate" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="InitiatorID" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ManagerID" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ProcessID" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Status" type="tns:ProcessStatus" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SubProcessID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="ProcessStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ActivityLate" />
+      <xs:enumeration value="Archived" />
+      <xs:enumeration value="Completed" />
+      <xs:enumeration value="Late" />
+      <xs:enumeration value="MilestoneLate" />
+      <xs:enumeration value="Ok" />
+      <xs:enumeration value="Stopped" />
+      <xs:enumeration value="SubProcessLate" />
+      <xs:enumeration value="Suspended" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TransitionLink">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="DestinationActivity" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SourceActivity" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="TransitionType" type="tns:TransitionType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="TransitionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="False" />
+      <xs:enumeration value="Loop" />
+      <xs:enumeration value="Standard" />
+      <xs:enumeration value="True" />
+      <xs:enumeration value="Unknown" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="FormDataInstance">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element xmlns:q1="urn:DocMan.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="Data" type="q1:AttributeGroupDefinition" />
+          <xs:element minOccurs="1" maxOccurs="1" name="DisplayAttachments" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ID" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="RequiredForm" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SplitTran" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Stationery" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="StorageMechID" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SubmitMechID" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SubWorkID" nillable="true" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="TaskID" nillable="true" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="TemplateID" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Version" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="View" nillable="true" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="WorkID" nillable="true" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ActivityComment">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ActivityID" type="xs:int" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ActivityName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Comment" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CommentDate" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MemberID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="MemberName" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ApplicationData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Description" type="xs:string" />
+          <xs:element xmlns:q2="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="Instructions" type="q2:StringObject" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="FormData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ApplicationData">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Forms" type="tns:FormDataInstance" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AttributeData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ApplicationData">
+        <xs:sequence>
+          <xs:element xmlns:q3="urn:DocMan.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="Attributes" type="q3:AttributeGroupDefinition" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AttachmentData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ApplicationData">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="ContainerID" type="xs:long" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="CommentData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ApplicationData">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Comment" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Comments" type="tns:ActivityComment" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ActivityPermissions">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Authenticate" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AvailableDispositions" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DefaultDisposition" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Delegate" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="RequireDisposition" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SeeAllComments" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SendForReview" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Activity">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Duration" nillable="true" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Instructions" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MemberID" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Permissions" type="tns:ActivityPermissions" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Priority" nillable="true" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="StartDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Subtype" type="tns:ActivitySubtype" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Type" type="tns:ActivityType" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="ActivitySubtype">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Conditional" />
+      <xs:enumeration value="Initiator" />
+      <xs:enumeration value="ItemHandler" />
+      <xs:enumeration value="Milestone" />
+      <xs:enumeration value="Process" />
+      <xs:enumeration value="StartStep" />
+      <xs:enumeration value="Subprocess" />
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="User" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ActivityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Milestone" />
+      <xs:enumeration value="Normal" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ActionOnComplete">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ArchiveOnComplete" />
+      <xs:enumeration value="DeleteOnComplete" />
+      <xs:enumeration value="NotSet" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EmailAttachmentAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="EmailAsFile" />
+      <xs:enumeration value="EmailAsLink" />
+      <xs:enumeration value="NotSet" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="CreateProcessResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="CreateProcessResult" type="tns:ProcessInstance" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelegateWorkItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="memberID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DelegateWorkItemResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="DeleteProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteProcessResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetListProcessesResults">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="pageHandle" type="q4:PageHandle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListProcessesResultsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetListProcessesResultsResult" type="tns:ProcessResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ProcessResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element xmlns:q5="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="PageHandle" type="q5:PageHandle" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ProcessData" type="tns:ProcessData" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Processes" type="tns:ProcessInstance" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="ProcessData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ApplicationData" type="tns:ApplicationData" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetProcessData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProcessDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="GetProcessDataResult" nillable="true" type="tns:ApplicationData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProcessDefinition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="objectID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProcessDefinitionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetProcessDefinitionResult" type="tns:ProcessDefinition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProcessDefinitionEx">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="objectID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProcessDefinitionExResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetProcessDefinitionExResult" type="tns:ProcessDefinition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProcessStartData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="objectID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProcessStartDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetProcessStartDataResult" type="tns:ProcessStartData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ProcessStartData">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ApplicationData" type="tns:ApplicationData" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Instructions" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ObjectID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetProcessStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProcessStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetProcessStatusResult" type="tns:ProcessInstance" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWorkItemData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWorkItemDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="GetWorkItemDataResult" nillable="true" type="tns:ApplicationData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWorkItemDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetWorkItemDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetWorkItemDetailsResult" type="tns:WorkItemDetails" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="WorkItemDetails">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Actions" type="tns:WorkItemActions" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ApplicationData" type="tns:ApplicationData" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Instructions" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WorkItemActions">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AvailableDispositions" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CanDelegate" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="CanSendForReview" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MustAuthenticate" type="xs:boolean" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ImportProcessDefinition">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="parentID" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="1" name="name" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="comment" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="attachmentData" type="xs:boolean" />
+        <xs:element minOccurs="1" maxOccurs="1" name="resetMembers" type="xs:boolean" />
+        <xs:element xmlns:q6="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="attach" type="q6:Attachment" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImportProcessDefinitionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ImportProcessDefinitionResult" type="tns:ProcessDefinition" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListProcesses">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="options" type="tns:ProcessSearchOptions" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ProcessSearchOptions">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Filter" type="tns:SearchFilter" />
+          <xs:element minOccurs="1" maxOccurs="1" name="PageSize" type="xs:int" />
+          <xs:element minOccurs="1" maxOccurs="1" name="RetrieveActivities" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="RetrieveProcessData" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Where" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="SearchFilter">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="All" />
+      <xs:enumeration value="Initiated" />
+      <xs:enumeration value="Managed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ListProcessesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="ListProcessesResult" type="q7:PageHandle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListProcessHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListProcessHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="ListProcessHistoryResult" nillable="true" type="tns:ProcessEvent" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ProcessEvent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="EventDate" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EventDescription" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MemberID" nillable="true" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MemberName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ListWorkItems">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="pageHandle" type="q8:PageHandle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListWorkItemsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ListWorkItemsResult" type="tns:WorkItemResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="WorkItemResult">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element xmlns:q9="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="PageHandle" type="q9:PageHandle" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkItems" type="tns:WorkItem" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WorkItem">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="DueDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="GroupActivity" type="xs:boolean" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ID" type="xs:int" />
+          <xs:element xmlns:q10="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="InitiatorID" type="q10:IntegerObject" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MemberID" type="xs:long" />
+          <xs:element minOccurs="1" maxOccurs="1" name="MilestoneDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Priority" type="tns:WorkItemPriorityObject" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ProcessID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ProcessStatus" type="tns:ProcessStatusObject" />
+          <xs:element xmlns:q11="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="ProcessTitle" type="q11:StringObject" />
+          <xs:element minOccurs="1" maxOccurs="1" name="ReadyDate" type="xs:dateTime" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Status" type="tns:WorkItemStatus" />
+          <xs:element minOccurs="1" maxOccurs="1" name="SubProcessID" type="xs:long" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Title" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="WorkItemPriorityObject">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Value" type="tns:WorkItemPriority" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="WorkItemPriority">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="High" />
+      <xs:enumeration value="Low" />
+      <xs:enumeration value="Medium" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ProcessStatusObject">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceDataObject">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="Value" type="tns:ProcessStatus" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="WorkItemStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Deleted" />
+      <xs:enumeration value="Done" />
+      <xs:enumeration value="Executing" />
+      <xs:enumeration value="Finished" />
+      <xs:enumeration value="Killed" />
+      <xs:enumeration value="Ready" />
+      <xs:enumeration value="ReadyBackground" />
+      <xs:enumeration value="SendingOn" />
+      <xs:enumeration value="Started" />
+      <xs:enumeration value="Suspended" />
+      <xs:enumeration value="Unknown" />
+      <xs:enumeration value="Waiting" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ListWorkItemsEx">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="urn:Core.service.livelink.opentext.com" minOccurs="0" maxOccurs="1" name="pageHandle" type="q12:PageHandle" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListWorkItemsExResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ListWorkItemsExResult" type="tns:WorkItemResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReassignActivity">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="memberID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReassignActivityResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="ResumeProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ResumeProcessResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="SendWorkItemForGroupReview">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="groupID" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="1" name="title" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="instructions" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="duration" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="priority" type="tns:WorkItemPriority" />
+        <xs:element minOccurs="1" maxOccurs="1" name="groupOptions" type="tns:GroupOptions" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:simpleType name="GroupOptions">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FullExpand" />
+      <xs:enumeration value="MemberAccept" />
+      <xs:enumeration value="MemberAcceptMaintain" />
+      <xs:enumeration value="OneLevelExpand" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="SendWorkItemForGroupReviewResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="SendWorkItemForReview">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="memberID" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="1" name="title" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="instructions" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="duration" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendWorkItemForReviewResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="SendWorkItemForSubmapReview">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="submapID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendWorkItemForSubmapReviewResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="SendWorkItemForUserReview">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="userID" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="1" name="title" type="xs:string" />
+        <xs:element minOccurs="0" maxOccurs="1" name="instructions" type="xs:string" />
+        <xs:element minOccurs="1" maxOccurs="1" name="duration" type="xs:int" />
+        <xs:element minOccurs="1" maxOccurs="1" name="priority" type="tns:WorkItemPriority" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SendWorkItemForUserReviewResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="StartProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="startData" type="tns:ProcessStartData" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="attachments" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="memberRoleIDs" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StartProcessResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="StartProcessResult" type="tns:ProcessInstance" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StopProcessResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="SuspendProcess">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SuspendProcessResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="UpdateProcessData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="applicationData" nillable="true" type="tns:ApplicationData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateProcessDataResponse">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="UpdateWorkItemData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="processID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="subProcessID" type="xs:long" />
+        <xs:element minOccurs="1" maxOccurs="1" name="activityID" type="xs:int" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="applicationData" nillable="true" type="tns:ApplicationData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateWorkItemDataResponse">
+    <xs:complexType />
+  </xs:element>
+</xs:schema>

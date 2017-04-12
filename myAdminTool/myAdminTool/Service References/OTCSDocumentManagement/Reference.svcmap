@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e30cd6c2-f8d7-45de-8ff5-281d0389fa40" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://svecme04.server.intra.net:8080/cws/services/DocumentManagement?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DocumentManagement.xsd" MetadataType="Schema" ID="3aace545-4e63-47dd-8f75-4a077525acda" SourceId="1" SourceUrl="http://svecme04.server.intra.net:8080/cws/services/DocumentManagement?xsd=1" />
+    <MetadataFile FileName="DocumentManagement.wsdl" MetadataType="Wsdl" ID="d9a48630-462e-49fd-bf71-81f4e3c62e18" SourceId="1" SourceUrl="http://svecme04.server.intra.net:8080/cws/services/DocumentManagement?wsdl" />
+    <MetadataFile FileName="DocumentManagement1.xsd" MetadataType="Schema" ID="21cb6ce1-ba4f-401f-9496-722b87b3851d" SourceId="1" SourceUrl="http://svecme04.server.intra.net:8080/cws/services/DocumentManagement?xsd=2" />
+    <MetadataFile FileName="DocumentManagement2.xsd" MetadataType="Schema" ID="81c55195-12e3-49d3-abd7-60034e2576b8" SourceId="1" SourceUrl="http://svecme04.server.intra.net:8080/cws/services/DocumentManagement?xsd=3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

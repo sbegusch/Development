@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="37807eeb-42f2-464c-a77d-1e8b3f7533ae" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://svecme04.server.intra.net:8080/cws/services/MemberService?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MemberService.xsd" MetadataType="Schema" ID="7f1ac3a8-e07a-4e94-a624-ce2facf76f04" SourceId="1" SourceUrl="http://svecme04.server.intra.net:8080/cws/services/MemberService?xsd=3" />
+    <MetadataFile FileName="MemberService1.xsd" MetadataType="Schema" ID="befaf786-fb5f-4ba0-85b0-5a6ffa1a656b" SourceId="1" SourceUrl="http://svecme04.server.intra.net:8080/cws/services/MemberService?xsd=1" />
+    <MetadataFile FileName="MemberService.wsdl" MetadataType="Wsdl" ID="e94b3b71-0fae-4b9a-841a-483da7f40f09" SourceId="1" SourceUrl="http://svecme04.server.intra.net:8080/cws/services/MemberService?wsdl" />
+    <MetadataFile FileName="MemberService2.xsd" MetadataType="Schema" ID="1af40b8e-7cd2-47cb-b806-97817adfde43" SourceId="1" SourceUrl="http://svecme04.server.intra.net:8080/cws/services/MemberService?xsd=2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="myAdminTool.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AuthenticationMethod" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CWS Authentication</Value>
+    </Setting>
+    <Setting Name="UserName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Admin</Value>
+    </Setting>
+    <Setting Name="Password" Type="System.String" Scope="User">
+      <Value Profile="(Default)">livelink</Value>
+    </Setting>
+    <Setting Name="URL" Type="(Web Service URL)" Scope="User">
+      <Value Profile="(Default)">http://svecme04.server.intra.net:8080/cws/services/Authentication</Value>
+    </Setting>
+    <Setting Name="RCSAuthURL" Type="(Web Service URL)" Scope="User">
+      <Value Profile="(Default)">http://svecme04.server.intra.net:8080/cws/services/Authentication</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

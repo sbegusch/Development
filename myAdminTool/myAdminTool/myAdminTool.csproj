@@ -1,0 +1,1180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{42035D9F-BAE5-4C0D-9549-E9A62010EC39}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>myAdminTool</RootNamespace>
+    <AssemblyName>myAdminTool</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>admin.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CCD.Domea.Fw">
+      <HintPath>..\..\..\..\Program Files\DOMEA\ccdNETcomponents\CCD.Domea.Fw.dll</HintPath>
+    </Reference>
+    <Reference Include="CCD.Domea.Gui.Controls">
+      <HintPath>..\..\..\..\Program Files\DOMEA\ccdNETcomponents\CCD.Domea.Gui.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="CCD.Domea.Gui.Interfaces">
+      <HintPath>..\..\..\..\Program Files\DOMEA\ccdNETcomponents\CCD.Domea.Gui.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="CCD.Domea.Gui.Picker">
+      <HintPath>..\..\..\..\Program Files\DOMEA\ccdNETcomponents\CCD.Domea.Gui.Picker.dll</HintPath>
+    </Reference>
+    <Reference Include="CCD.Domea.Gui.Provider">
+      <HintPath>..\..\..\..\Program Files\DOMEA\ccdNETcomponents\CCD.Domea.Gui.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="CCD.Domea.Login">
+      <HintPath>..\..\..\..\Program Files\DOMEA\ccdNETcomponents\CCD.Domea.Login.dll</HintPath>
+    </Reference>
+    <Reference Include="CCD.Domea.Utilities">
+      <HintPath>..\..\..\..\Program Files\DOMEA\ccdNETcomponents\CCD.Domea.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=10.6.0.0, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\oracle12c\ODP.NET\odp.net\managed\common\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\ConsoleHelper.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="SystemImplementation\DOMEA\Classes\DOMEA.cs" />
+    <Compile Include="SystemImplementation\DOMEA\Forms\frmUploadToOTCS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemImplementation\DOMEA\Forms\frmUploadToOTCS.Designer.cs">
+      <DependentUpon>frmUploadToOTCS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Classes\AuthenticationMode.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Classes\Constants.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Classes\CWSClient.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Classes\CWSClientCollaboration.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Classes\CWSClientDocMan.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Classes\CWSClientMember.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Classes\CWSClientWorkflow.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Classes\LLTreeNode.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Classes\Util.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Controls\GroupInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Controls\GroupInfoControl.Designer.cs">
+      <DependentUpon>GroupInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Controls\UserInfoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Controls\UserInfoControl.Designer.cs">
+      <DependentUpon>UserInfoControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Forms\frmCategories.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Forms\frmCategories.Designer.cs">
+      <DependentUpon>frmCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Forms\frmOTLoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Forms\frmOTLoginForm.Designer.cs">
+      <DependentUpon>frmOTLoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OTCSAuthentication\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OTCSCollaboration\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OTCSContentService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OTCSDocumentManagement\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OTCSMemberService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\OTCSWorkflowService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\FormHelper.cs" />
+    <Compile Include="Classes\HConsole.cs" />
+    <Compile Include="Classes\OracleHelper.cs" />
+    <Compile Include="Classes\Util.cs" />
+    <Compile Include="Forms\frmAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmAboutBox.Designer.cs">
+      <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmConnectOracle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmConnectOracle.designer.cs">
+      <DependentUpon>frmConnectOracle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemImplementation\OTContentServer\Forms\frmVersions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SystemImplementation\OTContentServer\Forms\frmVersions.Designer.cs">
+      <DependentUpon>frmVersions.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Forms\frmAboutBox.resx">
+      <DependentUpon>frmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmConnectOracle.resx">
+      <DependentUpon>frmConnectOracle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemImplementation\DOMEA\Forms\frmUploadToOTCS.resx">
+      <DependentUpon>frmUploadToOTCS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemImplementation\OTContentServer\Controls\GroupInfoControl.resx">
+      <DependentUpon>GroupInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemImplementation\OTContentServer\Controls\UserInfoControl.resx">
+      <DependentUpon>UserInfoControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemImplementation\OTContentServer\Forms\frmCategories.resx">
+      <DependentUpon>frmCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SystemImplementation\OTContentServer\Forms\frmOTLoginForm.resx">
+      <DependentUpon>frmOTLoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SystemImplementation\OTContentServer\Forms\frmVersions.resx">
+      <DependentUpon>frmVersions.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\OTCSAuthentication\Authentication.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSAuthentication\Authentication1.wsdl" />
+    <None Include="Service References\OTCSAuthentication\Authentication1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSCollaboration\Collaboration.wsdl" />
+    <None Include="Service References\OTCSCollaboration\Collaboration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSCollaboration\Collaboration1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSCollaboration\Collaboration2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSCollaboration\Collaboration3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSCollaboration\Collaboration4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.Assignment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ChannelInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.CreateChannelResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.CreateDiscussionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.CreateMilestoneResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.CreateNewsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.CreateProjectResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.CreateTaskGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.CreateTaskListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.CreateTaskResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.DiscussionInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.DiscussionItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.DiscussionReadList.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetChannelResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetDiscussionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetMilestoneResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetMyAssignmentsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetMyChannelsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetMyDiscussionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetMyProjectsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetMyTaskListsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetNewsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetParticipantsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetProjectResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetReadListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetReplyByNameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetTaskGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetTaskListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetTaskResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetTopicByNameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetTopicReplyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.GetUnreadInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ListMilestonesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ListNewsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ListRepliesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ListTaskGroupsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ListTasksResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ListTopicsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.MilestoneInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.NewsInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.Node.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.OTAuthentication.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.PostReplyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.PostTopicResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ProjectInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ProjectParticipants.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.ReplyInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.SetReadListResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.TaskGroupInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.TaskInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.TaskListInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.TopicInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.UnreadInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.UpdateMilestoneResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.UpdateNewsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.UpdateProjectParticipantsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.UpdateProjectResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.UpdateTaskGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSCollaboration\myAdminTool.OTCSCollaboration.UpdateTaskResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSContentService\ContentService.wsdl" />
+    <None Include="Service References\OTCSContentService\ContentService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSContentService\ContentService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSContentService\ContentService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\DocumentManagement.wsdl" />
+    <None Include="Service References\OTCSDocumentManagement\DocumentManagement.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\DocumentManagement1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\DocumentManagement2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CategoryInheritance.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetCategoryInheritanceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.SetCategoryInheritanceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\MemberService.wsdl" />
+    <None Include="Service References\OTCSMemberService\MemberService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSMemberService\MemberService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSMemberService\MemberService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.AcceptWorkItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ApplicationData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ArchiveProcessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.CompleteWorkItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.CreateProcessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.DelegateWorkItemResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.DeleteProcessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.GetListProcessesResultsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.GetProcessDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.GetProcessDefinitionExResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.GetProcessDefinitionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.GetProcessStartDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.GetProcessStatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.GetWorkItemDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.GetWorkItemDetailsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ImportProcessDefinitionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ListProcessesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ListProcessHistoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ListWorkItemsExResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ListWorkItemsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.OTAuthentication.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.PageHandle.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ProcessDefinition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ProcessEvent.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ProcessInstance.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ProcessResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ProcessStartData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ReassignActivityResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.ResumeProcessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.SendWorkItemForGroupReviewResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.SendWorkItemForReviewResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.SendWorkItemForSubmapReviewResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.SendWorkItemForUserReviewResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.StartProcessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.StopProcessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.SuspendProcessResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.UpdateProcessDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.UpdateWorkItemDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.WorkItemDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\myAdminTool.OTCSWorkflowService.WorkItemResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\WorkflowService.wsdl" />
+    <None Include="Service References\OTCSWorkflowService\WorkflowService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\WorkflowService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\WorkflowService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\WorkflowService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="admin.ico" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\application.ico" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\category16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\discussion16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\document16.png" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\folder16.png" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\poll16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\project16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\report16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\shortcut16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\task16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\taskgroup16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\tasklist16.gif" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\unknown16.png" />
+    <Content Include="SystemImplementation\OTContentServer\Icons\url16.gif" />
+    <None Include="Service References\OTCSWorkflowService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\OTCSWorkflowService\configuration.svcinfo" />
+    <None Include="Service References\OTCSWorkflowService\configuration91.svcinfo" />
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.AddListOfMembersToGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.AddMemberToGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.ConvertExternalUserToUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.CreateDomainResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.CreateExternalGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.CreateExternalUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.CreateGroupInDomainResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.CreateGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.CreateMemberResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.CreateUserInDomainResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.CreateUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.DeleteListOfMembersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.DeleteMemberResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetAuthenticatedUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetGroupByNameInDomainResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetGroupByNameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetMemberByIdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetMemberByLoginNameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetMembersByIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetMetadataLanguageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetSearchResultsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetUserByLoginNameInDomainResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.GetUserByLoginNameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.Group.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.ListMemberOfResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.ListMembersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.ListRightsByIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.Member.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.MemberRight.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.MemberSearchResults.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.OTAuthentication.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.PageHandle.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.RemoveListOfMembersFromGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.RemoveMemberFromGroupResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.SearchForMembersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.SetMetadataLanguageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.UpdateMemberResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.UpdatePasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\myAdminTool.OTCSMemberService.User.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSMemberService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\OTCSMemberService\configuration.svcinfo" />
+    <None Include="Service References\OTCSMemberService\configuration91.svcinfo" />
+    <None Include="Service References\OTCSCollaboration\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\OTCSCollaboration\configuration.svcinfo" />
+    <None Include="Service References\OTCSCollaboration\configuration91.svcinfo" />
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AddFavoriteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AddMajorVersionContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AddMajorVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AddNodeRightResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AddToCollectionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AddVersionContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AddVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.Attachment.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AttributeGroup.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.AttributeGroupDefinition.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CategoryItemsUpgradeInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.ChunkedOperationContext.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CompoundDocRelease.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CopyNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateCategoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateDocumentContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateDocumentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateFolderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateNodeAndVersionContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateNodeAndVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateReleaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateRenditionContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateRenditionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateShortcutResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateSimpleDocumentContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateSimpleDocumentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateSimpleFolderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.CreateURLResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.DeleteNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.DeleteReleaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.DeleteRenditionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.DeleteVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetAllFavoritesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetAllMultilingualMetadataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetAttributeGroupDefinitionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetAttributeGroupTemplateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetCategoryDefinitionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetCategoryDefinitionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetCategoryTemplateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetMetadataLanguagesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetMultilingualMetadataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeAuditRecordsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeByGUIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeByNameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeByNicknameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeByPathResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeGUIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeRightsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodesByNicknameResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodesInContainerResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeTemplateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetNodeTypesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetPagedNodeAuditDataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetReleaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetRenditionContentsContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetRenditionContentsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetRootNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetRootNodeTypesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetVersionByGUIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetVersionContentsContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetVersionContentsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetVersionGUIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.GetVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.ListNodesByPageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.ListNodesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.ListReferencesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.ListReleasesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.ListRenditionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.LockReleaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.LockVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.MetadataLanguage.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.MoveNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.MultilingualMetadata.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.Node.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.NodeAuditRecord.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.NodePageResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.NodeRights.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.NodeRightUpdateInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.OTAuthentication.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.PagedNodeAuditData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.PromoteVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.PurgeVersionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.RearrangeNodesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.RemoveFavoriteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.RemoveFromCollectionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.RemoveNodeRightResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.RenameNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.ReportResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.RepositionNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.ReserveNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.RunReportResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.SetNodeMetadataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.SetNodeRightsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UnlockReleaseResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UnlockVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UnreserveNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpdateCategoryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpdateMultilingualMetadataResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpdateNodeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpdateNodeRightResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpdateNodeRightsContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpdateNodeRightsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpdateVersionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpgradeCategoryItemsContextResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.UpgradeCategoryItemsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\myAdminTool.OTCSDocumentManagement.Version.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\OTCSDocumentManagement\configuration.svcinfo" />
+    <None Include="Service References\OTCSDocumentManagement\configuration91.svcinfo" />
+    <None Include="Service References\OTCSContentService\myAdminTool.OTCSContentService.DownloadContentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSContentService\myAdminTool.OTCSContentService.OTAuthentication.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSContentService\myAdminTool.OTCSContentService.UploadContentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSContentService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\OTCSContentService\configuration.svcinfo" />
+    <None Include="Service References\OTCSContentService\configuration91.svcinfo" />
+    <None Include="Service References\OTCSAuthentication\myAdminTool.OTCSAuthentication.AuthenticateApplicationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSAuthentication\myAdminTool.OTCSAuthentication.CombineApplicationTokenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSAuthentication\myAdminTool.OTCSAuthentication.GetSessionExpirationDateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSAuthentication\myAdminTool.OTCSAuthentication.ImpersonateApplicationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSAuthentication\myAdminTool.OTCSAuthentication.ImpersonateUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSAuthentication\myAdminTool.OTCSAuthentication.OTAuthentication.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSAuthentication\myAdminTool.OTCSAuthentication.RefreshTokenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OTCSAuthentication\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\OTCSAuthentication\configuration.svcinfo" />
+    <None Include="Service References\OTCSAuthentication\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\OTCSAuthentication\" />
+    <WCFMetadataStorage Include="Service References\OTCSCollaboration\" />
+    <WCFMetadataStorage Include="Service References\OTCSContentService\" />
+    <WCFMetadataStorage Include="Service References\OTCSDocumentManagement\" />
+    <WCFMetadataStorage Include="Service References\OTCSMemberService\" />
+    <WCFMetadataStorage Include="Service References\OTCSWorkflowService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WFLOBJ">
+      <Guid>{CB325AB3-F5D2-11D3-8E1B-00104BE74BC0}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

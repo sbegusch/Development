@@ -1,0 +1,831 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="urn:WorkflowService.service.livelink.opentext.com" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WorkflowService" targetNamespace="urn:WorkflowService.service.livelink.opentext.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:WorkflowService.service.livelink.opentext.com/Imports">
+      <xsd:import schemaLocation="http://svecme04.server.intra.net:8080/cws/services/WorkflowService?xsd=3" namespace="urn:WorkflowService.service.livelink.opentext.com" />
+      <xsd:import schemaLocation="http://svecme04.server.intra.net:8080/cws/services/WorkflowService?xsd=2" namespace="urn:api.ecm.opentext.com" />
+      <xsd:import schemaLocation="http://svecme04.server.intra.net:8080/cws/services/WorkflowService?xsd=1" namespace="urn:DocMan.service.livelink.opentext.com" />
+      <xsd:import schemaLocation="http://svecme04.server.intra.net:8080/cws/services/WorkflowService?xsd=4" namespace="urn:Core.service.livelink.opentext.com" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AcceptWorkItemRequest">
+    <wsdl:part name="parameters" element="tns:AcceptWorkItem" />
+  </wsdl:message>
+  <wsdl:message name="AcceptWorkItemRequest_Headers">
+    <wsdl:part xmlns:q1="urn:api.ecm.opentext.com" name="OTAuthentication" element="q1:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="AcceptWorkItemResponse">
+    <wsdl:part name="parameters" element="tns:AcceptWorkItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="AcceptWorkItemResponse_Headers">
+    <wsdl:part xmlns:q2="urn:api.ecm.opentext.com" name="OTAuthentication" element="q2:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveProcessRequest">
+    <wsdl:part name="parameters" element="tns:ArchiveProcess" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveProcessRequest_Headers">
+    <wsdl:part xmlns:q3="urn:api.ecm.opentext.com" name="OTAuthentication" element="q3:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveProcessResponse">
+    <wsdl:part name="parameters" element="tns:ArchiveProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="ArchiveProcessResponse_Headers">
+    <wsdl:part xmlns:q4="urn:api.ecm.opentext.com" name="OTAuthentication" element="q4:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="CompleteWorkItemRequest">
+    <wsdl:part name="parameters" element="tns:CompleteWorkItem" />
+  </wsdl:message>
+  <wsdl:message name="CompleteWorkItemRequest_Headers">
+    <wsdl:part xmlns:q5="urn:api.ecm.opentext.com" name="OTAuthentication" element="q5:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="CompleteWorkItemResponse">
+    <wsdl:part name="parameters" element="tns:CompleteWorkItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="CompleteWorkItemResponse_Headers">
+    <wsdl:part xmlns:q6="urn:api.ecm.opentext.com" name="OTAuthentication" element="q6:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessRequest">
+    <wsdl:part name="parameters" element="tns:CreateProcess" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessRequest_Headers">
+    <wsdl:part xmlns:q7="urn:api.ecm.opentext.com" name="OTAuthentication" element="q7:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessResponse">
+    <wsdl:part name="parameters" element="tns:CreateProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateProcessResponse_Headers">
+    <wsdl:part xmlns:q8="urn:api.ecm.opentext.com" name="OTAuthentication" element="q8:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="DelegateWorkItemRequest">
+    <wsdl:part name="parameters" element="tns:DelegateWorkItem" />
+  </wsdl:message>
+  <wsdl:message name="DelegateWorkItemRequest_Headers">
+    <wsdl:part xmlns:q9="urn:api.ecm.opentext.com" name="OTAuthentication" element="q9:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="DelegateWorkItemResponse">
+    <wsdl:part name="parameters" element="tns:DelegateWorkItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="DelegateWorkItemResponse_Headers">
+    <wsdl:part xmlns:q10="urn:api.ecm.opentext.com" name="OTAuthentication" element="q10:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProcessRequest">
+    <wsdl:part name="parameters" element="tns:DeleteProcess" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProcessRequest_Headers">
+    <wsdl:part xmlns:q11="urn:api.ecm.opentext.com" name="OTAuthentication" element="q11:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProcessResponse">
+    <wsdl:part name="parameters" element="tns:DeleteProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteProcessResponse_Headers">
+    <wsdl:part xmlns:q12="urn:api.ecm.opentext.com" name="OTAuthentication" element="q12:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetListProcessesResultsRequest">
+    <wsdl:part name="parameters" element="tns:GetListProcessesResults" />
+  </wsdl:message>
+  <wsdl:message name="GetListProcessesResultsRequest_Headers">
+    <wsdl:part xmlns:q13="urn:api.ecm.opentext.com" name="OTAuthentication" element="q13:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetListProcessesResultsResponse">
+    <wsdl:part name="parameters" element="tns:GetListProcessesResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetListProcessesResultsResponse_Headers">
+    <wsdl:part xmlns:q14="urn:api.ecm.opentext.com" name="OTAuthentication" element="q14:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDataRequest">
+    <wsdl:part name="parameters" element="tns:GetProcessData" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDataRequest_Headers">
+    <wsdl:part xmlns:q15="urn:api.ecm.opentext.com" name="OTAuthentication" element="q15:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDataResponse">
+    <wsdl:part name="parameters" element="tns:GetProcessDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDataResponse_Headers">
+    <wsdl:part xmlns:q16="urn:api.ecm.opentext.com" name="OTAuthentication" element="q16:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDefinitionRequest">
+    <wsdl:part name="parameters" element="tns:GetProcessDefinition" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDefinitionRequest_Headers">
+    <wsdl:part xmlns:q17="urn:api.ecm.opentext.com" name="OTAuthentication" element="q17:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDefinitionResponse">
+    <wsdl:part name="parameters" element="tns:GetProcessDefinitionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDefinitionResponse_Headers">
+    <wsdl:part xmlns:q18="urn:api.ecm.opentext.com" name="OTAuthentication" element="q18:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDefinitionExRequest">
+    <wsdl:part name="parameters" element="tns:GetProcessDefinitionEx" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDefinitionExRequest_Headers">
+    <wsdl:part xmlns:q19="urn:api.ecm.opentext.com" name="OTAuthentication" element="q19:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDefinitionExResponse">
+    <wsdl:part name="parameters" element="tns:GetProcessDefinitionExResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessDefinitionExResponse_Headers">
+    <wsdl:part xmlns:q20="urn:api.ecm.opentext.com" name="OTAuthentication" element="q20:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessStartDataRequest">
+    <wsdl:part name="parameters" element="tns:GetProcessStartData" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessStartDataRequest_Headers">
+    <wsdl:part xmlns:q21="urn:api.ecm.opentext.com" name="OTAuthentication" element="q21:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessStartDataResponse">
+    <wsdl:part name="parameters" element="tns:GetProcessStartDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessStartDataResponse_Headers">
+    <wsdl:part xmlns:q22="urn:api.ecm.opentext.com" name="OTAuthentication" element="q22:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessStatusRequest">
+    <wsdl:part name="parameters" element="tns:GetProcessStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessStatusRequest_Headers">
+    <wsdl:part xmlns:q23="urn:api.ecm.opentext.com" name="OTAuthentication" element="q23:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessStatusResponse">
+    <wsdl:part name="parameters" element="tns:GetProcessStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProcessStatusResponse_Headers">
+    <wsdl:part xmlns:q24="urn:api.ecm.opentext.com" name="OTAuthentication" element="q24:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkItemDataRequest">
+    <wsdl:part name="parameters" element="tns:GetWorkItemData" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkItemDataRequest_Headers">
+    <wsdl:part xmlns:q25="urn:api.ecm.opentext.com" name="OTAuthentication" element="q25:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkItemDataResponse">
+    <wsdl:part name="parameters" element="tns:GetWorkItemDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkItemDataResponse_Headers">
+    <wsdl:part xmlns:q26="urn:api.ecm.opentext.com" name="OTAuthentication" element="q26:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkItemDetailsRequest">
+    <wsdl:part name="parameters" element="tns:GetWorkItemDetails" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkItemDetailsRequest_Headers">
+    <wsdl:part xmlns:q27="urn:api.ecm.opentext.com" name="OTAuthentication" element="q27:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkItemDetailsResponse">
+    <wsdl:part name="parameters" element="tns:GetWorkItemDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWorkItemDetailsResponse_Headers">
+    <wsdl:part xmlns:q28="urn:api.ecm.opentext.com" name="OTAuthentication" element="q28:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ImportProcessDefinitionRequest">
+    <wsdl:part name="parameters" element="tns:ImportProcessDefinition" />
+  </wsdl:message>
+  <wsdl:message name="ImportProcessDefinitionRequest_Headers">
+    <wsdl:part xmlns:q29="urn:api.ecm.opentext.com" name="OTAuthentication" element="q29:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ImportProcessDefinitionResponse">
+    <wsdl:part name="parameters" element="tns:ImportProcessDefinitionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ImportProcessDefinitionResponse_Headers">
+    <wsdl:part xmlns:q30="urn:api.ecm.opentext.com" name="OTAuthentication" element="q30:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ListProcessesRequest">
+    <wsdl:part name="parameters" element="tns:ListProcesses" />
+  </wsdl:message>
+  <wsdl:message name="ListProcessesRequest_Headers">
+    <wsdl:part xmlns:q31="urn:api.ecm.opentext.com" name="OTAuthentication" element="q31:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ListProcessesResponse">
+    <wsdl:part name="parameters" element="tns:ListProcessesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListProcessesResponse_Headers">
+    <wsdl:part xmlns:q32="urn:api.ecm.opentext.com" name="OTAuthentication" element="q32:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ListProcessHistoryRequest">
+    <wsdl:part name="parameters" element="tns:ListProcessHistory" />
+  </wsdl:message>
+  <wsdl:message name="ListProcessHistoryRequest_Headers">
+    <wsdl:part xmlns:q33="urn:api.ecm.opentext.com" name="OTAuthentication" element="q33:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ListProcessHistoryResponse">
+    <wsdl:part name="parameters" element="tns:ListProcessHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListProcessHistoryResponse_Headers">
+    <wsdl:part xmlns:q34="urn:api.ecm.opentext.com" name="OTAuthentication" element="q34:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ListWorkItemsRequest">
+    <wsdl:part name="parameters" element="tns:ListWorkItems" />
+  </wsdl:message>
+  <wsdl:message name="ListWorkItemsRequest_Headers">
+    <wsdl:part xmlns:q35="urn:api.ecm.opentext.com" name="OTAuthentication" element="q35:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ListWorkItemsResponse">
+    <wsdl:part name="parameters" element="tns:ListWorkItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListWorkItemsResponse_Headers">
+    <wsdl:part xmlns:q36="urn:api.ecm.opentext.com" name="OTAuthentication" element="q36:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ListWorkItemsExRequest">
+    <wsdl:part name="parameters" element="tns:ListWorkItemsEx" />
+  </wsdl:message>
+  <wsdl:message name="ListWorkItemsExRequest_Headers">
+    <wsdl:part xmlns:q37="urn:api.ecm.opentext.com" name="OTAuthentication" element="q37:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ListWorkItemsExResponse">
+    <wsdl:part name="parameters" element="tns:ListWorkItemsExResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListWorkItemsExResponse_Headers">
+    <wsdl:part xmlns:q38="urn:api.ecm.opentext.com" name="OTAuthentication" element="q38:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ReassignActivityRequest">
+    <wsdl:part name="parameters" element="tns:ReassignActivity" />
+  </wsdl:message>
+  <wsdl:message name="ReassignActivityRequest_Headers">
+    <wsdl:part xmlns:q39="urn:api.ecm.opentext.com" name="OTAuthentication" element="q39:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ReassignActivityResponse">
+    <wsdl:part name="parameters" element="tns:ReassignActivityResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReassignActivityResponse_Headers">
+    <wsdl:part xmlns:q40="urn:api.ecm.opentext.com" name="OTAuthentication" element="q40:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ResumeProcessRequest">
+    <wsdl:part name="parameters" element="tns:ResumeProcess" />
+  </wsdl:message>
+  <wsdl:message name="ResumeProcessRequest_Headers">
+    <wsdl:part xmlns:q41="urn:api.ecm.opentext.com" name="OTAuthentication" element="q41:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="ResumeProcessResponse">
+    <wsdl:part name="parameters" element="tns:ResumeProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResumeProcessResponse_Headers">
+    <wsdl:part xmlns:q42="urn:api.ecm.opentext.com" name="OTAuthentication" element="q42:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForGroupReviewRequest">
+    <wsdl:part name="parameters" element="tns:SendWorkItemForGroupReview" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForGroupReviewRequest_Headers">
+    <wsdl:part xmlns:q43="urn:api.ecm.opentext.com" name="OTAuthentication" element="q43:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForGroupReviewResponse">
+    <wsdl:part name="parameters" element="tns:SendWorkItemForGroupReviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForGroupReviewResponse_Headers">
+    <wsdl:part xmlns:q44="urn:api.ecm.opentext.com" name="OTAuthentication" element="q44:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForReviewRequest">
+    <wsdl:part name="parameters" element="tns:SendWorkItemForReview" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForReviewRequest_Headers">
+    <wsdl:part xmlns:q45="urn:api.ecm.opentext.com" name="OTAuthentication" element="q45:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForReviewResponse">
+    <wsdl:part name="parameters" element="tns:SendWorkItemForReviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForReviewResponse_Headers">
+    <wsdl:part xmlns:q46="urn:api.ecm.opentext.com" name="OTAuthentication" element="q46:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForSubmapReviewRequest">
+    <wsdl:part name="parameters" element="tns:SendWorkItemForSubmapReview" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForSubmapReviewRequest_Headers">
+    <wsdl:part xmlns:q47="urn:api.ecm.opentext.com" name="OTAuthentication" element="q47:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForSubmapReviewResponse">
+    <wsdl:part name="parameters" element="tns:SendWorkItemForSubmapReviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForSubmapReviewResponse_Headers">
+    <wsdl:part xmlns:q48="urn:api.ecm.opentext.com" name="OTAuthentication" element="q48:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForUserReviewRequest">
+    <wsdl:part name="parameters" element="tns:SendWorkItemForUserReview" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForUserReviewRequest_Headers">
+    <wsdl:part xmlns:q49="urn:api.ecm.opentext.com" name="OTAuthentication" element="q49:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForUserReviewResponse">
+    <wsdl:part name="parameters" element="tns:SendWorkItemForUserReviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendWorkItemForUserReviewResponse_Headers">
+    <wsdl:part xmlns:q50="urn:api.ecm.opentext.com" name="OTAuthentication" element="q50:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="StartProcessRequest">
+    <wsdl:part name="parameters" element="tns:StartProcess" />
+  </wsdl:message>
+  <wsdl:message name="StartProcessRequest_Headers">
+    <wsdl:part xmlns:q51="urn:api.ecm.opentext.com" name="OTAuthentication" element="q51:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="StartProcessResponse">
+    <wsdl:part name="parameters" element="tns:StartProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="StartProcessResponse_Headers">
+    <wsdl:part xmlns:q52="urn:api.ecm.opentext.com" name="OTAuthentication" element="q52:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="StopProcessRequest">
+    <wsdl:part name="parameters" element="tns:StopProcess" />
+  </wsdl:message>
+  <wsdl:message name="StopProcessRequest_Headers">
+    <wsdl:part xmlns:q53="urn:api.ecm.opentext.com" name="OTAuthentication" element="q53:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="StopProcessResponse">
+    <wsdl:part name="parameters" element="tns:StopProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="StopProcessResponse_Headers">
+    <wsdl:part xmlns:q54="urn:api.ecm.opentext.com" name="OTAuthentication" element="q54:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SuspendProcessRequest">
+    <wsdl:part name="parameters" element="tns:SuspendProcess" />
+  </wsdl:message>
+  <wsdl:message name="SuspendProcessRequest_Headers">
+    <wsdl:part xmlns:q55="urn:api.ecm.opentext.com" name="OTAuthentication" element="q55:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="SuspendProcessResponse">
+    <wsdl:part name="parameters" element="tns:SuspendProcessResponse" />
+  </wsdl:message>
+  <wsdl:message name="SuspendProcessResponse_Headers">
+    <wsdl:part xmlns:q56="urn:api.ecm.opentext.com" name="OTAuthentication" element="q56:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessDataRequest">
+    <wsdl:part name="parameters" element="tns:UpdateProcessData" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessDataRequest_Headers">
+    <wsdl:part xmlns:q57="urn:api.ecm.opentext.com" name="OTAuthentication" element="q57:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessDataResponse">
+    <wsdl:part name="parameters" element="tns:UpdateProcessDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateProcessDataResponse_Headers">
+    <wsdl:part xmlns:q58="urn:api.ecm.opentext.com" name="OTAuthentication" element="q58:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="UpdateWorkItemDataRequest">
+    <wsdl:part name="parameters" element="tns:UpdateWorkItemData" />
+  </wsdl:message>
+  <wsdl:message name="UpdateWorkItemDataRequest_Headers">
+    <wsdl:part xmlns:q59="urn:api.ecm.opentext.com" name="OTAuthentication" element="q59:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:message name="UpdateWorkItemDataResponse">
+    <wsdl:part name="parameters" element="tns:UpdateWorkItemDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateWorkItemDataResponse_Headers">
+    <wsdl:part xmlns:q60="urn:api.ecm.opentext.com" name="OTAuthentication" element="q60:OTAuthentication" />
+  </wsdl:message>
+  <wsdl:portType name="WorkflowService">
+    <wsdl:operation name="AcceptWorkItem">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/AcceptWorkItem" name="AcceptWorkItemRequest" message="tns:AcceptWorkItemRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/AcceptWorkItemResponse" name="AcceptWorkItemResponse" message="tns:AcceptWorkItemResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveProcess">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/ArchiveProcess" name="ArchiveProcessRequest" message="tns:ArchiveProcessRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/ArchiveProcessResponse" name="ArchiveProcessResponse" message="tns:ArchiveProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CompleteWorkItem">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/CompleteWorkItem" name="CompleteWorkItemRequest" message="tns:CompleteWorkItemRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/CompleteWorkItemResponse" name="CompleteWorkItemResponse" message="tns:CompleteWorkItemResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcess">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/CreateProcess" name="CreateProcessRequest" message="tns:CreateProcessRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/CreateProcessResponse" name="CreateProcessResponse" message="tns:CreateProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="DelegateWorkItem">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/DelegateWorkItem" name="DelegateWorkItemRequest" message="tns:DelegateWorkItemRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/DelegateWorkItemResponse" name="DelegateWorkItemResponse" message="tns:DelegateWorkItemResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProcess">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/DeleteProcess" name="DeleteProcessRequest" message="tns:DeleteProcessRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/DeleteProcessResponse" name="DeleteProcessResponse" message="tns:DeleteProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListProcessesResults">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/GetListProcessesResults" name="GetListProcessesResultsRequest" message="tns:GetListProcessesResultsRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/GetListProcessesResultsResponse" name="GetListProcessesResultsResponse" message="tns:GetListProcessesResultsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessData">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/GetProcessData" name="GetProcessDataRequest" message="tns:GetProcessDataRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/GetProcessDataResponse" name="GetProcessDataResponse" message="tns:GetProcessDataResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessDefinition">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/GetProcessDefinition" name="GetProcessDefinitionRequest" message="tns:GetProcessDefinitionRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/GetProcessDefinitionResponse" name="GetProcessDefinitionResponse" message="tns:GetProcessDefinitionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessDefinitionEx">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/GetProcessDefinitionEx" name="GetProcessDefinitionExRequest" message="tns:GetProcessDefinitionExRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/GetProcessDefinitionExResponse" name="GetProcessDefinitionExResponse" message="tns:GetProcessDefinitionExResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessStartData">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/GetProcessStartData" name="GetProcessStartDataRequest" message="tns:GetProcessStartDataRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/GetProcessStartDataResponse" name="GetProcessStartDataResponse" message="tns:GetProcessStartDataResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessStatus">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/GetProcessStatus" name="GetProcessStatusRequest" message="tns:GetProcessStatusRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/GetProcessStatusResponse" name="GetProcessStatusResponse" message="tns:GetProcessStatusResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkItemData">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/GetWorkItemData" name="GetWorkItemDataRequest" message="tns:GetWorkItemDataRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/GetWorkItemDataResponse" name="GetWorkItemDataResponse" message="tns:GetWorkItemDataResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkItemDetails">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/GetWorkItemDetails" name="GetWorkItemDetailsRequest" message="tns:GetWorkItemDetailsRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/GetWorkItemDetailsResponse" name="GetWorkItemDetailsResponse" message="tns:GetWorkItemDetailsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportProcessDefinition">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/ImportProcessDefinition" name="ImportProcessDefinitionRequest" message="tns:ImportProcessDefinitionRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/ImportProcessDefinitionResponse" name="ImportProcessDefinitionResponse" message="tns:ImportProcessDefinitionResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ListProcesses">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/ListProcesses" name="ListProcessesRequest" message="tns:ListProcessesRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/ListProcessesResponse" name="ListProcessesResponse" message="tns:ListProcessesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ListProcessHistory">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/ListProcessHistory" name="ListProcessHistoryRequest" message="tns:ListProcessHistoryRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/ListProcessHistoryResponse" name="ListProcessHistoryResponse" message="tns:ListProcessHistoryResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ListWorkItems">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/ListWorkItems" name="ListWorkItemsRequest" message="tns:ListWorkItemsRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/ListWorkItemsResponse" name="ListWorkItemsResponse" message="tns:ListWorkItemsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ListWorkItemsEx">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/ListWorkItemsEx" name="ListWorkItemsExRequest" message="tns:ListWorkItemsExRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/ListWorkItemsExResponse" name="ListWorkItemsExResponse" message="tns:ListWorkItemsExResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ReassignActivity">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/ReassignActivity" name="ReassignActivityRequest" message="tns:ReassignActivityRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/ReassignActivityResponse" name="ReassignActivityResponse" message="tns:ReassignActivityResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ResumeProcess">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/ResumeProcess" name="ResumeProcessRequest" message="tns:ResumeProcessRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/ResumeProcessResponse" name="ResumeProcessResponse" message="tns:ResumeProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkItemForGroupReview">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/SendWorkItemForGroupReview" name="SendWorkItemForGroupReviewRequest" message="tns:SendWorkItemForGroupReviewRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/SendWorkItemForGroupReviewResponse" name="SendWorkItemForGroupReviewResponse" message="tns:SendWorkItemForGroupReviewResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkItemForReview">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/SendWorkItemForReview" name="SendWorkItemForReviewRequest" message="tns:SendWorkItemForReviewRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/SendWorkItemForReviewResponse" name="SendWorkItemForReviewResponse" message="tns:SendWorkItemForReviewResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkItemForSubmapReview">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/SendWorkItemForSubmapReview" name="SendWorkItemForSubmapReviewRequest" message="tns:SendWorkItemForSubmapReviewRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/SendWorkItemForSubmapReviewResponse" name="SendWorkItemForSubmapReviewResponse" message="tns:SendWorkItemForSubmapReviewResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkItemForUserReview">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/SendWorkItemForUserReview" name="SendWorkItemForUserReviewRequest" message="tns:SendWorkItemForUserReviewRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/SendWorkItemForUserReviewResponse" name="SendWorkItemForUserReviewResponse" message="tns:SendWorkItemForUserReviewResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="StartProcess">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/StartProcess" name="StartProcessRequest" message="tns:StartProcessRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/StartProcessResponse" name="StartProcessResponse" message="tns:StartProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="StopProcess">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/StopProcess" name="StopProcessRequest" message="tns:StopProcessRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/StopProcessResponse" name="StopProcessResponse" message="tns:StopProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="SuspendProcess">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/SuspendProcess" name="SuspendProcessRequest" message="tns:SuspendProcessRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/SuspendProcessResponse" name="SuspendProcessResponse" message="tns:SuspendProcessResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessData">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/UpdateProcessData" name="UpdateProcessDataRequest" message="tns:UpdateProcessDataRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/UpdateProcessDataResponse" name="UpdateProcessDataResponse" message="tns:UpdateProcessDataResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkItemData">
+      <wsdl:input wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/UpdateWorkItemData" name="UpdateWorkItemDataRequest" message="tns:UpdateWorkItemDataRequest" />
+      <wsdl:output wsaw:Action="urn:WorkflowService.service.livelink.opentext.com/WorkflowService/UpdateWorkItemDataResponse" name="UpdateWorkItemDataResponse" message="tns:UpdateWorkItemDataResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_WorkflowService" type="tns:WorkflowService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AcceptWorkItem">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/AcceptWorkItem" style="document" />
+      <wsdl:input name="AcceptWorkItemRequest">
+        <soap:header message="tns:AcceptWorkItemRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="AcceptWorkItemResponse">
+        <soap:header message="tns:AcceptWorkItemResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ArchiveProcess">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/ArchiveProcess" style="document" />
+      <wsdl:input name="ArchiveProcessRequest">
+        <soap:header message="tns:ArchiveProcessRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ArchiveProcessResponse">
+        <soap:header message="tns:ArchiveProcessResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CompleteWorkItem">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/CompleteWorkItem" style="document" />
+      <wsdl:input name="CompleteWorkItemRequest">
+        <soap:header message="tns:CompleteWorkItemRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CompleteWorkItemResponse">
+        <soap:header message="tns:CompleteWorkItemResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateProcess">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/CreateProcess" style="document" />
+      <wsdl:input name="CreateProcessRequest">
+        <soap:header message="tns:CreateProcessRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CreateProcessResponse">
+        <soap:header message="tns:CreateProcessResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DelegateWorkItem">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/DelegateWorkItem" style="document" />
+      <wsdl:input name="DelegateWorkItemRequest">
+        <soap:header message="tns:DelegateWorkItemRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DelegateWorkItemResponse">
+        <soap:header message="tns:DelegateWorkItemResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProcess">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/DeleteProcess" style="document" />
+      <wsdl:input name="DeleteProcessRequest">
+        <soap:header message="tns:DeleteProcessRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="DeleteProcessResponse">
+        <soap:header message="tns:DeleteProcessResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListProcessesResults">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/GetListProcessesResults" style="document" />
+      <wsdl:input name="GetListProcessesResultsRequest">
+        <soap:header message="tns:GetListProcessesResultsRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetListProcessesResultsResponse">
+        <soap:header message="tns:GetListProcessesResultsResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessData">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/GetProcessData" style="document" />
+      <wsdl:input name="GetProcessDataRequest">
+        <soap:header message="tns:GetProcessDataRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetProcessDataResponse">
+        <soap:header message="tns:GetProcessDataResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessDefinition">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/GetProcessDefinition" style="document" />
+      <wsdl:input name="GetProcessDefinitionRequest">
+        <soap:header message="tns:GetProcessDefinitionRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetProcessDefinitionResponse">
+        <soap:header message="tns:GetProcessDefinitionResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessDefinitionEx">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/GetProcessDefinitionEx" style="document" />
+      <wsdl:input name="GetProcessDefinitionExRequest">
+        <soap:header message="tns:GetProcessDefinitionExRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetProcessDefinitionExResponse">
+        <soap:header message="tns:GetProcessDefinitionExResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessStartData">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/GetProcessStartData" style="document" />
+      <wsdl:input name="GetProcessStartDataRequest">
+        <soap:header message="tns:GetProcessStartDataRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetProcessStartDataResponse">
+        <soap:header message="tns:GetProcessStartDataResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProcessStatus">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/GetProcessStatus" style="document" />
+      <wsdl:input name="GetProcessStatusRequest">
+        <soap:header message="tns:GetProcessStatusRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetProcessStatusResponse">
+        <soap:header message="tns:GetProcessStatusResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkItemData">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/GetWorkItemData" style="document" />
+      <wsdl:input name="GetWorkItemDataRequest">
+        <soap:header message="tns:GetWorkItemDataRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetWorkItemDataResponse">
+        <soap:header message="tns:GetWorkItemDataResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkItemDetails">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/GetWorkItemDetails" style="document" />
+      <wsdl:input name="GetWorkItemDetailsRequest">
+        <soap:header message="tns:GetWorkItemDetailsRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="GetWorkItemDetailsResponse">
+        <soap:header message="tns:GetWorkItemDetailsResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportProcessDefinition">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/ImportProcessDefinition" style="document" />
+      <wsdl:input name="ImportProcessDefinitionRequest">
+        <soap:header message="tns:ImportProcessDefinitionRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ImportProcessDefinitionResponse">
+        <soap:header message="tns:ImportProcessDefinitionResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListProcesses">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/ListProcesses" style="document" />
+      <wsdl:input name="ListProcessesRequest">
+        <soap:header message="tns:ListProcessesRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ListProcessesResponse">
+        <soap:header message="tns:ListProcessesResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListProcessHistory">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/ListProcessHistory" style="document" />
+      <wsdl:input name="ListProcessHistoryRequest">
+        <soap:header message="tns:ListProcessHistoryRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ListProcessHistoryResponse">
+        <soap:header message="tns:ListProcessHistoryResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListWorkItems">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/ListWorkItems" style="document" />
+      <wsdl:input name="ListWorkItemsRequest">
+        <soap:header message="tns:ListWorkItemsRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ListWorkItemsResponse">
+        <soap:header message="tns:ListWorkItemsResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListWorkItemsEx">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/ListWorkItemsEx" style="document" />
+      <wsdl:input name="ListWorkItemsExRequest">
+        <soap:header message="tns:ListWorkItemsExRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ListWorkItemsExResponse">
+        <soap:header message="tns:ListWorkItemsExResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReassignActivity">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/ReassignActivity" style="document" />
+      <wsdl:input name="ReassignActivityRequest">
+        <soap:header message="tns:ReassignActivityRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ReassignActivityResponse">
+        <soap:header message="tns:ReassignActivityResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResumeProcess">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/ResumeProcess" style="document" />
+      <wsdl:input name="ResumeProcessRequest">
+        <soap:header message="tns:ResumeProcessRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ResumeProcessResponse">
+        <soap:header message="tns:ResumeProcessResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkItemForGroupReview">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/SendWorkItemForGroupReview" style="document" />
+      <wsdl:input name="SendWorkItemForGroupReviewRequest">
+        <soap:header message="tns:SendWorkItemForGroupReviewRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SendWorkItemForGroupReviewResponse">
+        <soap:header message="tns:SendWorkItemForGroupReviewResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkItemForReview">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/SendWorkItemForReview" style="document" />
+      <wsdl:input name="SendWorkItemForReviewRequest">
+        <soap:header message="tns:SendWorkItemForReviewRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SendWorkItemForReviewResponse">
+        <soap:header message="tns:SendWorkItemForReviewResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkItemForSubmapReview">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/SendWorkItemForSubmapReview" style="document" />
+      <wsdl:input name="SendWorkItemForSubmapReviewRequest">
+        <soap:header message="tns:SendWorkItemForSubmapReviewRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SendWorkItemForSubmapReviewResponse">
+        <soap:header message="tns:SendWorkItemForSubmapReviewResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkItemForUserReview">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/SendWorkItemForUserReview" style="document" />
+      <wsdl:input name="SendWorkItemForUserReviewRequest">
+        <soap:header message="tns:SendWorkItemForUserReviewRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SendWorkItemForUserReviewResponse">
+        <soap:header message="tns:SendWorkItemForUserReviewResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StartProcess">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/StartProcess" style="document" />
+      <wsdl:input name="StartProcessRequest">
+        <soap:header message="tns:StartProcessRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="StartProcessResponse">
+        <soap:header message="tns:StartProcessResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StopProcess">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/StopProcess" style="document" />
+      <wsdl:input name="StopProcessRequest">
+        <soap:header message="tns:StopProcessRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="StopProcessResponse">
+        <soap:header message="tns:StopProcessResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SuspendProcess">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/SuspendProcess" style="document" />
+      <wsdl:input name="SuspendProcessRequest">
+        <soap:header message="tns:SuspendProcessRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SuspendProcessResponse">
+        <soap:header message="tns:SuspendProcessResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProcessData">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/UpdateProcessData" style="document" />
+      <wsdl:input name="UpdateProcessDataRequest">
+        <soap:header message="tns:UpdateProcessDataRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateProcessDataResponse">
+        <soap:header message="tns:UpdateProcessDataResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkItemData">
+      <soap:operation soapAction="urn:WorkflowService.service.livelink.opentext.com/UpdateWorkItemData" style="document" />
+      <wsdl:input name="UpdateWorkItemDataRequest">
+        <soap:header message="tns:UpdateWorkItemDataRequest_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="UpdateWorkItemDataResponse">
+        <soap:header message="tns:UpdateWorkItemDataResponse_Headers" part="OTAuthentication" use="literal" />
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WorkflowService">
+    <wsdl:port name="BasicHttpBinding_WorkflowService" binding="tns:BasicHttpBinding_WorkflowService">
+      <soap:address location="http://svecme04.server.intra.net:8080/cws/services/WorkflowService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
