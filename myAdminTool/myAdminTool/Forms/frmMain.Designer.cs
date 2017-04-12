@@ -32,7 +32,6 @@
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             DevComponents.DotNetBar.Rendering.SuperTabItemColorTable superTabItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates1 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
             DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
@@ -44,6 +43,7 @@
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.dotNetBarMainManager = new DevComponents.DotNetBar.DotNetBarManager(this.components);
             this.dockSite4 = new DevComponents.DotNetBar.DockSite();
             this.dockSite1 = new DevComponents.DotNetBar.DockSite();
@@ -208,6 +208,7 @@
             this.ttButtonInfo = new System.Windows.Forms.ToolTip(this.components);
             this.imgListDOMEA = new System.Windows.Forms.ImageList(this.components);
             this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
+            this.imgListEditTable = new System.Windows.Forms.ImageList(this.components);
             this.dockSite1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barOTCS)).BeginInit();
             this.barOTCS.SuspendLayout();
@@ -1095,8 +1096,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tvDatabaseObjects.BackColor = System.Drawing.SystemColors.Control;
+            this.tvDatabaseObjects.ImageIndex = 0;
+            this.tvDatabaseObjects.ImageList = this.imgListEditTable;
             this.tvDatabaseObjects.Location = new System.Drawing.Point(0, 0);
             this.tvDatabaseObjects.Name = "tvDatabaseObjects";
+            this.tvDatabaseObjects.SelectedImageIndex = 0;
             this.tvDatabaseObjects.Size = new System.Drawing.Size(179, 416);
             this.tvDatabaseObjects.TabIndex = 0;
             this.tvDatabaseObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDatabaseObjects_AfterSelect);
@@ -2286,6 +2290,13 @@
             this.superTooltip1.ShowTooltipImmediately = true;
             this.superTooltip1.MarkupLinkClick += new DevComponents.DotNetBar.MarkupLinkClickEventHandler(this.superTooltip1_MarkupLinkClick);
             // 
+            // imgListEditTable
+            // 
+            this.imgListEditTable.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEditTable.ImageStream")));
+            this.imgListEditTable.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListEditTable.Images.SetKeyName(0, "table.png");
+            this.imgListEditTable.Images.SetKeyName(1, "table_view-512.png");
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2541,6 +2552,7 @@
         private System.Windows.Forms.SplitContainer splitContainer5;
         private System.Windows.Forms.TreeView tvDatabaseObjects;
         private System.Windows.Forms.DataGridView dgvDBObject;
+        private System.Windows.Forms.ImageList imgListEditTable;
 
 
     }

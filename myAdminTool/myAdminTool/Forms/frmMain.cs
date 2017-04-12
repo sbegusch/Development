@@ -2137,18 +2137,18 @@ namespace myAdminTool
             //List<DBObject> allSYNONYM = allDBObjects.FindAll(o => o.Type == "SYNONYM");
             //List<DBObject> allSEQUENCE = allDBObjects.FindAll(o => o.Type == "SEQUENCE");
 
-            TreeNode tn = tvDatabaseObjects.Nodes.Add("Tables");
+            TreeNode tn = tvDatabaseObjects.Nodes.Add("Tables", "Tables", 0);
             foreach (DBObject obj in allTABLE)
             {
                 if (!obj.Name.Contains("$"))
                 {
-                    tn.Nodes.Add(new TreeNode(obj.Name));
+                    tn.Nodes.Add(new TreeNode(obj.Name, 0,0));
                 }
             }
-            tn = tvDatabaseObjects.Nodes.Add("Views");
+            tn = tvDatabaseObjects.Nodes.Add("Views", "Views",1);
             foreach (DBObject obj in allVIEW)
             {
-                tn.Nodes.Add(new TreeNode(obj.Name));
+                tn.Nodes.Add(new TreeNode(obj.Name, 1,1));
             }
             //tn = tvDatabaseObjects.Nodes.Add("Synonyms");
             //foreach (DBObject obj in allSYNONYM)
