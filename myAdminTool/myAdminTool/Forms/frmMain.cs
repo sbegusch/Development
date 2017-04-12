@@ -130,8 +130,8 @@ namespace myAdminTool
             //barOTCS.AutoHide = true;
             #endregion
 
-            contextMenuFilter.ImageList = imgListEditTable;
-            txtFilter.ImageIndex = 2;
+            //contextMenuFilter.ImageList = imgListEditTable;
+            //contextMenuFilter.Items["txtFilter"].ImageIndex = 2;
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -2194,6 +2194,7 @@ namespace myAdminTool
 
         private void txtFilter_KeyDown(object sender, KeyEventArgs e)
         {
+            Util.WriteMethodInfoToConsole();
             if (e.KeyCode == Keys.Enter)
             {
                 DataView dv = dataTable.DefaultView;
@@ -2207,6 +2208,7 @@ namespace myAdminTool
 
         private string GetFilter(string Text)
         {
+            Util.WriteMethodInfoToConsole();
             string rowFilter = "";
             foreach (DataGridViewColumn col in dgvDBObject.Columns)
             {
@@ -2217,12 +2219,6 @@ namespace myAdminTool
                 }
             }
             return rowFilter;
-        }
-
-        private void contextMenuFilter_Opening(object sender, CancelEventArgs e)
-        {
-            contextMenuFilter.ImageList = imgListEditTable;
-            txtFilter.ImageIndex = 2;
         }
     }
 
