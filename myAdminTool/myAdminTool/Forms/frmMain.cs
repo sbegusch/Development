@@ -2221,9 +2221,9 @@ namespace myAdminTool
             {
                 foreach (DataGridViewColumn col in dgvDBObject.Columns)
                 {
-                    if (rowFilter != "") { rowFilter += "OR "; }
                     if (col.ValueType.Name == "String")
                     {
+                        if (rowFilter != "") { rowFilter += "OR "; }
                         rowFilter += string.Format("{0} LIKE '%{1}%' ", col.Name, Text);
                     }
                 }
