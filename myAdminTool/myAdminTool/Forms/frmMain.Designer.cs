@@ -36,6 +36,7 @@
             DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates1 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
             DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -43,7 +44,6 @@
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.dotNetBarMainManager = new DevComponents.DotNetBar.DotNetBarManager(this.components);
             this.dockSite4 = new DevComponents.DotNetBar.DockSite();
             this.dockSite1 = new DevComponents.DotNetBar.DockSite();
@@ -97,11 +97,6 @@
             this.btnAbout = new DevComponents.DotNetBar.ButtonItem();
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.tvDatabaseObjects = new System.Windows.Forms.TreeView();
-            this.dgvDBObject = new System.Windows.Forms.DataGridView();
-            this.tiEditTable = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.btnLoadProcessInstances = new System.Windows.Forms.Button();
             this.btnDownloadFromDOMEA = new System.Windows.Forms.Button();
@@ -131,6 +126,14 @@
             this.txtModifyDate = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.tiOTContentServer = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.tvDatabaseObjects = new System.Windows.Forms.TreeView();
+            this.imgListEditTable = new System.Windows.Forms.ImageList(this.components);
+            this.dgvDBObject = new System.Windows.Forms.DataGridView();
+            this.contextMenuFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.txtFilter = new System.Windows.Forms.ToolStripTextBox();
+            this.tiEditTable = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.tvDOMEAMain = new System.Windows.Forms.TreeView();
@@ -204,11 +207,11 @@
             this.lblStatusInfoContentServer = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatusInfoDOMEA = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatusInfoSQLServer = new System.Windows.Forms.ToolStripStatusLabel();
+            this.labelGeneralInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.TreeIcons = new System.Windows.Forms.ImageList(this.components);
             this.ttButtonInfo = new System.Windows.Forms.ToolTip(this.components);
             this.imgListDOMEA = new System.Windows.Forms.ImageList(this.components);
             this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
-            this.imgListEditTable = new System.Windows.Forms.ImageList(this.components);
             this.dockSite1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barOTCS)).BeginInit();
             this.barOTCS.SuspendLayout();
@@ -227,18 +230,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
-            this.superTabControlPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
-            this.splitContainer5.Panel1.SuspendLayout();
-            this.splitContainer5.Panel2.SuspendLayout();
-            this.splitContainer5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).BeginInit();
             this.superTabControlPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.superTabControlPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
+            this.splitContainer5.Panel1.SuspendLayout();
+            this.splitContainer5.Panel2.SuspendLayout();
+            this.splitContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).BeginInit();
+            this.contextMenuFilter.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -485,9 +489,9 @@
             this.dockSite2.Controls.Add(this.barSQLServer);
             this.dockSite2.Dock = System.Windows.Forms.DockStyle.Right;
             this.dockSite2.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer(new DevComponents.DotNetBar.DocumentBaseContainer[] {
-            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barDOMEA, 145, 197))),
-            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barOracle, 145, 131))),
-            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barSQLServer, 145, 132)))}, DevComponents.DotNetBar.eOrientation.Vertical);
+            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barDOMEA, 145, 196))),
+            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barOracle, 145, 130))),
+            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barSQLServer, 145, 134)))}, DevComponents.DotNetBar.eOrientation.Vertical);
             this.dockSite2.Location = new System.Drawing.Point(690, 25);
             this.dockSite2.Name = "dockSite2";
             this.dockSite2.Size = new System.Drawing.Size(148, 466);
@@ -550,7 +554,7 @@
             this.barDOMEA.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
             this.barDOMEA.Location = new System.Drawing.Point(3, 0);
             this.barDOMEA.Name = "barDOMEA";
-            this.barDOMEA.Size = new System.Drawing.Size(145, 197);
+            this.barDOMEA.Size = new System.Drawing.Size(145, 196);
             this.barDOMEA.Stretch = true;
             this.barDOMEA.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barDOMEA.TabIndex = 0;
@@ -562,7 +566,7 @@
             this.panelDockContainer2.Controls.Add(this.sideBar1);
             this.panelDockContainer2.Location = new System.Drawing.Point(6, 26);
             this.panelDockContainer2.Name = "panelDockContainer2";
-            this.panelDockContainer2.Size = new System.Drawing.Size(133, 165);
+            this.panelDockContainer2.Size = new System.Drawing.Size(133, 164);
             this.panelDockContainer2.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelDockContainer2.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.panelDockContainer2.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
@@ -580,7 +584,7 @@
             this.sideBar1.Name = "sideBar1";
             this.sideBar1.Panels.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.sideBarPanelItem2});
-            this.sideBar1.Size = new System.Drawing.Size(133, 165);
+            this.sideBar1.Size = new System.Drawing.Size(133, 164);
             this.sideBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.sideBar1.TabIndex = 1;
             // 
@@ -678,9 +682,9 @@
             this.barOracle.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.dockContainerItem3});
             this.barOracle.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
-            this.barOracle.Location = new System.Drawing.Point(3, 200);
+            this.barOracle.Location = new System.Drawing.Point(3, 199);
             this.barOracle.Name = "barOracle";
-            this.barOracle.Size = new System.Drawing.Size(145, 131);
+            this.barOracle.Size = new System.Drawing.Size(145, 130);
             this.barOracle.Stretch = true;
             this.barOracle.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barOracle.TabIndex = 1;
@@ -692,7 +696,7 @@
             this.panelDockContainer3.Controls.Add(this.sideBar2);
             this.panelDockContainer3.Location = new System.Drawing.Point(6, 26);
             this.panelDockContainer3.Name = "panelDockContainer3";
-            this.panelDockContainer3.Size = new System.Drawing.Size(133, 99);
+            this.panelDockContainer3.Size = new System.Drawing.Size(133, 98);
             this.panelDockContainer3.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelDockContainer3.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.panelDockContainer3.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
@@ -722,7 +726,7 @@
             this.sideBar2.Name = "sideBar2";
             this.sideBar2.Panels.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.sideBarPanelItem3});
-            this.sideBar2.Size = new System.Drawing.Size(133, 99);
+            this.sideBar2.Size = new System.Drawing.Size(133, 98);
             this.sideBar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.sideBar2.TabIndex = 2;
             // 
@@ -788,9 +792,9 @@
             this.barSQLServer.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.dockContainerItem4});
             this.barSQLServer.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
-            this.barSQLServer.Location = new System.Drawing.Point(3, 334);
+            this.barSQLServer.Location = new System.Drawing.Point(3, 332);
             this.barSQLServer.Name = "barSQLServer";
-            this.barSQLServer.Size = new System.Drawing.Size(145, 132);
+            this.barSQLServer.Size = new System.Drawing.Size(145, 134);
             this.barSQLServer.Stretch = true;
             this.barSQLServer.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barSQLServer.TabIndex = 2;
@@ -802,7 +806,7 @@
             this.panelDockContainer4.Controls.Add(this.sideBar3);
             this.panelDockContainer4.Location = new System.Drawing.Point(3, 23);
             this.panelDockContainer4.Name = "panelDockContainer4";
-            this.panelDockContainer4.Size = new System.Drawing.Size(139, 106);
+            this.panelDockContainer4.Size = new System.Drawing.Size(139, 108);
             this.panelDockContainer4.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelDockContainer4.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.panelDockContainer4.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
@@ -820,7 +824,7 @@
             this.sideBar3.Name = "sideBar3";
             this.sideBar3.Panels.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.sideBarPanelItem4});
-            this.sideBar3.Size = new System.Drawing.Size(139, 106);
+            this.sideBar3.Size = new System.Drawing.Size(139, 108);
             this.sideBar3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.sideBar3.TabIndex = 3;
             // 
@@ -1062,67 +1066,6 @@
             this.superTabControl1.TabsVisible = false;
             this.superTabControl1.Text = "superTabControl1";
             this.superTabControl1.Visible = false;
-            // 
-            // superTabControlPanel5
-            // 
-            this.superTabControlPanel5.Controls.Add(this.splitContainer5);
-            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 25);
-            this.superTabControlPanel5.Name = "superTabControlPanel5";
-            this.superTabControlPanel5.Size = new System.Drawing.Size(537, 441);
-            this.superTabControlPanel5.TabIndex = 0;
-            this.superTabControlPanel5.TabItem = this.tiEditTable;
-            // 
-            // splitContainer5
-            // 
-            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer5.Name = "splitContainer5";
-            // 
-            // splitContainer5.Panel1
-            // 
-            this.splitContainer5.Panel1.Controls.Add(this.tvDatabaseObjects);
-            // 
-            // splitContainer5.Panel2
-            // 
-            this.splitContainer5.Panel2.Controls.Add(this.dgvDBObject);
-            this.splitContainer5.Size = new System.Drawing.Size(537, 441);
-            this.splitContainer5.SplitterDistance = 179;
-            this.splitContainer5.TabIndex = 0;
-            // 
-            // tvDatabaseObjects
-            // 
-            this.tvDatabaseObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvDatabaseObjects.BackColor = System.Drawing.SystemColors.Control;
-            this.tvDatabaseObjects.ImageIndex = 0;
-            this.tvDatabaseObjects.ImageList = this.imgListEditTable;
-            this.tvDatabaseObjects.Location = new System.Drawing.Point(0, 0);
-            this.tvDatabaseObjects.Name = "tvDatabaseObjects";
-            this.tvDatabaseObjects.SelectedImageIndex = 0;
-            this.tvDatabaseObjects.Size = new System.Drawing.Size(179, 416);
-            this.tvDatabaseObjects.TabIndex = 0;
-            this.tvDatabaseObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDatabaseObjects_AfterSelect);
-            // 
-            // dgvDBObject
-            // 
-            this.dgvDBObject.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvDBObject.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgvDBObject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDBObject.Location = new System.Drawing.Point(0, 1);
-            this.dgvDBObject.Name = "dgvDBObject";
-            this.dgvDBObject.Size = new System.Drawing.Size(354, 415);
-            this.dgvDBObject.TabIndex = 10;
-            // 
-            // tiEditTable
-            // 
-            this.tiEditTable.AttachedControl = this.superTabControlPanel5;
-            this.tiEditTable.GlobalItem = false;
-            this.tiEditTable.Name = "tiEditTable";
-            this.tiEditTable.Text = "tiEditTable";
             // 
             // superTabControlPanel1
             // 
@@ -1468,6 +1411,90 @@
             superTabItemColorTable1.Default = superTabColorStates1;
             this.tiOTContentServer.TabColor = superTabItemColorTable1;
             this.tiOTContentServer.Text = "ContentServer";
+            // 
+            // superTabControlPanel5
+            // 
+            this.superTabControlPanel5.Controls.Add(this.splitContainer5);
+            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 25);
+            this.superTabControlPanel5.Name = "superTabControlPanel5";
+            this.superTabControlPanel5.Size = new System.Drawing.Size(537, 441);
+            this.superTabControlPanel5.TabIndex = 0;
+            this.superTabControlPanel5.TabItem = this.tiEditTable;
+            // 
+            // splitContainer5
+            // 
+            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer5.Name = "splitContainer5";
+            // 
+            // splitContainer5.Panel1
+            // 
+            this.splitContainer5.Panel1.Controls.Add(this.tvDatabaseObjects);
+            // 
+            // splitContainer5.Panel2
+            // 
+            this.splitContainer5.Panel2.Controls.Add(this.dgvDBObject);
+            this.splitContainer5.Size = new System.Drawing.Size(537, 441);
+            this.splitContainer5.SplitterDistance = 179;
+            this.splitContainer5.TabIndex = 0;
+            // 
+            // tvDatabaseObjects
+            // 
+            this.tvDatabaseObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvDatabaseObjects.BackColor = System.Drawing.SystemColors.Control;
+            this.tvDatabaseObjects.ImageIndex = 0;
+            this.tvDatabaseObjects.ImageList = this.imgListEditTable;
+            this.tvDatabaseObjects.Location = new System.Drawing.Point(0, 0);
+            this.tvDatabaseObjects.Name = "tvDatabaseObjects";
+            this.tvDatabaseObjects.SelectedImageIndex = 0;
+            this.tvDatabaseObjects.Size = new System.Drawing.Size(179, 416);
+            this.tvDatabaseObjects.TabIndex = 0;
+            this.tvDatabaseObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDatabaseObjects_AfterSelect);
+            // 
+            // imgListEditTable
+            // 
+            this.imgListEditTable.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEditTable.ImageStream")));
+            this.imgListEditTable.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListEditTable.Images.SetKeyName(0, "table.png");
+            this.imgListEditTable.Images.SetKeyName(1, "table_view-512.png");
+            this.imgListEditTable.Images.SetKeyName(2, "icon_filter.png");
+            // 
+            // dgvDBObject
+            // 
+            this.dgvDBObject.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDBObject.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvDBObject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDBObject.ContextMenuStrip = this.contextMenuFilter;
+            this.dgvDBObject.Location = new System.Drawing.Point(0, 1);
+            this.dgvDBObject.Name = "dgvDBObject";
+            this.dgvDBObject.Size = new System.Drawing.Size(354, 415);
+            this.dgvDBObject.TabIndex = 10;
+            // 
+            // contextMenuFilter
+            // 
+            this.contextMenuFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txtFilter});
+            this.contextMenuFilter.Name = "contextMenuFilter";
+            this.contextMenuFilter.Size = new System.Drawing.Size(161, 29);
+            this.contextMenuFilter.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuFilter_Opening);
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(100, 23);
+            this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
+            // 
+            // tiEditTable
+            // 
+            this.tiEditTable.AttachedControl = this.superTabControlPanel5;
+            this.tiEditTable.GlobalItem = false;
+            this.tiEditTable.Name = "tiEditTable";
+            this.tiEditTable.Text = "tiEditTable";
             // 
             // superTabControlPanel2
             // 
@@ -2219,7 +2246,8 @@
             this.lblStatusInfoOracle,
             this.lblStatusInfoContentServer,
             this.lblStatusInfoDOMEA,
-            this.lblStatusInfoSQLServer});
+            this.lblStatusInfoSQLServer,
+            this.labelGeneralInfo});
             this.statusStrip1.Location = new System.Drawing.Point(153, 469);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(537, 22);
@@ -2249,6 +2277,12 @@
             this.lblStatusInfoSQLServer.Name = "lblStatusInfoSQLServer";
             this.lblStatusInfoSQLServer.Size = new System.Drawing.Size(60, 17);
             this.lblStatusInfoSQLServer.Text = "SQLServer";
+            // 
+            // labelGeneralInfo
+            // 
+            this.labelGeneralInfo.Name = "labelGeneralInfo";
+            this.labelGeneralInfo.Size = new System.Drawing.Size(71, 17);
+            this.labelGeneralInfo.Text = "General Info";
             // 
             // TreeIcons
             // 
@@ -2290,13 +2324,6 @@
             this.superTooltip1.ShowTooltipImmediately = true;
             this.superTooltip1.MarkupLinkClick += new DevComponents.DotNetBar.MarkupLinkClickEventHandler(this.superTooltip1_MarkupLinkClick);
             // 
-            // imgListEditTable
-            // 
-            this.imgListEditTable.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEditTable.ImageStream")));
-            this.imgListEditTable.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListEditTable.Images.SetKeyName(0, "table.png");
-            this.imgListEditTable.Images.SetKeyName(1, "table_view-512.png");
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2335,12 +2362,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
-            this.superTabControlPanel5.ResumeLayout(false);
-            this.splitContainer5.Panel1.ResumeLayout(false);
-            this.splitContainer5.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
-            this.splitContainer5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).EndInit();
             this.superTabControlPanel1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -2348,6 +2369,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.superTabControlPanel5.ResumeLayout(false);
+            this.splitContainer5.Panel1.ResumeLayout(false);
+            this.splitContainer5.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
+            this.splitContainer5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).EndInit();
+            this.contextMenuFilter.ResumeLayout(false);
+            this.contextMenuFilter.PerformLayout();
             this.superTabControlPanel2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
@@ -2553,6 +2582,9 @@
         private System.Windows.Forms.TreeView tvDatabaseObjects;
         private System.Windows.Forms.DataGridView dgvDBObject;
         private System.Windows.Forms.ImageList imgListEditTable;
+        private System.Windows.Forms.ContextMenuStrip contextMenuFilter;
+        private System.Windows.Forms.ToolStripTextBox txtFilter;
+        private System.Windows.Forms.ToolStripStatusLabel labelGeneralInfo;
 
 
     }

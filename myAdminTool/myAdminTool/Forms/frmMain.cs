@@ -42,6 +42,9 @@ namespace myAdminTool
         private SystemImplementation.DOMEA.frmUploadToOTCS frmUpload;
 
         private SqlConnection connSQLServer;
+        
+        private DataTable dataTable;
+        private int rowCount;
         #endregion
 
         #region General Form Events
@@ -59,6 +62,7 @@ namespace myAdminTool
             lblStatusInfoContentServer.Text = "";
             lblStatusInfoDOMEA.Text = "";
             lblStatusInfoSQLServer.Text = "";
+            labelGeneralInfo.Text = "";
 
             this.Text = string.Format("{0} [{1}]", this.Text, Util.GetAssemblyVersion);
             Console.Title = this.Text;
@@ -125,6 +129,9 @@ namespace myAdminTool
             #region ContentServerBar einklappen
             //barOTCS.AutoHide = true;
             #endregion
+
+            contextMenuFilter.ImageList = imgListEditTable;
+            txtFilter.ImageIndex = 2;
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -2160,6 +2167,8 @@ namespace myAdminTool
             //{
             //    tn.Nodes.Add(new TreeNode(obj.Name));
             //}
+
+            tvDatabaseObjects.Sort();
         }
 
         private void tvDatabaseObjects_AfterSelect(object sender, TreeViewEventArgs e)
@@ -2168,16 +2177,52 @@ namespace myAdminTool
             Cursor.Current = Cursors.WaitCursor;
             dgvDBObject.DataSource = null;
             TreeNode node = e.Node;
+            labelGeneralInfo.Text = "";
             if (node.Parent != null)
             {
                 string tableName = node.Text;
-                DataTable dt = OracleHelper.GetValuesFromTable(tableName);
-                if (dt != null)
+                dataTable = OracleHelper.GetValuesFromTable(tableName);
+                if (dataTable != null)
                 {
-                    dgvDBObject.DataSource = dt;
+                    dgvDBObject.DataSource = dataTable;
+                    rowCount = dgvDBObject.Rows.Count - 1;
+                    labelGeneralInfo.Text = string.Format("RowCount: {0}", rowCount.ToString());
                 }
             }
             Cursor.Current = Cursors.Default;
+        }
+
+        private void txtFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                DataView dv = dataTable.DefaultView;
+                dv.RowFilter = GetFilter(txtFilter.Text);
+                dgvDBObject.DataSource = dv;
+                contextMenuFilter.Hide();
+                rowCount = dgvDBObject.Rows.Count - 1;
+                labelGeneralInfo.Text = string.Format("RowCount: {0}", rowCount.ToString());
+            }
+        }
+
+        private string GetFilter(string Text)
+        {
+            string rowFilter = "";
+            foreach (DataGridViewColumn col in dgvDBObject.Columns)
+            {
+                if (rowFilter != "") { rowFilter += "OR "; }
+                if (col.ValueType.Name == "String")
+                {
+                    rowFilter += string.Format("{0} LIKE '%{1}%' ", col.Name, Text);
+                }
+            }
+            return rowFilter;
+        }
+
+        private void contextMenuFilter_Opening(object sender, CancelEventArgs e)
+        {
+            contextMenuFilter.ImageList = imgListEditTable;
+            txtFilter.ImageIndex = 2;
         }
     }
 
