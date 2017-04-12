@@ -2195,14 +2195,21 @@ namespace myAdminTool
         private void txtFilter_KeyDown(object sender, KeyEventArgs e)
         {
             Util.WriteMethodInfoToConsole();
-            if (e.KeyCode == Keys.Enter)
+            try
             {
-                DataView dv = dataTable.DefaultView;
-                dv.RowFilter = GetFilter(txtFilter.Text);
-                dgvDBObject.DataSource = dv;
-                contextMenuFilter.Hide();
-                rowCount = dgvDBObject.Rows.Count - 1;
-                labelGeneralInfo.Text = string.Format("RowCount: {0}", rowCount.ToString());
+                if (e.KeyCode == Keys.Enter)
+                {
+                    DataView dv = dataTable.DefaultView;
+                    dv.RowFilter = GetFilter(txtFilter.Text);
+                    dgvDBObject.DataSource = dv;
+                    contextMenuFilter.Hide();
+                    rowCount = dgvDBObject.Rows.Count - 1;
+                    labelGeneralInfo.Text = string.Format("RowCount: {0}", rowCount.ToString());
+                }
+            }
+            catch(Exception ex)
+            {
+                Error.Show(ex);
             }
         }
 
@@ -2210,13 +2217,20 @@ namespace myAdminTool
         {
             Util.WriteMethodInfoToConsole();
             string rowFilter = "";
-            foreach (DataGridViewColumn col in dgvDBObject.Columns)
+            try
             {
-                if (rowFilter != "") { rowFilter += "OR "; }
-                if (col.ValueType.Name == "String")
+                foreach (DataGridViewColumn col in dgvDBObject.Columns)
                 {
-                    rowFilter += string.Format("{0} LIKE '%{1}%' ", col.Name, Text);
+                    if (rowFilter != "") { rowFilter += "OR "; }
+                    if (col.ValueType.Name == "String")
+                    {
+                        rowFilter += string.Format("{0} LIKE '%{1}%' ", col.Name, Text);
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                Error.Show(ex);
             }
             return rowFilter;
         }
