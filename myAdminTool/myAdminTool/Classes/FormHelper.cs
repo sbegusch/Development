@@ -202,6 +202,7 @@ namespace myAdminTool.Classes
                         }
                     }
                 }
+                textReader.Close();
             }
             return retValue;
         }
