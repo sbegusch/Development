@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ModifyListContent>
+	<Sharepoint>
+		<General> 
+			<Url>"http://muctsi04:8007/tm3"</Url>
+			<Url>"http://muctsi04:8007/tm4"</Url>
+		</General>
+  
+    <!--"List" Element can be copied-->
+    <List Name="Download Agreement">
+			<Columns>
+				<colName>Title</colName>
+				<colName>Content</colName>
+				<colName>Long Text</colName>
+			</Columns>
+			<Contents>
+				<!--replace spaces in column name with "underline" "_" (e.g. "Long Text" = "Long_Text" -->
+				<Title><![CDATA[TestTitle oder was auch immer]]></Title>
+				<Content><![CDATA[
+				Das ist eine Test Content
+				]]></Content>
+				<Long_Text><![CDATA[
+				
+				und der LangText
+				LG Stefan
+				
+				]]></Long_Text>
+			</Contents>
+		</List>
+	
+  </Sharepoint>
+</ModifyListContent>

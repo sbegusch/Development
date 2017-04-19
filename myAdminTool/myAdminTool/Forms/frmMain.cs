@@ -1817,8 +1817,8 @@ namespace myAdminTool
             //List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList(session.GetFolderByID(Convert.ToInt32(tvDOMEAMain.SelectedNode.Name)));
             //foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
             //{
-            //    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment, 
-            //                                                 wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name, 
+            //    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
+            //                                                 wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
             //                                                 wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
             //}
         }
@@ -1975,15 +1975,30 @@ namespace myAdminTool
 
         private void tvDOMEAMain_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            //dgvDOMEAWorkList.Rows.Clear();
-            //CCD.Domea.Fw.Base.Obj.Folder folder = session.GetFolderByID(Convert.ToInt32(tvDOMEAMain.SelectedNode.Name));
-            //List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList(folder);
-            //foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
-            //{
-            //    dgvDOMEAWorkList.Rows.Add(new string[] { wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment, 
-            //                                                 wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name, 
-            //                                                 wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
-            //}
+            dgvDOMEAWorkList.Rows.Clear();
+            if (e.Node.Parent == null)
+            {//dann ist es der Arbeitskorb
+                List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList();
+                Console.WriteLine("Arbeitskorb --> WorkItems.Count: " + WorkItems.Count);
+                foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
+                {
+                    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
+                                                             wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
+                                                             wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
+                }
+            }
+            else
+            {//dann ist es ein Folder
+                CCD.Domea.Fw.Base.Obj.Folder folder = session.GetFolderByID(Convert.ToInt32(e.Node.Name));
+                Console.WriteLine("Folder: " + folder.Name + " --> folder.NoOfWorkItems: " + folder.NoOfWorkItems);
+                List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList(folder);
+                foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
+                {
+                    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
+                                                             wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
+                                                             wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
+                }
+            }
         }
 
         private void btnAddProcessInstanceToOTCS_Click(object sender, EventArgs e)

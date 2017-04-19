@@ -32,11 +32,11 @@
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             DevComponents.DotNetBar.Rendering.SuperTabItemColorTable superTabItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates1 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
             DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -97,14 +97,6 @@
             this.btnAbout = new DevComponents.DotNetBar.ButtonItem();
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
-            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.tvDatabaseObjects = new System.Windows.Forms.TreeView();
-            this.imgListEditTable = new System.Windows.Forms.ImageList(this.components);
-            this.dgvDBObject = new System.Windows.Forms.DataGridView();
-            this.contextMenuFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.txtFilter = new System.Windows.Forms.ToolStripTextBox();
-            this.tiEditTable = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.btnLoadProcessInstances = new System.Windows.Forms.Button();
             this.btnDownloadFromDOMEA = new System.Windows.Forms.Button();
@@ -134,6 +126,14 @@
             this.txtModifyDate = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.tiOTContentServer = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.tvDatabaseObjects = new System.Windows.Forms.TreeView();
+            this.imgListEditTable = new System.Windows.Forms.ImageList(this.components);
+            this.dgvDBObject = new System.Windows.Forms.DataGridView();
+            this.contextMenuFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.txtFilter = new System.Windows.Forms.ToolStripTextBox();
+            this.tiEditTable = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.tvDOMEAMain = new System.Windows.Forms.TreeView();
@@ -230,6 +230,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
+            this.superTabControlPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.superTabControlPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -237,12 +243,6 @@
             this.splitContainer5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).BeginInit();
             this.contextMenuFilter.SuspendLayout();
-            this.superTabControlPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.superTabControlPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -1042,9 +1042,9 @@
             this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControl1.ControlBox.MenuBox,
             this.superTabControl1.ControlBox.CloseBox});
+            this.superTabControl1.Controls.Add(this.superTabControlPanel2);
             this.superTabControl1.Controls.Add(this.superTabControlPanel1);
             this.superTabControl1.Controls.Add(this.superTabControlPanel5);
-            this.superTabControl1.Controls.Add(this.superTabControlPanel2);
             this.superTabControl1.Controls.Add(this.superTabControlPanel4);
             this.superTabControl1.Controls.Add(this.superTabControlPanel3);
             this.superTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1066,89 +1066,6 @@
             this.superTabControl1.TabsVisible = false;
             this.superTabControl1.Text = "superTabControl1";
             this.superTabControl1.Visible = false;
-            // 
-            // superTabControlPanel5
-            // 
-            this.superTabControlPanel5.Controls.Add(this.splitContainer5);
-            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
-            this.superTabControlPanel5.Name = "superTabControlPanel5";
-            this.superTabControlPanel5.Size = new System.Drawing.Size(537, 466);
-            this.superTabControlPanel5.TabIndex = 0;
-            this.superTabControlPanel5.TabItem = this.tiEditTable;
-            // 
-            // splitContainer5
-            // 
-            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer5.Name = "splitContainer5";
-            // 
-            // splitContainer5.Panel1
-            // 
-            this.splitContainer5.Panel1.Controls.Add(this.tvDatabaseObjects);
-            // 
-            // splitContainer5.Panel2
-            // 
-            this.splitContainer5.Panel2.Controls.Add(this.dgvDBObject);
-            this.splitContainer5.Size = new System.Drawing.Size(537, 466);
-            this.splitContainer5.SplitterDistance = 179;
-            this.splitContainer5.TabIndex = 0;
-            // 
-            // tvDatabaseObjects
-            // 
-            this.tvDatabaseObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvDatabaseObjects.BackColor = System.Drawing.SystemColors.Control;
-            this.tvDatabaseObjects.ImageIndex = 0;
-            this.tvDatabaseObjects.ImageList = this.imgListEditTable;
-            this.tvDatabaseObjects.Location = new System.Drawing.Point(0, 0);
-            this.tvDatabaseObjects.Name = "tvDatabaseObjects";
-            this.tvDatabaseObjects.SelectedImageIndex = 0;
-            this.tvDatabaseObjects.Size = new System.Drawing.Size(179, 441);
-            this.tvDatabaseObjects.TabIndex = 0;
-            this.tvDatabaseObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDatabaseObjects_AfterSelect);
-            // 
-            // imgListEditTable
-            // 
-            this.imgListEditTable.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEditTable.ImageStream")));
-            this.imgListEditTable.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListEditTable.Images.SetKeyName(0, "table.png");
-            this.imgListEditTable.Images.SetKeyName(1, "table_view-512.png");
-            this.imgListEditTable.Images.SetKeyName(2, "icon_filter.png");
-            // 
-            // dgvDBObject
-            // 
-            this.dgvDBObject.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvDBObject.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgvDBObject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDBObject.ContextMenuStrip = this.contextMenuFilter;
-            this.dgvDBObject.Location = new System.Drawing.Point(0, 1);
-            this.dgvDBObject.Name = "dgvDBObject";
-            this.dgvDBObject.Size = new System.Drawing.Size(354, 440);
-            this.dgvDBObject.TabIndex = 10;
-            // 
-            // contextMenuFilter
-            // 
-            this.contextMenuFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.txtFilter});
-            this.contextMenuFilter.Name = "contextMenuFilter";
-            this.contextMenuFilter.Size = new System.Drawing.Size(161, 29);
-            // 
-            // txtFilter
-            // 
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(100, 23);
-            this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
-            // 
-            // tiEditTable
-            // 
-            this.tiEditTable.AttachedControl = this.superTabControlPanel5;
-            this.tiEditTable.GlobalItem = false;
-            this.tiEditTable.Name = "tiEditTable";
-            this.tiEditTable.Text = "tiEditTable";
             // 
             // superTabControlPanel1
             // 
@@ -1495,14 +1412,97 @@
             this.tiOTContentServer.TabColor = superTabItemColorTable1;
             this.tiOTContentServer.Text = "ContentServer";
             // 
+            // superTabControlPanel5
+            // 
+            this.superTabControlPanel5.Controls.Add(this.splitContainer5);
+            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
+            this.superTabControlPanel5.Name = "superTabControlPanel5";
+            this.superTabControlPanel5.Size = new System.Drawing.Size(537, 466);
+            this.superTabControlPanel5.TabIndex = 0;
+            this.superTabControlPanel5.TabItem = this.tiEditTable;
+            // 
+            // splitContainer5
+            // 
+            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer5.Name = "splitContainer5";
+            // 
+            // splitContainer5.Panel1
+            // 
+            this.splitContainer5.Panel1.Controls.Add(this.tvDatabaseObjects);
+            // 
+            // splitContainer5.Panel2
+            // 
+            this.splitContainer5.Panel2.Controls.Add(this.dgvDBObject);
+            this.splitContainer5.Size = new System.Drawing.Size(537, 466);
+            this.splitContainer5.SplitterDistance = 179;
+            this.splitContainer5.TabIndex = 0;
+            // 
+            // tvDatabaseObjects
+            // 
+            this.tvDatabaseObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvDatabaseObjects.BackColor = System.Drawing.SystemColors.Control;
+            this.tvDatabaseObjects.ImageIndex = 0;
+            this.tvDatabaseObjects.ImageList = this.imgListEditTable;
+            this.tvDatabaseObjects.Location = new System.Drawing.Point(0, 0);
+            this.tvDatabaseObjects.Name = "tvDatabaseObjects";
+            this.tvDatabaseObjects.SelectedImageIndex = 0;
+            this.tvDatabaseObjects.Size = new System.Drawing.Size(179, 441);
+            this.tvDatabaseObjects.TabIndex = 0;
+            this.tvDatabaseObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDatabaseObjects_AfterSelect);
+            // 
+            // imgListEditTable
+            // 
+            this.imgListEditTable.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEditTable.ImageStream")));
+            this.imgListEditTable.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListEditTable.Images.SetKeyName(0, "table.png");
+            this.imgListEditTable.Images.SetKeyName(1, "table_view-512.png");
+            this.imgListEditTable.Images.SetKeyName(2, "icon_filter.png");
+            // 
+            // dgvDBObject
+            // 
+            this.dgvDBObject.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDBObject.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvDBObject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDBObject.ContextMenuStrip = this.contextMenuFilter;
+            this.dgvDBObject.Location = new System.Drawing.Point(0, 1);
+            this.dgvDBObject.Name = "dgvDBObject";
+            this.dgvDBObject.Size = new System.Drawing.Size(354, 440);
+            this.dgvDBObject.TabIndex = 10;
+            // 
+            // contextMenuFilter
+            // 
+            this.contextMenuFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txtFilter});
+            this.contextMenuFilter.Name = "contextMenuFilter";
+            this.contextMenuFilter.Size = new System.Drawing.Size(161, 29);
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(100, 23);
+            this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
+            // 
+            // tiEditTable
+            // 
+            this.tiEditTable.AttachedControl = this.superTabControlPanel5;
+            this.tiEditTable.GlobalItem = false;
+            this.tiEditTable.Name = "tiEditTable";
+            this.tiEditTable.Text = "tiEditTable";
+            // 
             // superTabControlPanel2
             // 
             this.superTabControlPanel2.CanvasColor = System.Drawing.SystemColors.Control;
             this.superTabControlPanel2.Controls.Add(this.splitContainer3);
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
+            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 25);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(537, 466);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(537, 441);
             this.superTabControlPanel2.TabIndex = 0;
             this.superTabControlPanel2.TabItem = this.tiDOMEA;
             // 
@@ -1521,7 +1521,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(534, 440);
+            this.splitContainer3.Size = new System.Drawing.Size(534, 415);
             this.splitContainer3.SplitterDistance = 178;
             this.splitContainer3.TabIndex = 10;
             // 
@@ -1531,7 +1531,7 @@
             this.tvDOMEAMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvDOMEAMain.Location = new System.Drawing.Point(0, 0);
             this.tvDOMEAMain.Name = "tvDOMEAMain";
-            this.tvDOMEAMain.Size = new System.Drawing.Size(178, 440);
+            this.tvDOMEAMain.Size = new System.Drawing.Size(178, 415);
             this.tvDOMEAMain.TabIndex = 0;
             this.tvDOMEAMain.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDOMEAMain_AfterSelect);
             this.tvDOMEAMain.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvDOMEAMain_NodeMouseClick);
@@ -1552,8 +1552,8 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.btnAddDocumentsToOTCS);
             this.splitContainer4.Panel2.Controls.Add(this.dgvDOMEADocumentList);
-            this.splitContainer4.Size = new System.Drawing.Size(352, 440);
-            this.splitContainer4.SplitterDistance = 119;
+            this.splitContainer4.Size = new System.Drawing.Size(352, 415);
+            this.splitContainer4.SplitterDistance = 112;
             this.splitContainer4.TabIndex = 0;
             // 
             // btnAddProcessInstanceToOTCS
@@ -1600,7 +1600,7 @@
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDOMEAWorkList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDOMEAWorkList.Size = new System.Drawing.Size(352, 96);
+            this.dgvDOMEAWorkList.Size = new System.Drawing.Size(352, 89);
             this.dgvDOMEAWorkList.TabIndex = 0;
             this.dgvDOMEAWorkList.SelectionChanged += new System.EventHandler(this.dgvDOMEAWorkList_SelectionChanged);
             // 
@@ -1707,7 +1707,7 @@
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDOMEADocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDOMEADocumentList.Size = new System.Drawing.Size(352, 292);
+            this.dgvDOMEADocumentList.Size = new System.Drawing.Size(352, 274);
             this.dgvDOMEADocumentList.TabIndex = 0;
             // 
             // colDocChecked
@@ -2361,6 +2361,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
+            this.superTabControlPanel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.superTabControlPanel5.ResumeLayout(false);
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel2.ResumeLayout(false);
@@ -2369,13 +2376,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).EndInit();
             this.contextMenuFilter.ResumeLayout(false);
             this.contextMenuFilter.PerformLayout();
-            this.superTabControlPanel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
             this.superTabControlPanel2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);

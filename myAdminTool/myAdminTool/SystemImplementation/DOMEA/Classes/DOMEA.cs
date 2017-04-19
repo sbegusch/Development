@@ -99,7 +99,11 @@ namespace myAdminTool.SystemImplementation.DOMEA
 
         public Folder GetFolderByID(int FolderID)
         {
-            return new Folder(session, session.GetCurrentActor(), FolderID);
+            Util.WriteMethodInfoToConsole();
+            Folder mainFolder = session.GetCurrentActor().GetMainFolder();
+            return mainFolder.GetSubFolders().First(f => f.Id == FolderID);
+
+            //return new Folder(session, session.GetCurrentActor(), FolderID);
         }
 
         public List<Document> GetDocuments(int IGZ)

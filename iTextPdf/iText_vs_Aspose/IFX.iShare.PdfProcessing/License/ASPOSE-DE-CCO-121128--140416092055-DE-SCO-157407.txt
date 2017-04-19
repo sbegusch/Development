@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<License>
+  <Data>
+    <LicensedTo>Infineon Technologies IT-Services GmbH</LicensedTo>
+    <EmailTo>Walter.Nirschl@infineon.com</EmailTo>
+    <LicenseType>Site OEM</LicenseType>
+    <LicenseNote>Limited to 10 developers, unlimited physical locations</LicenseNote>
+    <OrderID>160222080720</OrderID>
+    <UserID>336260</UserID>
+    <OEM>This is a redistributable license</OEM>
+    <Products>
+      <Product>Aspose.Total for .NET</Product>
+    </Products>
+    <EditionType>Enterprise</EditionType>
+    <SerialNumber>a44cbb25-9416-49ee-944a-78178a36f4c1</SerialNumber>
+    <SubscriptionExpiry>20170222</SubscriptionExpiry>
+    <LicenseVersion>3.0</LicenseVersion>
+    <LicenseInstructions>http://www.aspose.com/corporate/purchase/license-instructions.aspx</LicenseInstructions>
+  </Data>
+  <Signature>uJ1sQx/Hng4SGj3yhSlH97vZt4PlwmEVcnJCEd4yGgQ7w/5/df3RNP/73kdK9XjQmOCik0GYogRJ9SQbpcpAyVU6WJbBlv3QCadwBPzIpg9WvFkiLJeVUbcdZ34oGdY0sXuueUyxEyyRed8vuS71mINtpa0ikvD46aYoTGGRwLE=</Signature>
+</License>
