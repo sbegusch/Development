@@ -1939,13 +1939,20 @@ namespace myAdminTool
             Util.WriteMethodInfoToConsole();
             try
             {
-                string DBUser = "OTCSdbuser_e";
-                string DBServer = "10.11.53.68,1450";
+                //string DBServer = "10.11.53.68,1450";
+                //string DBCatalog = "OTCSdb_e";
+                //string DBUser = "OTCSdbuser_e";
+                //string DBUserPwd = "1DB2User3";
+                string DBServer = "IMDEVPC";
+                string DBCatalog = "DOMEA";
+                string DBUser = "DOMEA";
+                string DBUserPwd = "DOMEA";
+
                 connSQLServer = new SqlConnection();
                 connSQLServer.ConnectionString = string.Format("Data Source={0};" + //=> cms_t_listener,1450" +
-                                                 "Initial Catalog=OTCSdb_e;" +
-                                                 "User id={1};" +
-                                                 "Password=1DB2User3;", DBServer, DBUser);
+                                                 "Initial Catalog={1};" +
+                                                 "User id={2};" +
+                                                 "Password={3};", DBServer, DBCatalog, DBUser, DBUserPwd);
                 connSQLServer.Open();
                 btnItemSQLServerLogout.Enabled = true;
                 btnItemSQLServerLogin.Enabled = false;
