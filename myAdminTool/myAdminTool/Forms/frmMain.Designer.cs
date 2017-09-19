@@ -32,14 +32,15 @@
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             DevComponents.DotNetBar.Rendering.SuperTabItemColorTable superTabItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates1 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
             DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
@@ -65,6 +66,7 @@
             this.btnItemDOMEALogin = new DevComponents.DotNetBar.ButtonItem();
             this.btnItemDOMEALogout = new DevComponents.DotNetBar.ButtonItem();
             this.btnItemDOMEAShowWorkSpace = new DevComponents.DotNetBar.ButtonItem();
+            this.btnItemDOMEACR17DOMEA004 = new DevComponents.DotNetBar.ButtonItem();
             this.dockContainerItem2 = new DevComponents.DotNetBar.DockContainerItem();
             this.barOracle = new DevComponents.DotNetBar.Bar();
             this.panelDockContainer3 = new DevComponents.DotNetBar.PanelDockContainer();
@@ -126,14 +128,10 @@
             this.txtModifyDate = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.tiOTContentServer = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
-            this.tvDatabaseObjects = new System.Windows.Forms.TreeView();
-            this.imgListEditTable = new System.Windows.Forms.ImageList(this.components);
-            this.dgvDBObject = new System.Windows.Forms.DataGridView();
-            this.contextMenuFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.txtFilter = new System.Windows.Forms.ToolStripTextBox();
-            this.tiEditTable = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.btnMovePI = new System.Windows.Forms.Button();
+            this.dgvCR17DOMEA004Configuration = new System.Windows.Forms.DataGridView();
+            this.tiCR17DOMEA004 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.tvDOMEAMain = new System.Windows.Forms.TreeView();
@@ -156,6 +154,14 @@
             this.colDOMAnmerkung = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDOMTemplate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tiDOMEA = new DevComponents.DotNetBar.SuperTabItem();
+            this.superTabControlPanel5 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.splitContainer5 = new System.Windows.Forms.SplitContainer();
+            this.tvDatabaseObjects = new System.Windows.Forms.TreeView();
+            this.imgListEditTable = new System.Windows.Forms.ImageList(this.components);
+            this.dgvDBObject = new System.Windows.Forms.DataGridView();
+            this.contextMenuFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.txtFilter = new System.Windows.Forms.ToolStripTextBox();
+            this.tiEditTable = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel4 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this._groupBoxSearchCriteria = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -212,6 +218,15 @@
             this.ttButtonInfo = new System.Windows.Forms.ToolTip(this.components);
             this.imgListDOMEA = new System.Windows.Forms.ImageList(this.components);
             this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
+            this.bwMoveProcessInstances = new System.ComponentModel.BackgroundWorker();
+            this.colRowID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFromWorkListID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFromWorkListName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSourceCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colToWorkListID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colToWorkListName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDestinationCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewImageColumn();
             this.dockSite1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barOTCS)).BeginInit();
             this.barOTCS.SuspendLayout();
@@ -236,13 +251,8 @@
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.superTabControlPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
-            this.splitContainer5.Panel1.SuspendLayout();
-            this.splitContainer5.Panel2.SuspendLayout();
-            this.splitContainer5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).BeginInit();
-            this.contextMenuFilter.SuspendLayout();
+            this.superTabControlPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004Configuration)).BeginInit();
             this.superTabControlPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -254,6 +264,13 @@
             this.splitContainer4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDOMEAWorkList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDOMEADocumentList)).BeginInit();
+            this.superTabControlPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
+            this.splitContainer5.Panel1.SuspendLayout();
+            this.splitContainer5.Panel2.SuspendLayout();
+            this.splitContainer5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).BeginInit();
+            this.contextMenuFilter.SuspendLayout();
             this.superTabControlPanel4.SuspendLayout();
             this._groupBoxSearchCriteria.SuspendLayout();
             this._groupBoxSearchResults.SuspendLayout();
@@ -596,7 +613,8 @@
             this.sideBarPanelItem2.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnItemDOMEALogin,
             this.btnItemDOMEALogout,
-            this.btnItemDOMEAShowWorkSpace});
+            this.btnItemDOMEAShowWorkSpace,
+            this.btnItemDOMEACR17DOMEA004});
             // 
             // btnItemDOMEALogin
             // 
@@ -620,7 +638,16 @@
             this.btnItemDOMEAShowWorkSpace.Enabled = false;
             this.btnItemDOMEAShowWorkSpace.Name = "btnItemDOMEAShowWorkSpace";
             this.btnItemDOMEAShowWorkSpace.Text = "show Workspace";
+            this.btnItemDOMEAShowWorkSpace.Visible = false;
             this.btnItemDOMEAShowWorkSpace.Click += new System.EventHandler(this.btnItemDOMEAShowWorkSpace_Click);
+            // 
+            // btnItemDOMEACR17DOMEA004
+            // 
+            this.btnItemDOMEACR17DOMEA004.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnItemDOMEACR17DOMEA004.Enabled = false;
+            this.btnItemDOMEACR17DOMEA004.Name = "btnItemDOMEACR17DOMEA004";
+            this.btnItemDOMEACR17DOMEA004.Text = "CR17DOMEA004";
+            this.btnItemDOMEACR17DOMEA004.Click += new System.EventHandler(this.btnItemDOMEACR17DOMEA004_Click);
             // 
             // dockContainerItem2
             // 
@@ -1042,8 +1069,9 @@
             this.superTabControl1.ControlBox.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.superTabControl1.ControlBox.MenuBox,
             this.superTabControl1.ControlBox.CloseBox});
-            this.superTabControl1.Controls.Add(this.superTabControlPanel2);
+            this.superTabControl1.Controls.Add(this.superTabControlPanel6);
             this.superTabControl1.Controls.Add(this.superTabControlPanel1);
+            this.superTabControl1.Controls.Add(this.superTabControlPanel2);
             this.superTabControl1.Controls.Add(this.superTabControlPanel5);
             this.superTabControl1.Controls.Add(this.superTabControlPanel4);
             this.superTabControl1.Controls.Add(this.superTabControlPanel3);
@@ -1061,7 +1089,8 @@
             this.tiDOMEA,
             this.tiVSVMError,
             this.tiOTfindMember,
-            this.tiEditTable});
+            this.tiEditTable,
+            this.tiCR17DOMEA004});
             this.superTabControl1.TabStyle = DevComponents.DotNetBar.eSuperTabStyle.VisualStudio2008Dock;
             this.superTabControl1.TabsVisible = false;
             this.superTabControl1.Text = "superTabControl1";
@@ -1412,97 +1441,75 @@
             this.tiOTContentServer.TabColor = superTabItemColorTable1;
             this.tiOTContentServer.Text = "ContentServer";
             // 
-            // superTabControlPanel5
+            // superTabControlPanel6
             // 
-            this.superTabControlPanel5.Controls.Add(this.splitContainer5);
-            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
-            this.superTabControlPanel5.Name = "superTabControlPanel5";
-            this.superTabControlPanel5.Size = new System.Drawing.Size(537, 466);
-            this.superTabControlPanel5.TabIndex = 0;
-            this.superTabControlPanel5.TabItem = this.tiEditTable;
+            this.superTabControlPanel6.CanvasColor = System.Drawing.SystemColors.Control;
+            this.superTabControlPanel6.Controls.Add(this.btnMovePI);
+            this.superTabControlPanel6.Controls.Add(this.dgvCR17DOMEA004Configuration);
+            this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel6.Location = new System.Drawing.Point(0, 25);
+            this.superTabControlPanel6.Name = "superTabControlPanel6";
+            this.superTabControlPanel6.Size = new System.Drawing.Size(537, 441);
+            this.superTabControlPanel6.TabIndex = 0;
+            this.superTabControlPanel6.TabItem = this.tiCR17DOMEA004;
             // 
-            // splitContainer5
+            // btnMovePI
             // 
-            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer5.Name = "splitContainer5";
+            this.btnMovePI.Location = new System.Drawing.Point(6, 345);
+            this.btnMovePI.Name = "btnMovePI";
+            this.btnMovePI.Size = new System.Drawing.Size(163, 23);
+            this.btnMovePI.TabIndex = 10;
+            this.btnMovePI.Text = "Move ProcessInstances";
+            this.btnMovePI.UseVisualStyleBackColor = true;
+            this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
             // 
-            // splitContainer5.Panel1
+            // dgvCR17DOMEA004Configuration
             // 
-            this.splitContainer5.Panel1.Controls.Add(this.tvDatabaseObjects);
-            // 
-            // splitContainer5.Panel2
-            // 
-            this.splitContainer5.Panel2.Controls.Add(this.dgvDBObject);
-            this.splitContainer5.Size = new System.Drawing.Size(537, 466);
-            this.splitContainer5.SplitterDistance = 179;
-            this.splitContainer5.TabIndex = 0;
-            // 
-            // tvDatabaseObjects
-            // 
-            this.tvDatabaseObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvCR17DOMEA004Configuration.AllowUserToAddRows = false;
+            this.dgvCR17DOMEA004Configuration.AllowUserToDeleteRows = false;
+            this.dgvCR17DOMEA004Configuration.AllowUserToResizeRows = false;
+            this.dgvCR17DOMEA004Configuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tvDatabaseObjects.BackColor = System.Drawing.SystemColors.Control;
-            this.tvDatabaseObjects.ImageIndex = 0;
-            this.tvDatabaseObjects.ImageList = this.imgListEditTable;
-            this.tvDatabaseObjects.Location = new System.Drawing.Point(0, 0);
-            this.tvDatabaseObjects.Name = "tvDatabaseObjects";
-            this.tvDatabaseObjects.SelectedImageIndex = 0;
-            this.tvDatabaseObjects.Size = new System.Drawing.Size(179, 441);
-            this.tvDatabaseObjects.TabIndex = 0;
-            this.tvDatabaseObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDatabaseObjects_AfterSelect);
+            this.dgvCR17DOMEA004Configuration.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCR17DOMEA004Configuration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvCR17DOMEA004Configuration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCR17DOMEA004Configuration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colRowID,
+            this.colFromWorkListID,
+            this.colFromWorkListName,
+            this.colSourceCount,
+            this.colToWorkListID,
+            this.colToWorkListName,
+            this.colDestinationCount,
+            this.colStatus});
+            this.dgvCR17DOMEA004Configuration.Location = new System.Drawing.Point(0, 0);
+            this.dgvCR17DOMEA004Configuration.Name = "dgvCR17DOMEA004Configuration";
+            this.dgvCR17DOMEA004Configuration.RowHeadersVisible = false;
+            this.dgvCR17DOMEA004Configuration.Size = new System.Drawing.Size(537, 339);
+            this.dgvCR17DOMEA004Configuration.TabIndex = 10;
             // 
-            // imgListEditTable
+            // tiCR17DOMEA004
             // 
-            this.imgListEditTable.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEditTable.ImageStream")));
-            this.imgListEditTable.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListEditTable.Images.SetKeyName(0, "table.png");
-            this.imgListEditTable.Images.SetKeyName(1, "table_view-512.png");
-            this.imgListEditTable.Images.SetKeyName(2, "icon_filter.png");
-            // 
-            // dgvDBObject
-            // 
-            this.dgvDBObject.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvDBObject.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dgvDBObject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDBObject.ContextMenuStrip = this.contextMenuFilter;
-            this.dgvDBObject.Location = new System.Drawing.Point(0, 1);
-            this.dgvDBObject.Name = "dgvDBObject";
-            this.dgvDBObject.Size = new System.Drawing.Size(354, 440);
-            this.dgvDBObject.TabIndex = 10;
-            // 
-            // contextMenuFilter
-            // 
-            this.contextMenuFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.txtFilter});
-            this.contextMenuFilter.Name = "contextMenuFilter";
-            this.contextMenuFilter.Size = new System.Drawing.Size(161, 29);
-            // 
-            // txtFilter
-            // 
-            this.txtFilter.Name = "txtFilter";
-            this.txtFilter.Size = new System.Drawing.Size(100, 23);
-            this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
-            // 
-            // tiEditTable
-            // 
-            this.tiEditTable.AttachedControl = this.superTabControlPanel5;
-            this.tiEditTable.GlobalItem = false;
-            this.tiEditTable.Name = "tiEditTable";
-            this.tiEditTable.Text = "tiEditTable";
+            this.tiCR17DOMEA004.AttachedControl = this.superTabControlPanel6;
+            this.tiCR17DOMEA004.GlobalItem = false;
+            this.tiCR17DOMEA004.Name = "tiCR17DOMEA004";
+            this.tiCR17DOMEA004.Text = "CR17DOMEA004";
             // 
             // superTabControlPanel2
             // 
             this.superTabControlPanel2.CanvasColor = System.Drawing.SystemColors.Control;
             this.superTabControlPanel2.Controls.Add(this.splitContainer3);
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 25);
+            this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(537, 441);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(537, 466);
             this.superTabControlPanel2.TabIndex = 0;
             this.superTabControlPanel2.TabItem = this.tiDOMEA;
             // 
@@ -1521,7 +1528,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(534, 415);
+            this.splitContainer3.Size = new System.Drawing.Size(534, 440);
             this.splitContainer3.SplitterDistance = 178;
             this.splitContainer3.TabIndex = 10;
             // 
@@ -1531,7 +1538,7 @@
             this.tvDOMEAMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvDOMEAMain.Location = new System.Drawing.Point(0, 0);
             this.tvDOMEAMain.Name = "tvDOMEAMain";
-            this.tvDOMEAMain.Size = new System.Drawing.Size(178, 415);
+            this.tvDOMEAMain.Size = new System.Drawing.Size(178, 440);
             this.tvDOMEAMain.TabIndex = 0;
             this.tvDOMEAMain.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDOMEAMain_AfterSelect);
             this.tvDOMEAMain.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvDOMEAMain_NodeMouseClick);
@@ -1552,8 +1559,8 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.btnAddDocumentsToOTCS);
             this.splitContainer4.Panel2.Controls.Add(this.dgvDOMEADocumentList);
-            this.splitContainer4.Size = new System.Drawing.Size(352, 415);
-            this.splitContainer4.SplitterDistance = 112;
+            this.splitContainer4.Size = new System.Drawing.Size(352, 440);
+            this.splitContainer4.SplitterDistance = 118;
             this.splitContainer4.TabIndex = 0;
             // 
             // btnAddProcessInstanceToOTCS
@@ -1573,8 +1580,8 @@
             this.dgvDOMEAWorkList.AllowUserToDeleteRows = false;
             this.dgvDOMEAWorkList.AllowUserToOrderColumns = true;
             this.dgvDOMEAWorkList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEAWorkList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEAWorkList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDOMEAWorkList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1597,10 +1604,10 @@
             this.dgvDOMEAWorkList.MultiSelect = false;
             this.dgvDOMEAWorkList.Name = "dgvDOMEAWorkList";
             this.dgvDOMEAWorkList.RowHeadersVisible = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDOMEAWorkList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDOMEAWorkList.Size = new System.Drawing.Size(352, 89);
+            this.dgvDOMEAWorkList.Size = new System.Drawing.Size(352, 95);
             this.dgvDOMEAWorkList.TabIndex = 0;
             this.dgvDOMEAWorkList.SelectionChanged += new System.EventHandler(this.dgvDOMEAWorkList_SelectionChanged);
             // 
@@ -1704,10 +1711,10 @@
             this.dgvDOMEADocumentList.Location = new System.Drawing.Point(0, 23);
             this.dgvDOMEADocumentList.Name = "dgvDOMEADocumentList";
             this.dgvDOMEADocumentList.RowHeadersVisible = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvDOMEADocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDOMEADocumentList.Size = new System.Drawing.Size(352, 274);
+            this.dgvDOMEADocumentList.Size = new System.Drawing.Size(352, 293);
             this.dgvDOMEADocumentList.TabIndex = 0;
             // 
             // colDocChecked
@@ -1759,6 +1766,89 @@
             this.tiDOMEA.GlobalItem = false;
             this.tiDOMEA.Name = "tiDOMEA";
             this.tiDOMEA.Text = "DOMEA";
+            // 
+            // superTabControlPanel5
+            // 
+            this.superTabControlPanel5.Controls.Add(this.splitContainer5);
+            this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
+            this.superTabControlPanel5.Name = "superTabControlPanel5";
+            this.superTabControlPanel5.Size = new System.Drawing.Size(537, 466);
+            this.superTabControlPanel5.TabIndex = 0;
+            this.superTabControlPanel5.TabItem = this.tiEditTable;
+            // 
+            // splitContainer5
+            // 
+            this.splitContainer5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer5.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer5.Name = "splitContainer5";
+            // 
+            // splitContainer5.Panel1
+            // 
+            this.splitContainer5.Panel1.Controls.Add(this.tvDatabaseObjects);
+            // 
+            // splitContainer5.Panel2
+            // 
+            this.splitContainer5.Panel2.Controls.Add(this.dgvDBObject);
+            this.splitContainer5.Size = new System.Drawing.Size(537, 466);
+            this.splitContainer5.SplitterDistance = 179;
+            this.splitContainer5.TabIndex = 0;
+            // 
+            // tvDatabaseObjects
+            // 
+            this.tvDatabaseObjects.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvDatabaseObjects.BackColor = System.Drawing.SystemColors.Control;
+            this.tvDatabaseObjects.ImageIndex = 0;
+            this.tvDatabaseObjects.ImageList = this.imgListEditTable;
+            this.tvDatabaseObjects.Location = new System.Drawing.Point(0, 0);
+            this.tvDatabaseObjects.Name = "tvDatabaseObjects";
+            this.tvDatabaseObjects.SelectedImageIndex = 0;
+            this.tvDatabaseObjects.Size = new System.Drawing.Size(179, 441);
+            this.tvDatabaseObjects.TabIndex = 0;
+            this.tvDatabaseObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDatabaseObjects_AfterSelect);
+            // 
+            // imgListEditTable
+            // 
+            this.imgListEditTable.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEditTable.ImageStream")));
+            this.imgListEditTable.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListEditTable.Images.SetKeyName(0, "table.png");
+            this.imgListEditTable.Images.SetKeyName(1, "table_view-512.png");
+            this.imgListEditTable.Images.SetKeyName(2, "icon_filter.png");
+            // 
+            // dgvDBObject
+            // 
+            this.dgvDBObject.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvDBObject.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvDBObject.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDBObject.ContextMenuStrip = this.contextMenuFilter;
+            this.dgvDBObject.Location = new System.Drawing.Point(0, 1);
+            this.dgvDBObject.Name = "dgvDBObject";
+            this.dgvDBObject.Size = new System.Drawing.Size(354, 440);
+            this.dgvDBObject.TabIndex = 10;
+            // 
+            // contextMenuFilter
+            // 
+            this.contextMenuFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txtFilter});
+            this.contextMenuFilter.Name = "contextMenuFilter";
+            this.contextMenuFilter.Size = new System.Drawing.Size(161, 29);
+            // 
+            // txtFilter
+            // 
+            this.txtFilter.Name = "txtFilter";
+            this.txtFilter.Size = new System.Drawing.Size(100, 23);
+            this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
+            // 
+            // tiEditTable
+            // 
+            this.tiEditTable.AttachedControl = this.superTabControlPanel5;
+            this.tiEditTable.GlobalItem = false;
+            this.tiEditTable.Name = "tiEditTable";
+            this.tiEditTable.Text = "tiEditTable";
             // 
             // superTabControlPanel4
             // 
@@ -2313,6 +2403,9 @@
             this.imgListDOMEA.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListDOMEA.ImageStream")));
             this.imgListDOMEA.TransparentColor = System.Drawing.Color.Transparent;
             this.imgListDOMEA.Images.SetKeyName(0, "WorkList.png");
+            this.imgListDOMEA.Images.SetKeyName(1, "empty.png");
+            this.imgListDOMEA.Images.SetKeyName(2, "checkMark.png");
+            this.imgListDOMEA.Images.SetKeyName(3, "work.png");
             // 
             // superTooltip1
             // 
@@ -2322,6 +2415,76 @@
             this.superTooltip1.PositionBelowControl = false;
             this.superTooltip1.ShowTooltipImmediately = true;
             this.superTooltip1.MarkupLinkClick += new DevComponents.DotNetBar.MarkupLinkClickEventHandler(this.superTooltip1_MarkupLinkClick);
+            // 
+            // bwMoveProcessInstances
+            // 
+            this.bwMoveProcessInstances.WorkerReportsProgress = true;
+            this.bwMoveProcessInstances.WorkerSupportsCancellation = true;
+            this.bwMoveProcessInstances.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwMoveProcessInstances_DoWork);
+            this.bwMoveProcessInstances.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwMoveProcessInstances_ProgressChanged);
+            this.bwMoveProcessInstances.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwMoveProcessInstances_RunWorkerCompleted);
+            // 
+            // colRowID
+            // 
+            this.colRowID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colRowID.HeaderText = "ID";
+            this.colRowID.Name = "colRowID";
+            this.colRowID.ReadOnly = true;
+            this.colRowID.Width = 43;
+            // 
+            // colFromWorkListID
+            // 
+            this.colFromWorkListID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colFromWorkListID.HeaderText = "SourceID";
+            this.colFromWorkListID.Name = "colFromWorkListID";
+            this.colFromWorkListID.ReadOnly = true;
+            this.colFromWorkListID.Width = 77;
+            // 
+            // colFromWorkListName
+            // 
+            this.colFromWorkListName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colFromWorkListName.HeaderText = "Source Name";
+            this.colFromWorkListName.Name = "colFromWorkListName";
+            this.colFromWorkListName.ReadOnly = true;
+            // 
+            // colSourceCount
+            // 
+            this.colSourceCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colSourceCount.HeaderText = "Source Count";
+            this.colSourceCount.Name = "colSourceCount";
+            this.colSourceCount.ReadOnly = true;
+            this.colSourceCount.Width = 97;
+            // 
+            // colToWorkListID
+            // 
+            this.colToWorkListID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colToWorkListID.HeaderText = "Destination ID";
+            this.colToWorkListID.Name = "colToWorkListID";
+            this.colToWorkListID.ReadOnly = true;
+            this.colToWorkListID.Width = 99;
+            // 
+            // colToWorkListName
+            // 
+            this.colToWorkListName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colToWorkListName.HeaderText = "Destination Name";
+            this.colToWorkListName.Name = "colToWorkListName";
+            this.colToWorkListName.ReadOnly = true;
+            // 
+            // colDestinationCount
+            // 
+            this.colDestinationCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.colDestinationCount.HeaderText = "Destination Count";
+            this.colDestinationCount.Name = "colDestinationCount";
+            this.colDestinationCount.ReadOnly = true;
+            this.colDestinationCount.Width = 116;
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            this.colStatus.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colStatus.Width = 20;
             // 
             // frmMain
             // 
@@ -2368,14 +2531,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.superTabControlPanel5.ResumeLayout(false);
-            this.splitContainer5.Panel1.ResumeLayout(false);
-            this.splitContainer5.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
-            this.splitContainer5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).EndInit();
-            this.contextMenuFilter.ResumeLayout(false);
-            this.contextMenuFilter.PerformLayout();
+            this.superTabControlPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004Configuration)).EndInit();
             this.superTabControlPanel2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
@@ -2387,6 +2544,14 @@
             this.splitContainer4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDOMEAWorkList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDOMEADocumentList)).EndInit();
+            this.superTabControlPanel5.ResumeLayout(false);
+            this.splitContainer5.Panel1.ResumeLayout(false);
+            this.splitContainer5.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).EndInit();
+            this.splitContainer5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDBObject)).EndInit();
+            this.contextMenuFilter.ResumeLayout(false);
+            this.contextMenuFilter.PerformLayout();
             this.superTabControlPanel4.ResumeLayout(false);
             this._groupBoxSearchCriteria.ResumeLayout(false);
             this._groupBoxSearchCriteria.PerformLayout();
@@ -2584,6 +2749,20 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuFilter;
         private System.Windows.Forms.ToolStripTextBox txtFilter;
         private System.Windows.Forms.ToolStripStatusLabel labelGeneralInfo;
+        private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel6;
+        private DevComponents.DotNetBar.SuperTabItem tiCR17DOMEA004;
+        private DevComponents.DotNetBar.ButtonItem btnItemDOMEACR17DOMEA004;
+        private System.Windows.Forms.DataGridView dgvCR17DOMEA004Configuration;
+        private System.ComponentModel.BackgroundWorker bwMoveProcessInstances;
+        private System.Windows.Forms.Button btnMovePI;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colRowID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFromWorkListID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFromWorkListName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSourceCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colToWorkListID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colToWorkListName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDestinationCount;
+        private System.Windows.Forms.DataGridViewImageColumn colStatus;
 
 
     }

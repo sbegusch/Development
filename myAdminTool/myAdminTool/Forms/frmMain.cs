@@ -290,51 +290,172 @@ namespace myAdminTool
 
         #region DOMEA
 
-        private void btnItemDOMEALogin_Click(object sender, EventArgs e)
+        private void btnItemDOMEAShowWorkSpace_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
-            FormHelper.Click(sideBarPanelItem2, 
-                superTabControl1, btnItemDOMEALogin, tiDOMEA);
+            FormHelper.Click(sideBarPanelItem2,
+                superTabControl1, btnItemDOMEAShowWorkSpace, tiDOMEA);
+        }
 
-            session = new SystemImplementation.DOMEA.DOMEA();
-            if (session.Login())
+        private void dgvDOMEAWorkList_SelectionChanged(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            if (dgvDOMEAWorkList.Rows.Count > 0)
             {
-                lblStatusInfoDOMEA.Text = session.ConnectionInfo;
-                btnItemDOMEAShowWorkSpace.Enabled = true;
-                btnItemDOMEALogin.Enabled = false;
-                btnItemDOMEALogout.Enabled = true;
-                CCD.Domea.Fw.Base.Obj.Folder mainFolder = session.GetMainFolder();
-                tvDOMEAMain.ImageList = imgListDOMEA;
-                tvDOMEAMain.Nodes.Add(mainFolder.Id.ToString(), mainFolder.GetSession().GetLoggedOnUser().Name, 0);
-                foreach(CCD.Domea.Fw.Base.Obj.Folder subFolder in mainFolder.GetSubFolders())
+                try
                 {
-                    tvDOMEAMain.Nodes[0].Nodes.Add(subFolder.Id.ToString(), subFolder.Name);
+                    int IGZ = Convert.ToInt32(dgvDOMEAWorkList.SelectedRows[0].Cells["colIGZ"].Value);
+                    dgvDOMEADocumentList.Rows.Clear();
+                    Cursor.Current = Cursors.WaitCursor;
+                    foreach (CCD.Domea.Fw.Base.Obj.Document doc in session.GetDocuments(IGZ))
+                    {
+                        dgvDOMEADocumentList.Rows.Add(new string[] { "0", doc.Id.ToString(), doc.Name, doc.Comment, doc.GetTemplate().Name });
+                    }
+                    Cursor.Current = Cursors.Default;
                 }
-                tvDOMEAMain.SelectedNode = tvDOMEAMain.Nodes[0];
+                catch { }
+            }
+        }
 
+        private void tvDOMEAMain_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            //List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList(session.GetFolderByID(Convert.ToInt32(tvDOMEAMain.SelectedNode.Name)));
+            //foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
+            //{
+            //    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
+            //                                                 wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
+            //                                                 wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
+            //}
+        }
+
+        private void tvDOMEAMain_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            dgvDOMEAWorkList.Rows.Clear();
+            if (e.Node.Parent == null)
+            {//dann ist es der Arbeitskorb
                 List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList();
+                Console.WriteLine("Arbeitskorb --> WorkItems.Count: " + WorkItems.Count);
                 foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
                 {
-                    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment, 
-                                                             wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name, 
+                    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
+                                                             wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
                                                              wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
                 }
             }
-            #region Old Version
-            //if (DOMEA.DOMEA.LibDOMEAImplementationExist)
-            //{
-            //    DOMEA.DOMEA domea = new DOMEA.DOMEA();
-            //    domea.Init();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("DOMEA Implementation (DOMEA.dll) nicht gefunden!", "DOMEA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
-            #endregion
+            else
+            {//dann ist es ein Folder
+                CCD.Domea.Fw.Base.Obj.Folder folder = session.GetFolderByID(Convert.ToInt32(e.Node.Name));
+                Console.WriteLine("Folder: " + folder.Name + " --> folder.NoOfWorkItems: " + folder.NoOfWorkItems);
+                List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList(folder);
+                foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
+                {
+                    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
+                                                             wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
+                                                             wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
+                }
+            }
         }
 
-        #endregion
+        private void btnAddProcessInstanceToOTCS_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvDOMEAWorkList.Rows)
+            {
+                if (row.Cells["colPIChecked"].Value.ToString() == "1")
+                {
+                    //MessageBox.Show("yes");
+                    ShowUploadForm();
+                    frmUpload.AddItems(row, SystemImplementation.DOMEA.frmUploadToOTCS.ItemType.ProcessInstance);
+                    row.Cells["colPIChecked"].Value = 0;
+                }
+            }
+        }
 
+        private void btnAddDocumentsToOTCS_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvDOMEADocumentList.Rows)
+            {
+                if (row.Cells["colDocChecked"].Value.ToString() == "1")
+                {
+                    //MessageBox.Show("yes");
+                    ShowUploadForm();
+                    frmUpload.AddItems(row, SystemImplementation.DOMEA.frmUploadToOTCS.ItemType.Document);
+                    row.Cells["colDocChecked"].Value = 0;
+                }
+            }
+        }
+        private void ShowUploadForm()
+        {
+            if (!SystemImplementation.DOMEA.frmUploadToOTCS.IsVisible)
+            {
+                frmUpload = new SystemImplementation.DOMEA.frmUploadToOTCS(this, this.Left + this.Width, this.Top, this.Height);
+                frmUpload.Show();
+            }
+        }
+
+        private void btnDownloadFromDOMEA_Click(object sender, EventArgs e)
+        {
+            frmUpload.SetFolderProperties(Convert.ToInt32(txtID.Text), txtName.Text);
+        }
+
+        public void UploadProcessInstanceToOTCS(int ParentNodeID, string GZ, string Comment)
+        {
+            try
+            {
+                // Get a new Folder template with a unique name for creation
+                OTCSDocumentManagement.Node newFolder = fCWSClient.GetNodeTemplate(ParentNodeID, "Folder");
+
+                // Create the new Folder
+                newFolder = fCWSClient.CreateNode(newFolder);
+                newFolder.Name = GZ;
+                newFolder.Comment = Comment;
+                fCWSClient.UpdateNode(newFolder);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, OTCS.Constants.Application);
+            }
+        }
+
+        public void UploadDocumentToOTCS(int ParentNodeID, string ELZ, int Einlaufzahl)
+        {
+            try
+            {
+                // Get a new FileAtts object populated with info from a file on disk
+                string FilePath = session.GetDocumentFile(Einlaufzahl);
+                FileInfo fileInfo = new FileInfo(FilePath);
+
+                if (fileInfo != null)
+                {
+                    // Get a new Document template for the node based in the currently selected node
+                    OTCSDocumentManagement.Node newDoc = fCWSClient.GetNodeTemplate(ParentNodeID, "Document");
+                    newDoc.Name = ELZ;
+                    newDoc = fCWSClient.CreateNodeAndVersion(newDoc, fileInfo);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, OTCS.Constants.Application);
+            }
+        }
+
+        private void btnItemDOMEALogout_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            btnItemDOMEALogin.Enabled = true;
+            btnItemDOMEALogout.Enabled = false;
+            btnItemDOMEACR17DOMEA004.Enabled = false;
+            btnItemDOMEAShowWorkSpace.Enabled = false;
+            tvDOMEAMain.Nodes.Clear();
+            dgvDOMEAWorkList.Rows.Clear();
+            dgvDOMEADocumentList.Rows.Clear();
+            if (session.Logout())
+            {
+                FormHelper.Click(sideBarPanelItem2,
+                    superTabControl1, btnItemDOMEALogout, null);
+            }
+        }
+        #endregion
+        
         #region ORACLE
 
 
@@ -473,7 +594,73 @@ namespace myAdminTool
             tvDatabaseObjects.Nodes.Clear();
             lblStatusInfoOracle.Text = "";
         }
-        
+
+
+        private void tvDatabaseObjects_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            Cursor.Current = Cursors.WaitCursor;
+            dgvDBObject.DataSource = null;
+            TreeNode node = e.Node;
+            labelGeneralInfo.Text = "";
+            if (node.Parent != null)
+            {
+                string tableName = node.Text;
+                dataTable = OracleHelper.GetValuesFromTable(tableName);
+                if (dataTable != null)
+                {
+                    dgvDBObject.DataSource = dataTable;
+                    rowCount = dgvDBObject.Rows.Count - 1;
+                    labelGeneralInfo.Text = string.Format("RowCount: {0}", rowCount.ToString());
+                }
+            }
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void txtFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            try
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    DataView dv = dataTable.DefaultView;
+                    dv.RowFilter = GetFilter(txtFilter.Text);
+                    dgvDBObject.DataSource = dv;
+                    contextMenuFilter.Hide();
+                    rowCount = dgvDBObject.Rows.Count - 1;
+                    labelGeneralInfo.Text = string.Format("RowCount: {0}", rowCount.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Error.Show(ex);
+            }
+        }
+
+        private string GetFilter(string Text)
+        {
+            Util.WriteMethodInfoToConsole();
+            string rowFilter = "";
+            try
+            {
+                foreach (DataGridViewColumn col in dgvDBObject.Columns)
+                {
+                    if (col.ValueType.Name == "String")
+                    {
+                        if (rowFilter != "") { rowFilter += "OR "; }
+                        rowFilter += string.Format("{0} LIKE '%{1}%' ", col.Name, Text);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Error.Show(ex);
+            }
+            return rowFilter;
+        }
+
+
         #endregion
 
         #region OTContentServer
@@ -654,6 +841,273 @@ namespace myAdminTool
             //    btnOTCSLogout.Enabled = false;
             //}
         }
+
+        private void btnOTCSCreateUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnOTCSCreateGroup_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnOTCSFindMember_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            FormHelper.Click(sideBarPanelItem1, superTabControl1, btnOTCSFindMember, tiOTfindMember);
+
+            InitFindMember();
+        }
+        private void btnOTCSLoadCategories_Click(object sender, EventArgs e)
+        {
+            OTCSDocumentManagement.Node selectedNode = fCWSClient.GetNode(Convert.ToInt32(txtID.Text));
+            Util.WriteMethodInfoToConsole();
+            SystemImplementation.OTContentServer.Forms.frmCategories frmCat = new SystemImplementation.OTContentServer.Forms.frmCategories(fCWSClient);
+            frmCat.ShowDialog();
+
+            if (category != -999)
+            {
+                OTCSDocumentManagement.Node categoryObject = fCWSClient.GetNode(category);
+                if (categoryObject.Type == "Category")
+                {
+                    try
+                    {
+                        fCWSClient.AddCategory(selectedNode, categoryObject);
+                        fCWSClient.UpdateNode(selectedNode);
+                        getCategoriesForNode(selectedNode);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "ERROR - btn_Kategorie_Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Es muss ein Objekt vom Typ Kategorie ausgewählt werden");
+                }
+            }
+
+            //OTCSDocumentManagement.Node catNode = fCWSClient.GetRootNode("CategoriesWS");
+            //HConsole.WriteLine("Level=0: " + catNode.Name);
+            //ReturnSubNodes(Convert.ToInt32(catNode.ID), 1);
+        }
+
+        private void ReturnSubNodes(int parentID, int Level)
+        {
+            foreach (OTCSDocumentManagement.Node child in fCWSClient.ListNodes(parentID))
+            {
+                HConsole.WriteLine("Level=" + Level + ": " + child.Name);
+                if (fCWSClient.ListNodes(Convert.ToInt32(child.ID)) != null)
+                {
+                    ReturnSubNodes(Convert.ToInt32(child.ID), Level + 1);
+                }
+            }
+        }
+        private void btnOTCSShowWorkSpace_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            FormHelper.Click(sideBarPanelItem1, superTabControl1, btnOTCSLogin, tiOTContentServer);
+        }
+
+        private void getCategoriesForNode(OTCSDocumentManagement.Node node)
+        {
+            try
+            {
+                if (tcCategories.Controls.Count > 0)
+                {
+                    tcCategories.Controls.Clear();
+                }
+
+                if (node.Metadata.AttributeGroups != null)
+                {
+                    int top;
+                    foreach (OTCSDocumentManagement.AttributeGroup g in node.Metadata.AttributeGroups)
+                    {
+                        top = 10;
+                        TabPage tp = new TabPage();
+                        tp.Name = "tp_" + g.Key;
+                        tp.Text = g.DisplayName;
+                        tp.BackColor = System.Drawing.SystemColors.Control;
+
+                        tcCategories.TabPages.Add(tp);
+
+                        Panel p = new Panel();
+                        p.Name = "p_" + g.Key;
+                        p.AutoScroll = true;
+                        p.Dock = DockStyle.Fill;
+                        p.BackColor = System.Drawing.SystemColors.Control;
+                        tcCategories.TabPages["tp_" + g.Key].Controls.Add(p);
+
+                        for (int i = 0; i < g.Values.Length; i++)
+                        {
+                            if (g.Values[i].GetType() == typeof(OTCSDocumentManagement.StringValue))
+                            {
+                                OTCSDocumentManagement.StringValue val = g.Values[i] as OTCSDocumentManagement.StringValue;
+                                TextBox tb = new TextBox();
+                                tb.Width = 220;
+                                tb.Top = top;
+                                tb.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+                                tb.ReadOnly = true;
+                                tb.Name = "tb_" + i.ToString() + "_" + g.Key;
+                                tb.Text = g.Values[i].Description + ": ";
+                                if (val.Values != null)
+                                {
+                                    tb.Text += val.Values[0];
+                                }
+                                p.Controls.Add(tb);
+                                top += 30;
+
+                            }
+                            else if (g.Values[i].GetType() == typeof(OTCSDocumentManagement.DateValue))
+                            {
+                                OTCSDocumentManagement.DateValue val = g.Values[i] as OTCSDocumentManagement.DateValue;
+                                TextBox tb = new TextBox();
+                                tb.Width = 220;
+                                tb.Top = top;
+                                tb.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+                                tb.ReadOnly = true;
+                                tb.Name = "tb_" + i.ToString() + "_" + g.Key;
+                                tb.Text = g.Values[i].Description + ": ";
+                                if (val.Values != null)
+                                {
+                                    tb.Text += val.Values[0];
+                                }
+                                p.Controls.Add(tb);
+                                top += 30;
+                            }
+                            else
+                            {
+                                //MessageBox.Show("");
+                            }
+
+                        }
+                    }
+                }
+                if (tcCategories.TabPages.Count == 0)
+                {
+                    //tcCategories.Visible = false;
+                    groupBox3.Visible = false;
+                }
+                else
+                {
+                    //tcCategories.Visible = true;
+                    groupBox3.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR-getCategoriesForNode", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //this.Close();
+            }
+        }
+
+        private void btnOTCSShowDocVersion_Click(object sender, EventArgs e)
+        {
+            OTCSDocumentManagement.Node selectedNode = fCWSClient.GetNode(Convert.ToInt32(txtID.Text));
+            if (selectedNode.DisplayType == "Dokument")
+            {
+                SystemImplementation.OTContentServer.Forms.frmVersions frmVer = new SystemImplementation.OTContentServer.Forms.frmVersions(fCWSClient, selectedNode);
+                frmVer.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Versionen können nur auf Dokumente angezeigt werden!", "Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void treeViewLivelink_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            //vielleicht brauch ma es jo 
+        }
+
+        private OTCSWorkflowService.ProcessInstance selectedPI;
+
+        private void treeViewLivelink_NodeMouseHover(object sender, TreeNodeMouseHoverEventArgs e)
+        {
+            selectedPI = null;
+            if (ProcessInstances != null)
+            {
+                selectedPI = ProcessInstances.Find(a => a.Title == e.Node.Text);
+                if (selectedPI != null)
+                {
+                    string LinkTermTemplate = "<a href=\"TextBoxMoreInfo\">Hier klicken um die ProzessInstanz zu ändern</a>";
+
+                    superTooltip1.ShowTooltip(sender, Cursor.Position);
+                    superTooltip1.SetSuperTooltip((System.Windows.Forms.TreeView)sender,
+                            new DevComponents.DotNetBar.SuperTooltipInfo(selectedPI.Title, LinkTermTemplate,
+                            "ProcessInstance Status: " + selectedPI.Status,
+                            null, null, DevComponents.DotNetBar.eTooltipColor.Lemon));
+
+                }
+                else
+                {
+                    superTooltip1.HideTooltip();
+                }
+            }
+        }
+
+        private void treeViewLivelink_MouseMove(object sender, MouseEventArgs e)
+        {
+        }
+
+        private void superTooltip1_MarkupLinkClick(object sender, DevComponents.DotNetBar.MarkupLinkClickEventArgs e)
+        {
+            if (selectedPI != null)
+            {
+                for (int i = 0; i < selectedPI.Activities.Length; i++)
+                {
+                    if (selectedPI.Activities[i].Status.ToString().ToUpper() == "READY")
+                    {
+                        OTCSWorkflowService.ApplicationData[] appData = fCWSClient.GetWorkItemData(selectedPI, selectedPI.Activities[i].ID);
+                        fCWSClient.UpdateWorkItem(selectedPI, selectedPI.Activities[i].ID, appData);
+                        //break;
+                    }
+                }
+            }
+        }
+
+        private void btnItemEditTable_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            FormHelper.Click(sideBarPanelItem3,
+                superTabControl1, btnItemEditTable, tiEditTable);
+
+            tvDatabaseObjects.Nodes.Clear();
+            List<DBObject> allDBObjects = OracleHelper.GetAllTables();
+
+            List<DBObject> allTABLE = allDBObjects.FindAll(o => o.Type == "TABLE");
+            List<DBObject> allVIEW = allDBObjects.FindAll(o => o.Type == "VIEW");
+            //List<DBObject> allSYNONYM = allDBObjects.FindAll(o => o.Type == "SYNONYM");
+            //List<DBObject> allSEQUENCE = allDBObjects.FindAll(o => o.Type == "SEQUENCE");
+
+            TreeNode tn = tvDatabaseObjects.Nodes.Add("Tables", "Tables", 0);
+            foreach (DBObject obj in allTABLE)
+            {
+                if (!obj.Name.Contains("$"))
+                {
+                    tn.Nodes.Add(new TreeNode(obj.Name, 0, 0));
+                }
+            }
+            tn = tvDatabaseObjects.Nodes.Add("Views", "Views", 1);
+            foreach (DBObject obj in allVIEW)
+            {
+                tn.Nodes.Add(new TreeNode(obj.Name, 1, 1));
+            }
+            //tn = tvDatabaseObjects.Nodes.Add("Synonyms");
+            //foreach (DBObject obj in allSYNONYM)
+            //{
+            //    tn.Nodes.Add(new TreeNode(obj.Name));
+            //}
+            //tn = tvDatabaseObjects.Nodes.Add("Sequences");
+            //foreach (DBObject obj in allSEQUENCE)
+            //{
+            //    tn.Nodes.Add(new TreeNode(obj.Name));
+            //}
+
+            tvDatabaseObjects.Sort();
+        }
+
 
         // initialize the enterprise work space
         private void InitWorkspace()
@@ -1291,31 +1745,7 @@ namespace myAdminTool
         }
 
         #endregion
-
-        private void btnOTCSCreateUser_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnOTCSCreateGroup_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnOTCSFindMember_Click(object sender, EventArgs e)
-        {
-            Util.WriteMethodInfoToConsole();
-            FormHelper.Click(sideBarPanelItem1, superTabControl1, btnOTCSFindMember, tiOTfindMember);
-
-            InitFindMember();
-        }
-
-        private void btnOTCSShowWorkSpace_Click(object sender, EventArgs e)
-        {
-            Util.WriteMethodInfoToConsole();
-            FormHelper.Click(sideBarPanelItem1,superTabControl1, btnOTCSLogin, tiOTContentServer);
-        }
-
+        
         #region Find Member
 
         private void InitFindMember()
@@ -1739,201 +2169,7 @@ namespace myAdminTool
 
         #endregion
 
-        private void btnOTCSLoadCategories_Click(object sender, EventArgs e)
-        {
-            OTCSDocumentManagement.Node selectedNode = fCWSClient.GetNode(Convert.ToInt32(txtID.Text));
-            Util.WriteMethodInfoToConsole();
-            SystemImplementation.OTContentServer.Forms.frmCategories frmCat = new SystemImplementation.OTContentServer.Forms.frmCategories(fCWSClient);
-            frmCat.ShowDialog();
-
-            if (category != -999)
-            {
-                OTCSDocumentManagement.Node categoryObject = fCWSClient.GetNode(category);
-                if (categoryObject.Type == "Category")
-                {
-                    try
-                    {
-                        fCWSClient.AddCategory(selectedNode, categoryObject);
-                        fCWSClient.UpdateNode(selectedNode);
-                        getCategoriesForNode(selectedNode);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "ERROR - btn_Kategorie_Click", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Es muss ein Objekt vom Typ Kategorie ausgewählt werden");
-                }
-            }
-
-            //OTCSDocumentManagement.Node catNode = fCWSClient.GetRootNode("CategoriesWS");
-            //HConsole.WriteLine("Level=0: " + catNode.Name);
-            //ReturnSubNodes(Convert.ToInt32(catNode.ID), 1);
-        }
-
-        private void ReturnSubNodes(int parentID, int Level)
-        { 
-            foreach(OTCSDocumentManagement.Node child in fCWSClient.ListNodes(parentID))
-            {
-                HConsole.WriteLine("Level=" + Level + ": " + child.Name);
-                if (fCWSClient.ListNodes(Convert.ToInt32(child.ID)) != null)
-                {
-                    ReturnSubNodes(Convert.ToInt32(child.ID), Level + 1);
-                }
-            }
-        }
-
-        private void btnItemDOMEAShowWorkSpace_Click(object sender, EventArgs e)
-        {
-            Util.WriteMethodInfoToConsole();
-            FormHelper.Click(sideBarPanelItem2,
-                superTabControl1, btnItemDOMEAShowWorkSpace, tiDOMEA);
-        }
-
-        private void dgvDOMEAWorkList_SelectionChanged(object sender, EventArgs e)
-        {
-            Util.WriteMethodInfoToConsole();
-            if (dgvDOMEAWorkList.Rows.Count > 0)
-            {
-                try
-                {
-                    int IGZ = Convert.ToInt32(dgvDOMEAWorkList.SelectedRows[0].Cells["colIGZ"].Value);
-                    dgvDOMEADocumentList.Rows.Clear();
-                    Cursor.Current = Cursors.WaitCursor;
-                    foreach (CCD.Domea.Fw.Base.Obj.Document doc in session.GetDocuments(IGZ))
-                    {
-                        dgvDOMEADocumentList.Rows.Add(new string[] { "0", doc.Id.ToString(), doc.Name, doc.Comment, doc.GetTemplate().Name });
-                    }
-                    Cursor.Current = Cursors.Default;
-                }
-                catch { }
-            }
-        }
-
-        private void tvDOMEAMain_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            //List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList(session.GetFolderByID(Convert.ToInt32(tvDOMEAMain.SelectedNode.Name)));
-            //foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
-            //{
-            //    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
-            //                                                 wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
-            //                                                 wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
-            //}
-        }
-
-        private void getCategoriesForNode(OTCSDocumentManagement.Node node)
-        {
-            try
-            {
-                if (tcCategories.Controls.Count > 0)
-                {
-                    tcCategories.Controls.Clear();
-                }
-
-                if (node.Metadata.AttributeGroups != null)
-                {
-                    int top;
-                    foreach (OTCSDocumentManagement.AttributeGroup g in node.Metadata.AttributeGroups)
-                    {
-                        top = 10;
-                        TabPage tp = new TabPage();
-                        tp.Name = "tp_" + g.Key;
-                        tp.Text = g.DisplayName;
-                        tp.BackColor = System.Drawing.SystemColors.Control;
-
-                        tcCategories.TabPages.Add(tp);
-
-                        Panel p = new Panel();
-                        p.Name = "p_" + g.Key;
-                        p.AutoScroll = true;
-                        p.Dock = DockStyle.Fill;
-                        p.BackColor = System.Drawing.SystemColors.Control;
-                        tcCategories.TabPages["tp_" + g.Key].Controls.Add(p);
-
-                        for (int i = 0; i < g.Values.Length; i++)
-                        {
-                            if (g.Values[i].GetType() == typeof(OTCSDocumentManagement.StringValue))
-                            {
-                                OTCSDocumentManagement.StringValue val = g.Values[i] as OTCSDocumentManagement.StringValue;
-                                TextBox tb = new TextBox();
-                                tb.Width = 220;
-                                tb.Top = top;
-                                tb.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
-                                tb.ReadOnly = true;
-                                tb.Name = "tb_" + i.ToString() + "_" + g.Key;
-                                tb.Text = g.Values[i].Description + ": ";
-                                if (val.Values != null)
-                                {
-                                    tb.Text += val.Values[0];
-                                }
-                                p.Controls.Add(tb);
-                                top += 30;
-
-                            }
-                            else if (g.Values[i].GetType() == typeof(OTCSDocumentManagement.DateValue))
-                            {
-                                OTCSDocumentManagement.DateValue val = g.Values[i] as OTCSDocumentManagement.DateValue;
-                                TextBox tb = new TextBox();
-                                tb.Width = 220;
-                                tb.Top = top;
-                                tb.Anchor = (AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
-                                tb.ReadOnly = true;
-                                tb.Name = "tb_" + i.ToString() + "_" + g.Key;
-                                tb.Text = g.Values[i].Description + ": ";
-                                if (val.Values != null)
-                                {
-                                    tb.Text += val.Values[0];
-                                }
-                                p.Controls.Add(tb);
-                                top += 30;
-                            }
-                            else
-                            {
-                                //MessageBox.Show("");
-                            }
-
-                        }
-                    }
-                }
-                if (tcCategories.TabPages.Count == 0)
-                {
-                    //tcCategories.Visible = false;
-                    groupBox3.Visible = false;
-                }
-                else
-                {
-                    //tcCategories.Visible = true;
-                    groupBox3.Visible = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "ERROR-getCategoriesForNode", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //this.Close();
-            }
-        }
-
-        private void btnOTCSShowDocVersion_Click(object sender, EventArgs e)
-        {
-            OTCSDocumentManagement.Node selectedNode = fCWSClient.GetNode(Convert.ToInt32(txtID.Text));
-            if (selectedNode.DisplayType == "Dokument")
-            {
-                SystemImplementation.OTContentServer.Forms.frmVersions frmVer = new SystemImplementation.OTContentServer.Forms.frmVersions(fCWSClient, selectedNode);
-                frmVer.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("Versionen können nur auf Dokumente angezeigt werden!", "Version", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        private void treeViewLivelink_BeforeSelect(object sender, TreeViewCancelEventArgs e)
-        {
-           //vielleicht brauch ma es jo 
-        }
-
+        #region SQL Server
         private void btnItemSQLServerLogin_Click(object sender, EventArgs e)
         { //TEST FÜR LUKAS
             Util.WriteMethodInfoToConsole();
@@ -1979,283 +2215,159 @@ namespace myAdminTool
                 Error.Show(ex);
             }
         }
+        #endregion
 
-        private void tvDOMEAMain_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            dgvDOMEAWorkList.Rows.Clear();
-            if (e.Node.Parent == null)
-            {//dann ist es der Arbeitskorb
-                List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList();
-                Console.WriteLine("Arbeitskorb --> WorkItems.Count: " + WorkItems.Count);
-                foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
-                {
-                    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
-                                                             wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
-                                                             wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
-                }
-            }
-            else
-            {//dann ist es ein Folder
-                CCD.Domea.Fw.Base.Obj.Folder folder = session.GetFolderByID(Convert.ToInt32(e.Node.Name));
-                Console.WriteLine("Folder: " + folder.Name + " --> folder.NoOfWorkItems: " + folder.NoOfWorkItems);
-                List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList(folder);
-                foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
-                {
-                    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment,
-                                                             wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name,
-                                                             wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
-                }
-            }
-        }
+        #region CR17DOMEA004
+        //Organisationszusammenlegung
 
-        private void btnAddProcessInstanceToOTCS_Click(object sender, EventArgs e)
-        {
-            foreach(DataGridViewRow row in dgvDOMEAWorkList.Rows)
-            {
-                if (row.Cells["colPIChecked"].Value.ToString() == "1")
-                {
-                    //MessageBox.Show("yes");
-                    ShowUploadForm();
-                    frmUpload.AddItems(row, SystemImplementation.DOMEA.frmUploadToOTCS.ItemType.ProcessInstance);
-                    row.Cells["colPIChecked"].Value = 0;
-                }
-            }
-        }
+        #region Control Events
 
-        private void btnAddDocumentsToOTCS_Click(object sender, EventArgs e)
-        {
-            foreach(DataGridViewRow row in dgvDOMEADocumentList.Rows)
-            {
-                if (row.Cells["colDocChecked"].Value.ToString() == "1")
-                {
-                    //MessageBox.Show("yes");
-                    ShowUploadForm();
-                    frmUpload.AddItems(row, SystemImplementation.DOMEA.frmUploadToOTCS.ItemType.Document);
-                    row.Cells["colDocChecked"].Value = 0;
-                }
-            }
-        }
+        const int imgIdxEmpty = 1;
+        const int imgIdxFinished = 2;
+        const int imgIdxWorking = 3;
+        int rowID = -1;
 
-        private void ShowUploadForm()
-        {
-            if (!SystemImplementation.DOMEA.frmUploadToOTCS.IsVisible)
-            {
-                frmUpload = new SystemImplementation.DOMEA.frmUploadToOTCS(this, this.Left + this.Width, this.Top, this.Height);
-                frmUpload.Show();
-            }
-        }
-
-        private void btnDownloadFromDOMEA_Click(object sender, EventArgs e)
-        {
-            frmUpload.SetFolderProperties(Convert.ToInt32(txtID.Text), txtName.Text);
-        }
-       
-        public void UploadProcessInstanceToOTCS(int ParentNodeID, string GZ, string Comment)
-        {
-            try
-            {
-                // Get a new Folder template with a unique name for creation
-                OTCSDocumentManagement.Node newFolder = fCWSClient.GetNodeTemplate(ParentNodeID, "Folder");
-
-                // Create the new Folder
-                newFolder = fCWSClient.CreateNode(newFolder);
-                newFolder.Name = GZ;
-                newFolder.Comment = Comment;
-                fCWSClient.UpdateNode(newFolder);
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, OTCS.Constants.Application);
-            }
-        }
-
-        public void UploadDocumentToOTCS(int ParentNodeID, string ELZ, int Einlaufzahl)
-        {
-            try
-            {
-                // Get a new FileAtts object populated with info from a file on disk
-                string FilePath = session.GetDocumentFile(Einlaufzahl);
-                FileInfo fileInfo = new FileInfo(FilePath);
-
-                if (fileInfo != null)
-                {
-                    // Get a new Document template for the node based in the currently selected node
-                    OTCSDocumentManagement.Node newDoc = fCWSClient.GetNodeTemplate(ParentNodeID, "Document");
-                    newDoc.Name = ELZ;
-                    newDoc = fCWSClient.CreateNodeAndVersion(newDoc, fileInfo);
-                }
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(exception.Message, OTCS.Constants.Application);
-            }
-        }
-
-        private void btnItemDOMEALogout_Click(object sender, EventArgs e)
+        private void btnItemDOMEALogin_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
-            btnItemDOMEALogin.Enabled = true;
-            btnItemDOMEALogout.Enabled = false;
-            btnItemDOMEAShowWorkSpace.Enabled = false;
-            tvDOMEAMain.Nodes.Clear();
-            dgvDOMEAWorkList.Rows.Clear();
-            dgvDOMEADocumentList.Rows.Clear();
-            if (session.Logout())
+            #region old Version WorkList
+            //FormHelper.Click(sideBarPanelItem2, 
+            //    superTabControl1, btnItemDOMEALogin, tiDOMEA);
+            #endregion
+
+            session = new SystemImplementation.DOMEA.DOMEA();
+            if (session.Login())
             {
-                FormHelper.Click(sideBarPanelItem2,
-                    superTabControl1, btnItemDOMEALogout, null);
+                btnItemDOMEALogin.Enabled = false;
+                btnItemDOMEACR17DOMEA004.Enabled = true;
+                btnItemDOMEALogout.Enabled = true;
+
+                #region old Version WorkList
+                //lblStatusInfoDOMEA.Text = session.ConnectionInfo;
+                //btnItemDOMEAShowWorkSpace.Enabled = true;
+                //btnItemDOMEALogin.Enabled = false;
+                //btnItemDOMEALogout.Enabled = true;
+                //CCD.Domea.Fw.Base.Obj.Folder mainFolder = session.GetMainFolder();
+                //tvDOMEAMain.ImageList = imgListDOMEA;
+                //tvDOMEAMain.Nodes.Add(mainFolder.Id.ToString(), mainFolder.GetSession().GetLoggedOnUser().Name, 0);
+                //foreach(CCD.Domea.Fw.Base.Obj.Folder subFolder in mainFolder.GetSubFolders())
+                //{
+                //    tvDOMEAMain.Nodes[0].Nodes.Add(subFolder.Id.ToString(), subFolder.Name);
+                //}
+                //tvDOMEAMain.SelectedNode = tvDOMEAMain.Nodes[0];
+
+                //List<CCD.Domea.Fw.Base.Obj.WorkItem> WorkItems = session.GetWorkList();
+                //foreach (CCD.Domea.Fw.Base.Obj.WorkItem wi in WorkItems)
+                //{
+                //    dgvDOMEAWorkList.Rows.Add(new string[] { "0", wi.GetProcessInstance().Id.ToString(), wi.GetProcessInstance().Name, wi.GetProcessInstance().Comment, 
+                //                                             wi.GetProcessInstance().CountOfDocuments.ToString(), wi.GetProcessInstance().GetProcess().Name, 
+                //                                             wi.GetProcessInstance().GetProcessClass().Name, wi.GetCurrentProcessObject().Name });
+                //}
+                #endregion
             }
-        }
-        private OTCSWorkflowService.ProcessInstance selectedPI;
-
-        private void treeViewLivelink_NodeMouseHover(object sender, TreeNodeMouseHoverEventArgs e)
-        {
-            selectedPI = null;
-            if (ProcessInstances != null)
-            {
-                selectedPI = ProcessInstances.Find(a => a.Title == e.Node.Text);
-                if (selectedPI != null)
-                {
-                    string LinkTermTemplate = "<a href=\"TextBoxMoreInfo\">Hier klicken um die ProzessInstanz zu ändern</a>";
-
-                    superTooltip1.ShowTooltip(sender, Cursor.Position);
-                    superTooltip1.SetSuperTooltip((System.Windows.Forms.TreeView)sender,
-                            new DevComponents.DotNetBar.SuperTooltipInfo(selectedPI.Title, LinkTermTemplate,
-                            "ProcessInstance Status: " + selectedPI.Status,
-                            null, null, DevComponents.DotNetBar.eTooltipColor.Lemon));
-
-                }
-                else
-                {
-                    superTooltip1.HideTooltip();
-                }
-            }
-        }
-
-        private void treeViewLivelink_MouseMove(object sender, MouseEventArgs e)
-        {
-        }
-
-        private void superTooltip1_MarkupLinkClick(object sender, DevComponents.DotNetBar.MarkupLinkClickEventArgs e)
-        {
-            if (selectedPI != null)
-            {
-                for (int i = 0; i < selectedPI.Activities.Length; i++)
-                { 
-                    if (selectedPI.Activities[i].Status.ToString().ToUpper() == "READY")
-                    {
-                        OTCSWorkflowService.ApplicationData[] appData = fCWSClient.GetWorkItemData(selectedPI, selectedPI.Activities[i].ID);        
-                        fCWSClient.UpdateWorkItem(selectedPI, selectedPI.Activities[i].ID, appData);
-                        //break;
-                    }
-                }
-            }
-        }
-
-        private void btnItemEditTable_Click(object sender, EventArgs e)
-        {
-            Util.WriteMethodInfoToConsole();
-            FormHelper.Click(sideBarPanelItem3,
-                superTabControl1, btnItemEditTable, tiEditTable);
-            
-            tvDatabaseObjects.Nodes.Clear();
-            List<DBObject> allDBObjects = OracleHelper.GetAllTables();
-
-            List<DBObject> allTABLE = allDBObjects.FindAll(o => o.Type == "TABLE");
-            List<DBObject> allVIEW = allDBObjects.FindAll(o => o.Type == "VIEW");
-            //List<DBObject> allSYNONYM = allDBObjects.FindAll(o => o.Type == "SYNONYM");
-            //List<DBObject> allSEQUENCE = allDBObjects.FindAll(o => o.Type == "SEQUENCE");
-
-            TreeNode tn = tvDatabaseObjects.Nodes.Add("Tables", "Tables", 0);
-            foreach (DBObject obj in allTABLE)
-            {
-                if (!obj.Name.Contains("$"))
-                {
-                    tn.Nodes.Add(new TreeNode(obj.Name, 0,0));
-                }
-            }
-            tn = tvDatabaseObjects.Nodes.Add("Views", "Views",1);
-            foreach (DBObject obj in allVIEW)
-            {
-                tn.Nodes.Add(new TreeNode(obj.Name, 1,1));
-            }
-            //tn = tvDatabaseObjects.Nodes.Add("Synonyms");
-            //foreach (DBObject obj in allSYNONYM)
+            #region Old Version
+            //if (DOMEA.DOMEA.LibDOMEAImplementationExist)
             //{
-            //    tn.Nodes.Add(new TreeNode(obj.Name));
+            //    DOMEA.DOMEA domea = new DOMEA.DOMEA();
+            //    domea.Init();
             //}
-            //tn = tvDatabaseObjects.Nodes.Add("Sequences");
-            //foreach (DBObject obj in allSEQUENCE)
+            //else
             //{
-            //    tn.Nodes.Add(new TreeNode(obj.Name));
+            //    MessageBox.Show("DOMEA Implementation (DOMEA.dll) nicht gefunden!", "DOMEA", MessageBoxButtons.OK, MessageBoxIcon.Information);
             //}
-
-            tvDatabaseObjects.Sort();
+            #endregion
         }
 
-        private void tvDatabaseObjects_AfterSelect(object sender, TreeViewEventArgs e)
+        private void btnItemDOMEACR17DOMEA004_Click(object sender, EventArgs e)
         {
-            Util.WriteMethodInfoToConsole();
-            Cursor.Current = Cursors.WaitCursor;
-            dgvDBObject.DataSource = null;
-            TreeNode node = e.Node;
-            labelGeneralInfo.Text = "";
-            if (node.Parent != null)
+            FormHelper.Click(sideBarPanelItem2,
+                superTabControl1, btnItemDOMEACR17DOMEA004, tiCR17DOMEA004);
+
+            //Default Image
+            DataGridViewImageColumn cell = (DataGridViewImageColumn)dgvCR17DOMEA004Configuration.Columns["colStatus"];
+            cell.Image = imgListDOMEA.Images[imgIdxEmpty];
+
+            //Testdaten
+            for (int i = 0; i < 100; i++)
             {
-                string tableName = node.Text;
-                dataTable = OracleHelper.GetValuesFromTable(tableName);
-                if (dataTable != null)
-                {
-                    dgvDBObject.DataSource = dataTable;
-                    rowCount = dgvDBObject.Rows.Count - 1;
-                    labelGeneralInfo.Text = string.Format("RowCount: {0}", rowCount.ToString());
-                }
+                rowID = dgvCR17DOMEA004Configuration.Rows.Add(i.ToString(), i.ToString(), "From_" + i.ToString(), "", i.ToString(), "To_" + i.ToString(), "");
             }
-            Cursor.Current = Cursors.Default;
+
+            dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex = 0;
         }
 
-        private void txtFilter_KeyDown(object sender, KeyEventArgs e)
+
+        private void btnMovePI_Click(object sender, EventArgs e)
         {
-            Util.WriteMethodInfoToConsole();
-            try
+            bwMoveProcessInstances.RunWorkerAsync();
+        }
+
+        #endregion
+
+        #region BackGroundWorker move ProcessInstances
+        private void bwMoveProcessInstances_DoWork(object sender, DoWorkEventArgs e)
+        {
+            for (int idx = 0; idx < dgvCR17DOMEA004Configuration.Rows.Count; idx++)
             {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    DataView dv = dataTable.DefaultView;
-                    dv.RowFilter = GetFilter(txtFilter.Text);
-                    dgvDBObject.DataSource = dv;
-                    contextMenuFilter.Hide();
-                    rowCount = dgvDBObject.Rows.Count - 1;
-                    labelGeneralInfo.Text = string.Format("RowCount: {0}", rowCount.ToString());
-                }
-            }
-            catch(Exception ex)
-            {
-                Error.Show(ex);
+                bwMoveProcessInstances.ReportProgress(idx, idx);
+
+                #region moving ProcessInstances
+                ///<hier wird dann das wirkliche Verschieben durchgeführt>
+                System.Threading.Thread.Sleep(500);
+                #endregion
             }
         }
 
-        private string GetFilter(string Text)
+        private void bwMoveProcessInstances_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Util.WriteMethodInfoToConsole();
-            string rowFilter = "";
-            try
-            {
-                foreach (DataGridViewColumn col in dgvDBObject.Columns)
-                {
-                    if (col.ValueType.Name == "String")
-                    {
-                        if (rowFilter != "") { rowFilter += "OR "; }
-                        rowFilter += string.Format("{0} LIKE '%{1}%' ", col.Name, Text);
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                Error.Show(ex);
-            }
-            return rowFilter;
+            ChangeImage(Convert.ToInt32(e.UserState));
+
+            SetFirstVisibleRow(Convert.ToInt32(e.UserState));
         }
+
+        private void bwMoveProcessInstances_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            ChangeImage(dgvCR17DOMEA004Configuration.Rows.Count, true);
+        }
+
+        private void ChangeImage(int workingRowID, bool isLastRow = false)
+        {
+            #region finished Rows
+            List<DataGridViewRow> finishedRows = new List<DataGridViewRow>
+                                            (from DataGridViewRow r in dgvCR17DOMEA004Configuration.Rows
+                                             where Convert.ToInt32(r.Cells["colRowID"].Value) < workingRowID
+                                             select r);
+
+            DataGridViewImageCell cell = null;
+            foreach (DataGridViewRow row in finishedRows)
+            {
+                cell = (DataGridViewImageCell)row.Cells["colStatus"];
+                cell.Value = imgListDOMEA.Images[imgIdxFinished];
+            }
+            #endregion
+
+            #region working Row
+            if (!isLastRow)
+            {
+                cell = (DataGridViewImageCell)dgvCR17DOMEA004Configuration.Rows[workingRowID].Cells["colStatus"];
+                cell.Value = imgListDOMEA.Images[imgIdxWorking];
+            }
+            #endregion
+        }
+
+        private void SetFirstVisibleRow(int workingRowID)
+        {
+            if (dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex + dgvCR17DOMEA004Configuration.DisplayedRowCount(false) <= workingRowID)
+            {
+                dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex =
+                    workingRowID - dgvCR17DOMEA004Configuration.DisplayedRowCount(false) + 1;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
     }
 
     #region Certificate Policy
