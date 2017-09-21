@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
@@ -37,7 +38,6 @@
             DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates1 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
             DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -99,6 +99,11 @@
             this.btnAbout = new DevComponents.DotNetBar.ButtonItem();
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
+            this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.btnMovePI = new System.Windows.Forms.Button();
+            this.dgvCR17DOMEA004Configuration = new System.Windows.Forms.DataGridView();
+            this.colStatus = new System.Windows.Forms.DataGridViewImageColumn();
+            this.tiCR17DOMEA004 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.btnLoadProcessInstances = new System.Windows.Forms.Button();
             this.btnDownloadFromDOMEA = new System.Windows.Forms.Button();
@@ -128,10 +133,6 @@
             this.txtModifyDate = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.tiOTContentServer = new DevComponents.DotNetBar.SuperTabItem();
-            this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.btnMovePI = new System.Windows.Forms.Button();
-            this.dgvCR17DOMEA004Configuration = new System.Windows.Forms.DataGridView();
-            this.tiCR17DOMEA004 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel2 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.tvDOMEAMain = new System.Windows.Forms.TreeView();
@@ -219,14 +220,7 @@
             this.imgListDOMEA = new System.Windows.Forms.ImageList(this.components);
             this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
             this.bwMoveProcessInstances = new System.ComponentModel.BackgroundWorker();
-            this.colRowID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFromWorkListID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFromWorkListName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colSourceCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colToWorkListID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colToWorkListName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDestinationCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnCreateOEAndWG = new System.Windows.Forms.Button();
             this.dockSite1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barOTCS)).BeginInit();
             this.barOTCS.SuspendLayout();
@@ -245,14 +239,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainMenu)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
+            this.superTabControlPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004Configuration)).BeginInit();
             this.superTabControlPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.superTabControlPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004Configuration)).BeginInit();
             this.superTabControlPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
@@ -1096,6 +1090,71 @@
             this.superTabControl1.Text = "superTabControl1";
             this.superTabControl1.Visible = false;
             // 
+            // superTabControlPanel6
+            // 
+            this.superTabControlPanel6.CanvasColor = System.Drawing.SystemColors.Control;
+            this.superTabControlPanel6.Controls.Add(this.btnCreateOEAndWG);
+            this.superTabControlPanel6.Controls.Add(this.btnMovePI);
+            this.superTabControlPanel6.Controls.Add(this.dgvCR17DOMEA004Configuration);
+            this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.superTabControlPanel6.Location = new System.Drawing.Point(0, 25);
+            this.superTabControlPanel6.Name = "superTabControlPanel6";
+            this.superTabControlPanel6.Size = new System.Drawing.Size(537, 441);
+            this.superTabControlPanel6.TabIndex = 0;
+            this.superTabControlPanel6.TabItem = this.tiCR17DOMEA004;
+            // 
+            // btnMovePI
+            // 
+            this.btnMovePI.Location = new System.Drawing.Point(14, 330);
+            this.btnMovePI.Name = "btnMovePI";
+            this.btnMovePI.Size = new System.Drawing.Size(163, 23);
+            this.btnMovePI.TabIndex = 10;
+            this.btnMovePI.Text = "Move ProcessInstances";
+            this.btnMovePI.UseVisualStyleBackColor = true;
+            this.btnMovePI.Visible = false;
+            this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
+            // 
+            // dgvCR17DOMEA004Configuration
+            // 
+            this.dgvCR17DOMEA004Configuration.AllowUserToAddRows = false;
+            this.dgvCR17DOMEA004Configuration.AllowUserToDeleteRows = false;
+            this.dgvCR17DOMEA004Configuration.AllowUserToResizeRows = false;
+            this.dgvCR17DOMEA004Configuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvCR17DOMEA004Configuration.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCR17DOMEA004Configuration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvCR17DOMEA004Configuration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCR17DOMEA004Configuration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colStatus});
+            this.dgvCR17DOMEA004Configuration.Location = new System.Drawing.Point(0, 0);
+            this.dgvCR17DOMEA004Configuration.Name = "dgvCR17DOMEA004Configuration";
+            this.dgvCR17DOMEA004Configuration.RowHeadersVisible = false;
+            this.dgvCR17DOMEA004Configuration.Size = new System.Drawing.Size(537, 380);
+            this.dgvCR17DOMEA004Configuration.TabIndex = 10;
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            this.colStatus.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colStatus.Visible = false;
+            this.colStatus.Width = 20;
+            // 
+            // tiCR17DOMEA004
+            // 
+            this.tiCR17DOMEA004.AttachedControl = this.superTabControlPanel6;
+            this.tiCR17DOMEA004.GlobalItem = false;
+            this.tiCR17DOMEA004.Name = "tiCR17DOMEA004";
+            this.tiCR17DOMEA004.Text = "CR17DOMEA004";
+            // 
             // superTabControlPanel1
             // 
             this.superTabControlPanel1.CanvasColor = System.Drawing.SystemColors.Control;
@@ -1440,67 +1499,6 @@
             superTabItemColorTable1.Default = superTabColorStates1;
             this.tiOTContentServer.TabColor = superTabItemColorTable1;
             this.tiOTContentServer.Text = "ContentServer";
-            // 
-            // superTabControlPanel6
-            // 
-            this.superTabControlPanel6.CanvasColor = System.Drawing.SystemColors.Control;
-            this.superTabControlPanel6.Controls.Add(this.btnMovePI);
-            this.superTabControlPanel6.Controls.Add(this.dgvCR17DOMEA004Configuration);
-            this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel6.Location = new System.Drawing.Point(0, 25);
-            this.superTabControlPanel6.Name = "superTabControlPanel6";
-            this.superTabControlPanel6.Size = new System.Drawing.Size(537, 441);
-            this.superTabControlPanel6.TabIndex = 0;
-            this.superTabControlPanel6.TabItem = this.tiCR17DOMEA004;
-            // 
-            // btnMovePI
-            // 
-            this.btnMovePI.Location = new System.Drawing.Point(6, 345);
-            this.btnMovePI.Name = "btnMovePI";
-            this.btnMovePI.Size = new System.Drawing.Size(163, 23);
-            this.btnMovePI.TabIndex = 10;
-            this.btnMovePI.Text = "Move ProcessInstances";
-            this.btnMovePI.UseVisualStyleBackColor = true;
-            this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
-            // 
-            // dgvCR17DOMEA004Configuration
-            // 
-            this.dgvCR17DOMEA004Configuration.AllowUserToAddRows = false;
-            this.dgvCR17DOMEA004Configuration.AllowUserToDeleteRows = false;
-            this.dgvCR17DOMEA004Configuration.AllowUserToResizeRows = false;
-            this.dgvCR17DOMEA004Configuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvCR17DOMEA004Configuration.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCR17DOMEA004Configuration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvCR17DOMEA004Configuration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCR17DOMEA004Configuration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colRowID,
-            this.colFromWorkListID,
-            this.colFromWorkListName,
-            this.colSourceCount,
-            this.colToWorkListID,
-            this.colToWorkListName,
-            this.colDestinationCount,
-            this.colStatus});
-            this.dgvCR17DOMEA004Configuration.Location = new System.Drawing.Point(0, 0);
-            this.dgvCR17DOMEA004Configuration.Name = "dgvCR17DOMEA004Configuration";
-            this.dgvCR17DOMEA004Configuration.RowHeadersVisible = false;
-            this.dgvCR17DOMEA004Configuration.Size = new System.Drawing.Size(537, 339);
-            this.dgvCR17DOMEA004Configuration.TabIndex = 10;
-            // 
-            // tiCR17DOMEA004
-            // 
-            this.tiCR17DOMEA004.AttachedControl = this.superTabControlPanel6;
-            this.tiCR17DOMEA004.GlobalItem = false;
-            this.tiCR17DOMEA004.Name = "tiCR17DOMEA004";
-            this.tiCR17DOMEA004.Text = "CR17DOMEA004";
             // 
             // superTabControlPanel2
             // 
@@ -2424,67 +2422,17 @@
             this.bwMoveProcessInstances.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwMoveProcessInstances_ProgressChanged);
             this.bwMoveProcessInstances.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwMoveProcessInstances_RunWorkerCompleted);
             // 
-            // colRowID
+            // btnCreateOEAndWG
             // 
-            this.colRowID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colRowID.HeaderText = "ID";
-            this.colRowID.Name = "colRowID";
-            this.colRowID.ReadOnly = true;
-            this.colRowID.Width = 43;
-            // 
-            // colFromWorkListID
-            // 
-            this.colFromWorkListID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colFromWorkListID.HeaderText = "SourceID";
-            this.colFromWorkListID.Name = "colFromWorkListID";
-            this.colFromWorkListID.ReadOnly = true;
-            this.colFromWorkListID.Width = 77;
-            // 
-            // colFromWorkListName
-            // 
-            this.colFromWorkListName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colFromWorkListName.HeaderText = "Source Name";
-            this.colFromWorkListName.Name = "colFromWorkListName";
-            this.colFromWorkListName.ReadOnly = true;
-            // 
-            // colSourceCount
-            // 
-            this.colSourceCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colSourceCount.HeaderText = "Source Count";
-            this.colSourceCount.Name = "colSourceCount";
-            this.colSourceCount.ReadOnly = true;
-            this.colSourceCount.Width = 97;
-            // 
-            // colToWorkListID
-            // 
-            this.colToWorkListID.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colToWorkListID.HeaderText = "Destination ID";
-            this.colToWorkListID.Name = "colToWorkListID";
-            this.colToWorkListID.ReadOnly = true;
-            this.colToWorkListID.Width = 99;
-            // 
-            // colToWorkListName
-            // 
-            this.colToWorkListName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colToWorkListName.HeaderText = "Destination Name";
-            this.colToWorkListName.Name = "colToWorkListName";
-            this.colToWorkListName.ReadOnly = true;
-            // 
-            // colDestinationCount
-            // 
-            this.colDestinationCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colDestinationCount.HeaderText = "Destination Count";
-            this.colDestinationCount.Name = "colDestinationCount";
-            this.colDestinationCount.ReadOnly = true;
-            this.colDestinationCount.Width = 116;
-            // 
-            // colStatus
-            // 
-            this.colStatus.HeaderText = "";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            this.colStatus.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colStatus.Width = 20;
+            this.btnCreateOEAndWG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCreateOEAndWG.Location = new System.Drawing.Point(6, 386);
+            this.btnCreateOEAndWG.Name = "btnCreateOEAndWG";
+            this.btnCreateOEAndWG.Size = new System.Drawing.Size(172, 23);
+            this.btnCreateOEAndWG.TabIndex = 11;
+            this.btnCreateOEAndWG.Text = "create OE / WG";
+            this.btnCreateOEAndWG.UseVisualStyleBackColor = true;
+            this.btnCreateOEAndWG.Click += new System.EventHandler(this.btnCreateOEAndWG_Click);
             // 
             // frmMain
             // 
@@ -2524,6 +2472,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainMenu)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
+            this.superTabControlPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004Configuration)).EndInit();
             this.superTabControlPanel1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -2531,8 +2481,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.superTabControlPanel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004Configuration)).EndInit();
             this.superTabControlPanel2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
@@ -2755,14 +2703,8 @@
         private System.Windows.Forms.DataGridView dgvCR17DOMEA004Configuration;
         private System.ComponentModel.BackgroundWorker bwMoveProcessInstances;
         private System.Windows.Forms.Button btnMovePI;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colRowID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFromWorkListID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colFromWorkListName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSourceCount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colToWorkListID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colToWorkListName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDestinationCount;
         private System.Windows.Forms.DataGridViewImageColumn colStatus;
+        private System.Windows.Forms.Button btnCreateOEAndWG;
 
 
     }

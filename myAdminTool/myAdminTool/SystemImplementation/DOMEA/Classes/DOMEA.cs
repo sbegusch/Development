@@ -16,9 +16,26 @@ namespace myAdminTool.SystemImplementation.DOMEA
 {
     public class DOMEA
     {
+        private const string APP_CODE = "BIG";
+
         private Session session { get; set; }
 
         public string ConnectionInfo { get; set; }
+        
+        public string OracleConnectionString 
+        {
+            get
+            {
+                string retValue = "";
+                string stmtConnectionString = "select value from BIG_CONNECTION_STRING";
+                SQLTransaction transaction = new SQLTransaction(this.session, APP_CODE, stmtConnectionString);
+                foreach (SQLRow row in transaction.GetResultRows())
+                {
+                    retValue = row.ToString();
+                }
+                return retValue;
+            }
+        }
 
         public bool Login()
         {
@@ -41,7 +58,7 @@ namespace myAdminTool.SystemImplementation.DOMEA
                 return false;
             }
         }
-
+        
         public bool Logout()
         {
             Util.WriteMethodInfoToConsole();
@@ -111,5 +128,85 @@ namespace myAdminTool.SystemImplementation.DOMEA
             Util.WriteMethodInfoToConsole();
             return GetProcessInstanceByID(IGZ).GetDocuments().ToList<Document>();
         }
+
+        #region Organisation
+        public bool OrganisationExists(string OEBEZ)
+        {
+            Util.WriteMethodInfoToConsole();
+            try
+            {
+                if (session.GetOrganizations().First(o => o.Name == OEBEZ) == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public int createOrganisation(int ParentOEID, string OEBEZ, string OEKURZBEZ)
+        {
+            Organization parent = session.GetOrganizations().First(o => o.Id == ParentOEID);
+            Organization oe = new Organization(session);
+            oe.Name = OEBEZ;
+            oe.Code = OEKURZBEZ;
+            oe.SetParentOrganization(parent);
+            oe.Create();
+            return oe.Id;
+        }
+        #endregion
+
+        #region WorkGroup
+        public bool WorkGroupExists(string WGBEZ)
+        {
+            Util.WriteMethodInfoToConsole();
+            try
+            {
+                if (session.GetWorkGroups().First(w => w.Name == WGBEZ) == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public int createWorkGroup(int OEID, string WGBEZ)
+        {
+            Organization oe = session.GetOrganizations().First(o => o.Id == OEID);
+
+            WorkGroup wg = new WorkGroup(session);
+            wg.Name = WGBEZ;
+            wg.SetOrganization(oe);
+            wg.Create();
+            wg.AssignProfile(new Profile(session, 4));
+            return wg.Id;
+        }
+
+        public void assignUserToWorkGroup(int UserID, int WorkGroupID)
+        {
+            User user = new User(session, UserID);
+            if (user != null)
+            {
+                WorkGroup wg = new WorkGroup(session, WorkGroupID);
+                if (wg != null)
+                {
+                    user.AssignWorkGroup(wg);
+                }
+            }
+        }
+        #endregion
     }
 }

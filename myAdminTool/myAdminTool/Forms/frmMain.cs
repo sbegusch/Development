@@ -11,6 +11,7 @@ using myAdminTool.Classes;
 using System.IO;
 
 using System.Data.SqlClient;
+using Oracle.ManagedDataAccess.Client;
 
 namespace myAdminTool
 {
@@ -2226,7 +2227,7 @@ namespace myAdminTool
         const int imgIdxFinished = 2;
         const int imgIdxWorking = 3;
         int rowID = -1;
-
+        string oraConnString = "";
         private void btnItemDOMEALogin_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
@@ -2241,7 +2242,8 @@ namespace myAdminTool
                 btnItemDOMEALogin.Enabled = false;
                 btnItemDOMEACR17DOMEA004.Enabled = true;
                 btnItemDOMEALogout.Enabled = true;
-
+                oraConnString = session.OracleConnectionString;
+                oraConnString = oraConnString.Substring(1, oraConnString.Length - 2); // [wegschneiden] 
                 #region old Version WorkList
                 //lblStatusInfoDOMEA.Text = session.ConnectionInfo;
                 //btnItemDOMEAShowWorkSpace.Enabled = true;
@@ -2280,6 +2282,7 @@ namespace myAdminTool
 
         private void btnItemDOMEACR17DOMEA004_Click(object sender, EventArgs e)
         {
+            Util.WriteMethodInfoToConsole();
             FormHelper.Click(sideBarPanelItem2,
                 superTabControl1, btnItemDOMEACR17DOMEA004, tiCR17DOMEA004);
 
@@ -2288,17 +2291,41 @@ namespace myAdminTool
             cell.Image = imgListDOMEA.Images[imgIdxEmpty];
 
             //Testdaten
-            for (int i = 0; i < 100; i++)
-            {
-                rowID = dgvCR17DOMEA004Configuration.Rows.Add(i.ToString(), i.ToString(), "From_" + i.ToString(), "", i.ToString(), "To_" + i.ToString(), "");
-            }
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    rowID = dgvCR17DOMEA004Configuration.Rows.Add(i.ToString(), i.ToString(), "From_" + i.ToString(), "", i.ToString(), "To_" + i.ToString(), "");
+            //}
+            loadConfigTable();
 
             dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex = 0;
         }
 
+        private void loadConfigTable()
+        {
+            Util.WriteMethodInfoToConsole();
+            try
+            {
+                using (OracleConnection conn = new OracleConnection(oraConnString))
+                using (OracleCommand cmd = new OracleCommand("select * from V_BIG_WORKGROUP_MAPPING", conn))
+                {
+                    conn.Open();
+                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        dgvCR17DOMEA004Configuration.DataSource = dataTable;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
         private void btnMovePI_Click(object sender, EventArgs e)
         {
+            Util.WriteMethodInfoToConsole();
             bwMoveProcessInstances.RunWorkerAsync();
         }
 
@@ -2307,6 +2334,7 @@ namespace myAdminTool
         #region BackGroundWorker move ProcessInstances
         private void bwMoveProcessInstances_DoWork(object sender, DoWorkEventArgs e)
         {
+            Util.WriteMethodInfoToConsole();
             for (int idx = 0; idx < dgvCR17DOMEA004Configuration.Rows.Count; idx++)
             {
                 bwMoveProcessInstances.ReportProgress(idx, idx);
@@ -2320,6 +2348,7 @@ namespace myAdminTool
 
         private void bwMoveProcessInstances_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            Util.WriteMethodInfoToConsole();
             ChangeImage(Convert.ToInt32(e.UserState));
 
             SetFirstVisibleRow(Convert.ToInt32(e.UserState));
@@ -2327,11 +2356,13 @@ namespace myAdminTool
 
         private void bwMoveProcessInstances_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            Util.WriteMethodInfoToConsole();
             ChangeImage(dgvCR17DOMEA004Configuration.Rows.Count, true);
         }
 
         private void ChangeImage(int workingRowID, bool isLastRow = false)
         {
+            Util.WriteMethodInfoToConsole();
             #region finished Rows
             List<DataGridViewRow> finishedRows = new List<DataGridViewRow>
                                             (from DataGridViewRow r in dgvCR17DOMEA004Configuration.Rows
@@ -2357,6 +2388,7 @@ namespace myAdminTool
 
         private void SetFirstVisibleRow(int workingRowID)
         {
+            Util.WriteMethodInfoToConsole();
             if (dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex + dgvCR17DOMEA004Configuration.DisplayedRowCount(false) <= workingRowID)
             {
                 dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex =
@@ -2366,6 +2398,101 @@ namespace myAdminTool
 
         #endregion
 
+        private void btnCreateOEAndWG_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+
+            string stmtOE = "select oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by oebez_neu, oe_kurzbez_neu order by 2";
+
+            string stmtWG = "select destination_name from V_BIG_WORKGROUP_MAPPING where OEBEZ_NEU like 'OFM Kärnten' order by 1";
+
+            ///<PRÜFEN OB EINE OE EXISTIERT>
+            //Console.WriteLine(session.OrganisationExists("WF-ADM"));
+            ///<OE NEU ERSTELLEN>
+            //int ID = session.createOrganisation(1, "TEST", "kurzbez");
+
+            int wgID = session.createWorkGroup(1, "TEST1");
+            session.assignUserToWorkGroup(11, wgID);
+        }
+
+        //select m.usernr, m.username, m.kurzz, m.oenr, o.oebez, o.OE_KURZBEZ from 
+        //mitarbeiter m, organisation o
+        //where m.ist_rolle = 1 and m.status = 0
+        //  and o.vater_oe = 18
+        //  and o.status = 0
+        //  and m.oenr = o.oenr
+        //  order by oenr, username;
+
+        //drop table BIG_WORKGROUP_MAPPING;
+        //--USERNR;USERNAME;KURZZ;OENR;OEBEZ;OE_KURZBEZ;OEBEZ_NEU;OE_KURZBEZ_NEU;SOURCE_ID;SOURCE_NAME;DESTINATION_ID;DESTINATION_NAME
+        //create table BIG_WORKGROUP_MAPPING
+        //(
+        //USERNR  NUMBER,
+        //USERNAME VARCHAR2(100),
+        //KURZZ VARCHAR2(100),
+        //OENR  NUMBER,
+        //OEBEZ VARCHAR2(100),
+        //OE_KURZBEZ VARCHAR2(100),
+        //OEBEZ_NEU VARCHAR2(100),  
+        //OE_KURZBEZ_NEU VARCHAR2(100),
+        //SOURCE_ID  NUMBER,
+        //SOURCE_NAME VARCHAR2(100),
+        //DESTINATION_ID  NUMBER,
+        //DESTINATION_NAME VARCHAR2(100)
+        //);
+
+        //create view V_BIG_WORKGROUP_MAPPING AS
+        //select nvl(OENR, -1) OENR, nvl(OEBEZ, ' ') OEBEZ, nvl(OE_KURZBEZ, ' ') OE_KURZBEZ, 
+        //       nvl(OEBEZ_NEU, ' ') OEBEZ_NEU, nvl(OE_KURZBEZ_NEU, ' ') OE_KURZBEZ_NEU, --> ORGANISATION NEU
+        //       nvl(SOURCE_ID, -1) SOURCE_ID, nvl(SOURCE_NAME, ' ') SOURCE_NAME, --> Arbeitsgruppen ALT
+        //       nvl(DESTINATION_ID, -1) DESTINATION_ID, nvl(DESTINATION_NAME, ' ') DESTINATION_NAME --> Arbeitsgruppen NEU
+        //       from BIG_WORKGROUP_MAPPING;
+       
+        //select * from V_BIG_WORKGROUP_MAPPING;
+
+        ///****************************************************************************************************/
+        //--ZUM ERSTELLEN DER NEUEN ORGANISATIONEN
+        //select oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by oebez_neu, oe_kurzbez_neu order by 2; --> zum Erstellen neuer OEs
+        //--ZUM ERSTELLEN DER ARBEITSGRUPPEN JE ORGANISATION
+        //select destination_name from V_BIG_WORKGROUP_MAPPING where OEBEZ_NEU like 'OFM Kärnten' order by 1; --> zum Erstellen der Arbeitsgruppen je OE
+        //--ZUORDNUNG DER BENUTZER ZUR NEUEN ORGANISATION (ANHAND DER ALTEN ZUORDNUNG PRIMARY/SECONDARY)
+        //select distinct case when m.oenr = o.oenr then 1  --> Zuordnung der User zur neuen OE
+        //                     else 0
+        //                end IS_PRIMARY_OE,
+        //                m.* 
+        //from organisation o, V_BIG_WORKGROUP_MAPPING v, USER_OE z, mitarbeiter m 
+        //where v.OEBEZ_NEU like 'OFM Kärnten' 
+        //  and o.oenr = v.oenr
+        //  and z.oenr = o.oenr
+        //  and m.usernr = z.usernr
+        //  and m.status = 0
+        //  and m.ist_rolle = 0;
+        //--ALLE USER ALLER NEUEN ORGANISATIONEN (NUR ZUR PRÜFUNG)
+        //select distinct v.OEBEZ_NEU, case when m.oenr = o.oenr then 1 
+        //                     else 0
+        //                end IS_PRIMARY_OE,
+        //                m.usernr, m.username, m.titel, m.vorname, m.nachname, m.oenr, m.kurzz, m.extaddr, m.email
+        //from organisation o, V_BIG_WORKGROUP_MAPPING v, USER_OE z, mitarbeiter m 
+        //where o.oenr = v.oenr
+        //  and z.oenr = o.oenr
+        //  and m.usernr = z.usernr
+        //  and m.status = 0
+        //  and m.ist_rolle = 0 
+        //  order by 1;
+        //--ALLE USER ALLER NEUEN ORGANISATIONEN (NUR ZUR PRÜFUNG) MIT L_BIG_CONNECT
+        //select distinct v.OEBEZ_NEU, case when m.oenr = o.oenr then 1 
+        //                     else 0
+        //                end IS_PRIMARY_OE,
+        //                m.usernr, m.username, m.titel, m.vorname, m.nachname, m.oenr, m.kurzz, m.extaddr, m.email, c.*
+        //from organisation o, V_BIG_WORKGROUP_MAPPING v, USER_OE z, mitarbeiter m, L_BIG_CONNECT c 
+        //where o.oenr = v.oenr
+        //  and z.oenr = o.oenr
+        //  and m.usernr = z.usernr
+        //  and m.status = 0
+        //  and m.ist_rolle = 0 
+        //  and c.DOM_USERNR(+) = m.usernr
+        //  order by 1;  
+         
         #endregion
 
     }
