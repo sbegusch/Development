@@ -100,6 +100,7 @@
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
+            this.btnCreateOEAndWG = new System.Windows.Forms.Button();
             this.btnMovePI = new System.Windows.Forms.Button();
             this.dgvCR17DOMEA004Configuration = new System.Windows.Forms.DataGridView();
             this.colStatus = new System.Windows.Forms.DataGridViewImageColumn();
@@ -220,7 +221,6 @@
             this.imgListDOMEA = new System.Windows.Forms.ImageList(this.components);
             this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
             this.bwMoveProcessInstances = new System.ComponentModel.BackgroundWorker();
-            this.btnCreateOEAndWG = new System.Windows.Forms.Button();
             this.dockSite1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barOTCS)).BeginInit();
             this.barOTCS.SuspendLayout();
@@ -1102,6 +1102,18 @@
             this.superTabControlPanel6.Size = new System.Drawing.Size(537, 441);
             this.superTabControlPanel6.TabIndex = 0;
             this.superTabControlPanel6.TabItem = this.tiCR17DOMEA004;
+            // 
+            // btnCreateOEAndWG
+            // 
+            this.btnCreateOEAndWG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCreateOEAndWG.Location = new System.Drawing.Point(6, 386);
+            this.btnCreateOEAndWG.Name = "btnCreateOEAndWG";
+            this.btnCreateOEAndWG.Size = new System.Drawing.Size(172, 23);
+            this.btnCreateOEAndWG.TabIndex = 11;
+            this.btnCreateOEAndWG.Text = "create OE / WG";
+            this.btnCreateOEAndWG.UseVisualStyleBackColor = true;
+            this.btnCreateOEAndWG.Click += new System.EventHandler(this.btnCreateOEAndWG_Click);
             // 
             // btnMovePI
             // 
@@ -2421,18 +2433,6 @@
             this.bwMoveProcessInstances.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwMoveProcessInstances_DoWork);
             this.bwMoveProcessInstances.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwMoveProcessInstances_ProgressChanged);
             this.bwMoveProcessInstances.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwMoveProcessInstances_RunWorkerCompleted);
-            // 
-            // btnCreateOEAndWG
-            // 
-            this.btnCreateOEAndWG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCreateOEAndWG.Location = new System.Drawing.Point(6, 386);
-            this.btnCreateOEAndWG.Name = "btnCreateOEAndWG";
-            this.btnCreateOEAndWG.Size = new System.Drawing.Size(172, 23);
-            this.btnCreateOEAndWG.TabIndex = 11;
-            this.btnCreateOEAndWG.Text = "create OE / WG";
-            this.btnCreateOEAndWG.UseVisualStyleBackColor = true;
-            this.btnCreateOEAndWG.Click += new System.EventHandler(this.btnCreateOEAndWG_Click);
             // 
             // frmMain
             // 

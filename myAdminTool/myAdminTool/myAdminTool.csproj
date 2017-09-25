@@ -85,6 +85,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\ConsoleHelper.cs" />
+    <Compile Include="Forms\frmParentOrganisation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmParentOrganisation.Designer.cs">
+      <DependentUpon>frmParentOrganisation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="SystemImplementation\DOMEA\Classes\DOMEA.cs" />
     <Compile Include="SystemImplementation\DOMEA\Forms\frmUploadToOTCS.cs">
@@ -194,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmParentOrganisation.resx">
+      <DependentUpon>frmParentOrganisation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SystemImplementation\DOMEA\Forms\frmUploadToOTCS.resx">
       <DependentUpon>frmUploadToOTCS.cs</DependentUpon>

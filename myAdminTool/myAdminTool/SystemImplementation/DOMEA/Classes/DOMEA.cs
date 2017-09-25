@@ -130,17 +130,20 @@ namespace myAdminTool.SystemImplementation.DOMEA
         }
 
         #region Organisation
-        public bool OrganisationExists(string OEBEZ)
+        public bool OrganisationExists(string OEBEZ, out int OENr)
         {
             Util.WriteMethodInfoToConsole();
+            OENr = -1;
             try
             {
-                if (session.GetOrganizations().First(o => o.Name == OEBEZ) == null)
+                Organization oe = session.GetOrganizations().First(o => o.Name == OEBEZ);
+                if (oe == null)
                 {
                     return false;
                 }
                 else
                 {
+                    OENr = oe.Id;
                     return true;
                 }
             }
@@ -163,17 +166,20 @@ namespace myAdminTool.SystemImplementation.DOMEA
         #endregion
 
         #region WorkGroup
-        public bool WorkGroupExists(string WGBEZ)
+        public bool WorkGroupExists(string WGBEZ, out int WGNr)
         {
             Util.WriteMethodInfoToConsole();
+            WGNr = -1;
             try
             {
-                if (session.GetWorkGroups().First(w => w.Name == WGBEZ) == null)
+                WorkGroup wg = session.GetWorkGroups().First(w => w.Name == WGBEZ);
+                if (wg == null)
                 {
                     return false;
                 }
                 else
                 {
+                    WGNr = wg.Id;
                     return true;
                 }
             }

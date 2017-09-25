@@ -2401,19 +2401,85 @@ namespace myAdminTool
         private void btnCreateOEAndWG_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
+            using (Forms.frmParentOrganisation parentOE = new Forms.frmParentOrganisation())
+            {
+                parentOE.ShowDialog();
+                int parentOENr = parentOE.OENr;
+                
+                OpenConnection();
+                #region SELEKTIEREN DER NEUEN ORGANISATIONEN
+                string stmtOE = "select oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by oebez_neu, oe_kurzbez_neu order by 2";
+                using (OracleCommand cmd = new OracleCommand(stmtOE, oraConn))
+                {
+                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader != null)
+                        {
+                            #region DEFINITION
+                            string OEBez = "";
+                            string OEKurzbez = "";
+                            string WGName = "";
+                            int oeID;
+                            int wgID;
+                            #endregion
+                            while (reader.Read())
+                            {
+                                OEBez = reader["oebez_neu"].ToString();
+                                OEKurzbez = reader["oe_kurzbez_neu"].ToString();
 
-            string stmtOE = "select oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by oebez_neu, oe_kurzbez_neu order by 2";
+                                #region PRÜFEN OB DIE OE EXISTIERT
+                                if (!session.OrganisationExists(OEBez, out oeID))
+                                {
+                                    #region OE NEU ERSTELLEN
+                                    oeID = session.createOrganisation(parentOENr, OEBez, OEKurzbez);
+                                    #endregion
+                                }
+                                #endregion
 
-            string stmtWG = "select destination_name from V_BIG_WORKGROUP_MAPPING where OEBEZ_NEU like 'OFM Kärnten' order by 1";
-
-            ///<PRÜFEN OB EINE OE EXISTIERT>
-            //Console.WriteLine(session.OrganisationExists("WF-ADM"));
-            ///<OE NEU ERSTELLEN>
-            //int ID = session.createOrganisation(1, "TEST", "kurzbez");
-
-            int wgID = session.createWorkGroup(1, "TEST1");
-            session.assignUserToWorkGroup(11, wgID);
+                                #region SELEKTIEREN DER NEUEN ARBEITSGRUPPEN
+                                string stmtWG = "select destination_name from V_BIG_WORKGROUP_MAPPING where OEBEZ_NEU like '" + OEBez + "' order by 1";
+                                using (OracleCommand cmdWG = new OracleCommand(stmtWG, oraConn))
+                                {
+                                    using (OracleDataReader readerWG = cmdWG.ExecuteReader())
+                                    {
+                                        if (readerWG != null)
+                                        {
+                                            while (readerWG.Read())
+                                            {
+                                                WGName = readerWG["destination_name"].ToString();
+                                                if (WGName.Trim() != "")
+                                                {
+                                                    #region PRÜFEN OB DIE ARBEITSGRUPPE EXISTIERT
+                                                    if (!session.WorkGroupExists(WGName, out wgID))
+                                                    {
+                                                        #region ARBEITSGRUPPE NEU ERSTELLEN
+                                                        wgID = session.createWorkGroup(oeID, WGName);
+                                                        #endregion
+                                                    }
+                                                    #endregion
+                                                }
+                                                //session.assignUserToWorkGroup(11, wgID);
+                                            }
+                                        }
+                                    }
+                                }
+                                #endregion
+                            }
+                        }
+                    }
+                }
+                #endregion
+            }
         }
+
+        private OracleConnection oraConn { get; set; }
+
+        private void OpenConnection()
+        {
+            oraConn = new OracleConnection(oraConnString);
+            oraConn.Open();
+        }
+     
 
         //select m.usernr, m.username, m.kurzz, m.oenr, o.oebez, o.OE_KURZBEZ from 
         //mitarbeiter m, organisation o
