@@ -213,6 +213,31 @@ namespace myAdminTool.SystemImplementation.DOMEA
                 }
             }
         }
+
+        public bool isUserAssignedToWorkGroup(int UserID, int WorkGroupID)
+        {
+            try
+            {
+                User user = new User(session, UserID);
+                if (user != null)
+                {
+                    WorkGroup wg = user.GetWorkGroups().First(w => w.Id == WorkGroupID);
+                    if (wg == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         #endregion
     }
 }

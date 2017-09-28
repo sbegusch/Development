@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable4 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabItemColorTable superTabItemColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabItemColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates2 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
+            DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable5 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            DevComponents.DotNetBar.Rendering.SuperTabItemColorTable superTabItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates1 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
-            DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
             this.dotNetBarMainManager = new DevComponents.DotNetBar.DotNetBarManager(this.components);
             this.dockSite4 = new DevComponents.DotNetBar.DockSite();
             this.dockSite1 = new DevComponents.DotNetBar.DockSite();
@@ -221,6 +221,7 @@
             this.imgListDOMEA = new System.Windows.Forms.ImageList(this.components);
             this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
             this.bwMoveProcessInstances = new System.ComponentModel.BackgroundWorker();
+            this.gpCR17DOMEA004 = new System.Windows.Forms.GroupBox();
             this.dockSite1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barOTCS)).BeginInit();
             this.barOTCS.SuspendLayout();
@@ -282,6 +283,7 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdressaten)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.gpCR17DOMEA004.SuspendLayout();
             this.SuspendLayout();
             // 
             // dotNetBarMainManager
@@ -1093,9 +1095,7 @@
             // superTabControlPanel6
             // 
             this.superTabControlPanel6.CanvasColor = System.Drawing.SystemColors.Control;
-            this.superTabControlPanel6.Controls.Add(this.btnCreateOEAndWG);
-            this.superTabControlPanel6.Controls.Add(this.btnMovePI);
-            this.superTabControlPanel6.Controls.Add(this.dgvCR17DOMEA004Configuration);
+            this.superTabControlPanel6.Controls.Add(this.gpCR17DOMEA004);
             this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel6.Location = new System.Drawing.Point(0, 25);
             this.superTabControlPanel6.Name = "superTabControlPanel6";
@@ -1105,25 +1105,26 @@
             // 
             // btnCreateOEAndWG
             // 
-            this.btnCreateOEAndWG.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCreateOEAndWG.Location = new System.Drawing.Point(6, 386);
+            this.btnCreateOEAndWG.BackColor = System.Drawing.Color.White;
+            this.btnCreateOEAndWG.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateOEAndWG.Image")));
+            this.btnCreateOEAndWG.Location = new System.Drawing.Point(3, 8);
             this.btnCreateOEAndWG.Name = "btnCreateOEAndWG";
-            this.btnCreateOEAndWG.Size = new System.Drawing.Size(172, 23);
+            this.btnCreateOEAndWG.Size = new System.Drawing.Size(57, 57);
             this.btnCreateOEAndWG.TabIndex = 11;
-            this.btnCreateOEAndWG.Text = "create OE / WG";
-            this.btnCreateOEAndWG.UseVisualStyleBackColor = true;
+            this.ttButtonInfo.SetToolTip(this.btnCreateOEAndWG, "create Organisation, Workgroups and assign User to Workgroups");
+            this.btnCreateOEAndWG.UseVisualStyleBackColor = false;
             this.btnCreateOEAndWG.Click += new System.EventHandler(this.btnCreateOEAndWG_Click);
             // 
             // btnMovePI
             // 
-            this.btnMovePI.Location = new System.Drawing.Point(14, 330);
+            this.btnMovePI.BackColor = System.Drawing.Color.White;
+            this.btnMovePI.Image = ((System.Drawing.Image)(resources.GetObject("btnMovePI.Image")));
+            this.btnMovePI.Location = new System.Drawing.Point(66, 8);
             this.btnMovePI.Name = "btnMovePI";
-            this.btnMovePI.Size = new System.Drawing.Size(163, 23);
+            this.btnMovePI.Size = new System.Drawing.Size(57, 57);
             this.btnMovePI.TabIndex = 10;
-            this.btnMovePI.Text = "Move ProcessInstances";
-            this.btnMovePI.UseVisualStyleBackColor = true;
-            this.btnMovePI.Visible = false;
+            this.ttButtonInfo.SetToolTip(this.btnMovePI, "Move ProcessInstances");
+            this.btnMovePI.UseVisualStyleBackColor = false;
             this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
             // 
             // dgvCR17DOMEA004Configuration
@@ -1131,24 +1132,25 @@
             this.dgvCR17DOMEA004Configuration.AllowUserToAddRows = false;
             this.dgvCR17DOMEA004Configuration.AllowUserToDeleteRows = false;
             this.dgvCR17DOMEA004Configuration.AllowUserToResizeRows = false;
-            this.dgvCR17DOMEA004Configuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvCR17DOMEA004Configuration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCR17DOMEA004Configuration.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCR17DOMEA004Configuration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCR17DOMEA004Configuration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvCR17DOMEA004Configuration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCR17DOMEA004Configuration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStatus});
-            this.dgvCR17DOMEA004Configuration.Location = new System.Drawing.Point(0, 0);
+            this.dgvCR17DOMEA004Configuration.Location = new System.Drawing.Point(3, 67);
             this.dgvCR17DOMEA004Configuration.Name = "dgvCR17DOMEA004Configuration";
             this.dgvCR17DOMEA004Configuration.RowHeadersVisible = false;
-            this.dgvCR17DOMEA004Configuration.Size = new System.Drawing.Size(537, 380);
+            this.dgvCR17DOMEA004Configuration.Size = new System.Drawing.Size(529, 346);
             this.dgvCR17DOMEA004Configuration.TabIndex = 10;
             // 
             // colStatus
@@ -1182,11 +1184,11 @@
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel1.Location = new System.Drawing.Point(0, 25);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
-            superTabLinearGradientColorTable1.Colors = new System.Drawing.Color[] {
+            superTabLinearGradientColorTable4.Colors = new System.Drawing.Color[] {
         System.Drawing.SystemColors.Control};
-            superTabPanelItemColorTable1.Background = superTabLinearGradientColorTable1;
-            superTabPanelColorTable1.Default = superTabPanelItemColorTable1;
-            this.superTabControlPanel1.PanelColor = superTabPanelColorTable1;
+            superTabPanelItemColorTable3.Background = superTabLinearGradientColorTable4;
+            superTabPanelColorTable3.Default = superTabPanelItemColorTable3;
+            this.superTabControlPanel1.PanelColor = superTabPanelColorTable3;
             this.superTabControlPanel1.Size = new System.Drawing.Size(537, 441);
             this.superTabControlPanel1.TabIndex = 1;
             this.superTabControlPanel1.TabItem = this.tiOTContentServer;
@@ -1504,12 +1506,12 @@
             this.tiOTContentServer.AttachedControl = this.superTabControlPanel1;
             this.tiOTContentServer.GlobalItem = false;
             this.tiOTContentServer.Name = "tiOTContentServer";
-            superTabLinearGradientColorTable2.Colors = new System.Drawing.Color[] {
+            superTabLinearGradientColorTable5.Colors = new System.Drawing.Color[] {
         System.Drawing.SystemColors.Control};
-            superTabItemStateColorTable1.Background = superTabLinearGradientColorTable2;
-            superTabColorStates1.Normal = superTabItemStateColorTable1;
-            superTabItemColorTable1.Default = superTabColorStates1;
-            this.tiOTContentServer.TabColor = superTabItemColorTable1;
+            superTabItemStateColorTable2.Background = superTabLinearGradientColorTable5;
+            superTabColorStates2.Normal = superTabItemStateColorTable2;
+            superTabItemColorTable2.Default = superTabColorStates2;
+            this.tiOTContentServer.TabColor = superTabItemColorTable2;
             this.tiOTContentServer.Text = "ContentServer";
             // 
             // superTabControlPanel2
@@ -1590,8 +1592,8 @@
             this.dgvDOMEAWorkList.AllowUserToDeleteRows = false;
             this.dgvDOMEAWorkList.AllowUserToOrderColumns = true;
             this.dgvDOMEAWorkList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEAWorkList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEAWorkList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvDOMEAWorkList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1614,8 +1616,8 @@
             this.dgvDOMEAWorkList.MultiSelect = false;
             this.dgvDOMEAWorkList.Name = "dgvDOMEAWorkList";
             this.dgvDOMEAWorkList.RowHeadersVisible = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvDOMEAWorkList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDOMEAWorkList.Size = new System.Drawing.Size(352, 95);
             this.dgvDOMEAWorkList.TabIndex = 0;
@@ -1721,8 +1723,8 @@
             this.dgvDOMEADocumentList.Location = new System.Drawing.Point(0, 23);
             this.dgvDOMEADocumentList.Name = "dgvDOMEADocumentList";
             this.dgvDOMEADocumentList.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle8;
             this.dgvDOMEADocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDOMEADocumentList.Size = new System.Drawing.Size(352, 293);
             this.dgvDOMEADocumentList.TabIndex = 0;
@@ -1867,11 +1869,11 @@
             this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
             this.superTabControlPanel4.Name = "superTabControlPanel4";
-            superTabLinearGradientColorTable3.Colors = new System.Drawing.Color[] {
+            superTabLinearGradientColorTable1.Colors = new System.Drawing.Color[] {
         System.Drawing.SystemColors.Control};
-            superTabPanelItemColorTable2.Background = superTabLinearGradientColorTable3;
-            superTabPanelColorTable2.Default = superTabPanelItemColorTable2;
-            this.superTabControlPanel4.PanelColor = superTabPanelColorTable2;
+            superTabPanelItemColorTable1.Background = superTabLinearGradientColorTable1;
+            superTabPanelColorTable1.Default = superTabPanelItemColorTable1;
+            this.superTabControlPanel4.PanelColor = superTabPanelColorTable1;
             this.superTabControlPanel4.Size = new System.Drawing.Size(537, 466);
             this.superTabControlPanel4.TabIndex = 0;
             this.superTabControlPanel4.TabItem = this.tiOTfindMember;
@@ -2011,7 +2013,7 @@
             this._listViewMembers.BackColor = System.Drawing.SystemColors.Control;
             this._listViewMembers.Dock = System.Windows.Forms.DockStyle.Fill;
             this._listViewMembers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this._listViewMembers.LabelWrap = false;
             this._listViewMembers.Location = new System.Drawing.Point(0, 0);
             this._listViewMembers.MultiSelect = false;
@@ -2434,6 +2436,18 @@
             this.bwMoveProcessInstances.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwMoveProcessInstances_ProgressChanged);
             this.bwMoveProcessInstances.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwMoveProcessInstances_RunWorkerCompleted);
             // 
+            // gpCR17DOMEA004
+            // 
+            this.gpCR17DOMEA004.Controls.Add(this.btnCreateOEAndWG);
+            this.gpCR17DOMEA004.Controls.Add(this.btnMovePI);
+            this.gpCR17DOMEA004.Controls.Add(this.dgvCR17DOMEA004Configuration);
+            this.gpCR17DOMEA004.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gpCR17DOMEA004.Location = new System.Drawing.Point(0, 0);
+            this.gpCR17DOMEA004.Name = "gpCR17DOMEA004";
+            this.gpCR17DOMEA004.Size = new System.Drawing.Size(537, 441);
+            this.gpCR17DOMEA004.TabIndex = 12;
+            this.gpCR17DOMEA004.TabStop = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2521,6 +2535,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdressaten)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.gpCR17DOMEA004.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2705,6 +2720,7 @@
         private System.Windows.Forms.Button btnMovePI;
         private System.Windows.Forms.DataGridViewImageColumn colStatus;
         private System.Windows.Forms.Button btnCreateOEAndWG;
+        private System.Windows.Forms.GroupBox gpCR17DOMEA004;
 
 
     }

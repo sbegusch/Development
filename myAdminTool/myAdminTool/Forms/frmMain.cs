@@ -2219,15 +2219,22 @@ namespace myAdminTool
         #endregion
 
         #region CR17DOMEA004
-        //Organisationszusammenlegung
+        /// <summary>
+        /// Organisationzusammenlegung - CR17DOMEA004 - BIG Changes 2.0
+        /// Stefan Begusch 2017-09-28
+        /// </summary>
 
         #region Control Events
-
+        #region Constants
         const int imgIdxEmpty = 1;
         const int imgIdxFinished = 2;
         const int imgIdxWorking = 3;
+        #endregion
+        #region privat Member
         int rowID = -1;
         string oraConnString = "";
+        #endregion
+
         private void btnItemDOMEALogin_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
@@ -2300,33 +2307,166 @@ namespace myAdminTool
             dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex = 0;
         }
 
-        private void loadConfigTable()
-        {
-            Util.WriteMethodInfoToConsole();
-            try
-            {
-                using (OracleConnection conn = new OracleConnection(oraConnString))
-                using (OracleCommand cmd = new OracleCommand("select * from V_BIG_WORKGROUP_MAPPING", conn))
-                {
-                    conn.Open();
-                    using (OracleDataReader reader = cmd.ExecuteReader())
-                    {
-                        DataTable dataTable = new DataTable();
-                        dataTable.Load(reader);
-                        dgvCR17DOMEA004Configuration.DataSource = dataTable;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         private void btnMovePI_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
             bwMoveProcessInstances.RunWorkerAsync();
+        }
+
+        private void btnCreateOEAndWG_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            using (Forms.frmParentOrganisation parentOE = new Forms.frmParentOrganisation())
+            {
+                parentOE.ShowDialog();
+                int parentOENr = parentOE.OENr;
+                OpenConnection();
+
+                HConsole.WriteLine(">> btnCreateOEAndWG_Click() --> parentOENr=" + parentOENr);
+                #region SELEKTIEREN DER NEUEN ORGANISATIONEN
+                string stmtOE = "select oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by oebez_neu, oe_kurzbez_neu order by 2";
+                using (OracleCommand cmd = new OracleCommand(stmtOE, oraConn))
+                {
+                    #region HelperRegion 1
+                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    {
+                        #region HelperRegion 2
+                        if (reader != null)
+                        {
+                            #region HelperRegion 3
+                            #region DEFINITION
+                            string OEBez = "";
+                            string OEKurzbez = "";
+                            string WGName = "";
+                            string userName = "";
+                            int oeID;
+                            int wgID;
+                            int userID;
+                            #endregion
+                            while (reader.Read())
+                            {
+                                try
+                                {
+                                    #region HelperRegion 4
+                                    OEBez = reader["oebez_neu"].ToString();
+                                    OEKurzbez = reader["oe_kurzbez_neu"].ToString();
+
+                                    #region ORGANISATION
+                                    if (!session.OrganisationExists(OEBez, out oeID))
+                                    {
+                                        #region OE NEU ERSTELLEN
+                                        HConsole.WriteLine(">> create Organisation '" + OEBez + "'");
+                                        oeID = session.createOrganisation(parentOENr, OEBez, OEKurzbez);
+                                        #endregion
+                                    }
+                                    else
+                                    {
+                                        HConsole.WriteLine(">> Organisation '" + OEBez + "' already exists");
+                                    }
+                                    #endregion
+
+                                    #region ARBEITSGRUPPE
+                                    string stmtWG = "select destination_name from V_BIG_WORKGROUP_MAPPING where OEBEZ_NEU like '" + OEBez + "' order by 1";
+                                    using (OracleCommand cmdWG = new OracleCommand(stmtWG, oraConn))
+                                    {
+                                        using (OracleDataReader readerWG = cmdWG.ExecuteReader())
+                                        {
+                                            if (readerWG != null)
+                                            {
+                                                while (readerWG.Read())
+                                                {
+                                                    #region OracleDataReader-WorkGroup --> Read()
+                                                    try
+                                                    {
+                                                        WGName = readerWG["destination_name"].ToString();
+                                                        if (WGName.Trim() != "")
+                                                        {
+                                                            #region PRÜFEN OB DIE ARBEITSGRUPPE EXISTIERT
+                                                            if (!session.WorkGroupExists(WGName, out wgID))
+                                                            {
+                                                                #region ARBEITSGRUPPE NEU ERSTELLEN
+                                                                HConsole.WriteLine(">> create WorkGroup '" + WGName + "'");
+                                                                wgID = session.createWorkGroup(oeID, WGName);
+                                                                #endregion
+                                                            }
+                                                            else
+                                                            {
+                                                                HConsole.WriteLine(">> WorkGroup '" + WGName + "' already exists");
+                                                            }
+                                                            #endregion
+
+                                                            #region BENUTZER ZUORDNEN
+                                                            try
+                                                            {
+                                                                string stmtUser = "select m.usernr, m.username " +
+                                                                                "from V_BIG_WORKGROUP_MAPPING v, stellvertreter s, mitarbeiter m " +
+                                                                                "where v.DESTINATION_NAME = '" + WGName + "' " +
+                                                                                "and s.usernr = v.source_id " +
+                                                                                "and m.usernr = s.stellvertreternr " +
+                                                                                "and m.status = 0 " +
+                                                                                "and m.ist_rolle = 0";
+
+                                                                using (OracleCommand cmdUser = new OracleCommand(stmtUser, oraConn))
+                                                                {
+                                                                    using (OracleDataReader readerUser = cmdWG.ExecuteReader())
+                                                                    {
+                                                                        if (readerUser != null)
+                                                                        {
+                                                                            while (readerUser.Read())
+                                                                            {
+                                                                                #region OracleDataReader-User --> Read()
+                                                                                try
+                                                                                {
+                                                                                    userID = Convert.ToInt32(readerUser["usernr"].ToString());
+                                                                                    userName = readerUser["username"].ToString();
+                                                                                    HConsole.WriteLine(">> add User '" + userName + "' to WorkGroup '" + WGName + "'");
+                                                                                    if (!session.isUserAssignedToWorkGroup(userID, wgID))
+                                                                                    {
+                                                                                        session.assignUserToWorkGroup(userID, wgID);
+                                                                                    }
+                                                                                }
+                                                                                catch (Exception ex)
+                                                                                {
+                                                                                    HConsole.WriteError(ex);
+                                                                                }
+                                                                                #endregion
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            catch (Exception ex)
+                                                            {
+                                                                HConsole.WriteError(ex);
+                                                            }
+                                                            #endregion
+                                                        }
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        HConsole.WriteError(ex);
+                                                    }
+                                                    #endregion
+                                                }
+                                            }
+                                        }
+                                    #endregion
+                                    }
+                                    #endregion
+                                }
+                                catch (Exception ex)
+                                {
+                                    HConsole.WriteError(ex);
+                                }
+                            }
+                            #endregion
+                        }
+                        #endregion
+                    }
+                    #endregion
+                }
+                #endregion
+            }
         }
 
         #endregion
@@ -2349,7 +2489,7 @@ namespace myAdminTool
         private void bwMoveProcessInstances_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             Util.WriteMethodInfoToConsole();
-            ChangeImage(Convert.ToInt32(e.UserState));
+            //ChangeImage(Convert.ToInt32(e.UserState));
 
             SetFirstVisibleRow(Convert.ToInt32(e.UserState));
         }
@@ -2357,34 +2497,34 @@ namespace myAdminTool
         private void bwMoveProcessInstances_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             Util.WriteMethodInfoToConsole();
-            ChangeImage(dgvCR17DOMEA004Configuration.Rows.Count, true);
+            //ChangeImage(dgvCR17DOMEA004Configuration.Rows.Count, true);
         }
 
-        private void ChangeImage(int workingRowID, bool isLastRow = false)
-        {
-            Util.WriteMethodInfoToConsole();
-            #region finished Rows
-            List<DataGridViewRow> finishedRows = new List<DataGridViewRow>
-                                            (from DataGridViewRow r in dgvCR17DOMEA004Configuration.Rows
-                                             where Convert.ToInt32(r.Cells["colRowID"].Value) < workingRowID
-                                             select r);
+        //private void ChangeImage(int workingRowID, bool isLastRow = false)
+        //{
+        //    Util.WriteMethodInfoToConsole();
+        //    #region finished Rows
+        //    List<DataGridViewRow> finishedRows = new List<DataGridViewRow>
+        //                                    (from DataGridViewRow r in dgvCR17DOMEA004Configuration.Rows
+        //                                     where Convert.ToInt32(r.Cells["colRowID"].Value) < workingRowID
+        //                                     select r);
 
-            DataGridViewImageCell cell = null;
-            foreach (DataGridViewRow row in finishedRows)
-            {
-                cell = (DataGridViewImageCell)row.Cells["colStatus"];
-                cell.Value = imgListDOMEA.Images[imgIdxFinished];
-            }
-            #endregion
+        //    DataGridViewImageCell cell = null;
+        //    foreach (DataGridViewRow row in finishedRows)
+        //    {
+        //        cell = (DataGridViewImageCell)row.Cells["colStatus"];
+        //        cell.Value = imgListDOMEA.Images[imgIdxFinished];
+        //    }
+        //    #endregion
 
-            #region working Row
-            if (!isLastRow)
-            {
-                cell = (DataGridViewImageCell)dgvCR17DOMEA004Configuration.Rows[workingRowID].Cells["colStatus"];
-                cell.Value = imgListDOMEA.Images[imgIdxWorking];
-            }
-            #endregion
-        }
+        //    #region working Row
+        //    if (!isLastRow)
+        //    {
+        //        cell = (DataGridViewImageCell)dgvCR17DOMEA004Configuration.Rows[workingRowID].Cells["colStatus"];
+        //        cell.Value = imgListDOMEA.Images[imgIdxWorking];
+        //    }
+        //    #endregion
+        //}
 
         private void SetFirstVisibleRow(int workingRowID)
         {
@@ -2397,81 +2537,8 @@ namespace myAdminTool
         }
 
         #endregion
-
-        private void btnCreateOEAndWG_Click(object sender, EventArgs e)
-        {
-            Util.WriteMethodInfoToConsole();
-            using (Forms.frmParentOrganisation parentOE = new Forms.frmParentOrganisation())
-            {
-                parentOE.ShowDialog();
-                int parentOENr = parentOE.OENr;
-                
-                OpenConnection();
-                #region SELEKTIEREN DER NEUEN ORGANISATIONEN
-                string stmtOE = "select oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by oebez_neu, oe_kurzbez_neu order by 2";
-                using (OracleCommand cmd = new OracleCommand(stmtOE, oraConn))
-                {
-                    using (OracleDataReader reader = cmd.ExecuteReader())
-                    {
-                        if (reader != null)
-                        {
-                            #region DEFINITION
-                            string OEBez = "";
-                            string OEKurzbez = "";
-                            string WGName = "";
-                            int oeID;
-                            int wgID;
-                            #endregion
-                            while (reader.Read())
-                            {
-                                OEBez = reader["oebez_neu"].ToString();
-                                OEKurzbez = reader["oe_kurzbez_neu"].ToString();
-
-                                #region PRÜFEN OB DIE OE EXISTIERT
-                                if (!session.OrganisationExists(OEBez, out oeID))
-                                {
-                                    #region OE NEU ERSTELLEN
-                                    oeID = session.createOrganisation(parentOENr, OEBez, OEKurzbez);
-                                    #endregion
-                                }
-                                #endregion
-
-                                #region SELEKTIEREN DER NEUEN ARBEITSGRUPPEN
-                                string stmtWG = "select destination_name from V_BIG_WORKGROUP_MAPPING where OEBEZ_NEU like '" + OEBez + "' order by 1";
-                                using (OracleCommand cmdWG = new OracleCommand(stmtWG, oraConn))
-                                {
-                                    using (OracleDataReader readerWG = cmdWG.ExecuteReader())
-                                    {
-                                        if (readerWG != null)
-                                        {
-                                            while (readerWG.Read())
-                                            {
-                                                WGName = readerWG["destination_name"].ToString();
-                                                if (WGName.Trim() != "")
-                                                {
-                                                    #region PRÜFEN OB DIE ARBEITSGRUPPE EXISTIERT
-                                                    if (!session.WorkGroupExists(WGName, out wgID))
-                                                    {
-                                                        #region ARBEITSGRUPPE NEU ERSTELLEN
-                                                        wgID = session.createWorkGroup(oeID, WGName);
-                                                        #endregion
-                                                    }
-                                                    #endregion
-                                                }
-                                                //session.assignUserToWorkGroup(11, wgID);
-                                            }
-                                        }
-                                    }
-                                }
-                                #endregion
-                            }
-                        }
-                    }
-                }
-                #endregion
-            }
-        }
-
+        
+        #region HELPER
         private OracleConnection oraConn { get; set; }
 
         private void OpenConnection()
@@ -2479,7 +2546,30 @@ namespace myAdminTool
             oraConn = new OracleConnection(oraConnString);
             oraConn.Open();
         }
-     
+
+        private void loadConfigTable()
+        {
+            Util.WriteMethodInfoToConsole();
+            try
+            {
+                using (OracleConnection conn = new OracleConnection(oraConnString))
+                using (OracleCommand cmd = new OracleCommand("select * from V_BIG_WORKGROUP_MAPPING", conn))
+                {
+                    conn.Open();
+                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        dgvCR17DOMEA004Configuration.DataSource = dataTable;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        #endregion
 
         //select m.usernr, m.username, m.kurzz, m.oenr, o.oebez, o.OE_KURZBEZ from 
         //mitarbeiter m, organisation o
