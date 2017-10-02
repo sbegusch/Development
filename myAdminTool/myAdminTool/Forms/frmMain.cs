@@ -2244,7 +2244,7 @@ namespace myAdminTool
             #endregion
 
             session = new SystemImplementation.DOMEA.DOMEA();
-            if (session.Login())
+            if (session.Login(true))
             {
                 btnItemDOMEALogin.Enabled = false;
                 btnItemDOMEACR17DOMEA004.Enabled = true;
@@ -2294,28 +2294,34 @@ namespace myAdminTool
                 superTabControl1, btnItemDOMEACR17DOMEA004, tiCR17DOMEA004);
 
             //Default Image
-            DataGridViewImageColumn cell = (DataGridViewImageColumn)dgvCR17DOMEA004Configuration.Columns["colStatus"];
-            cell.Image = imgListDOMEA.Images[imgIdxEmpty];
+            //DataGridViewImageColumn cell = (DataGridViewImageColumn)dgvCR17DOMEA004OE.Columns["colStatus"];
+            //cell.Image = imgListDOMEA.Images[imgIdxEmpty];
 
             //Testdaten
             //for (int i = 0; i < 100; i++)
             //{
             //    rowID = dgvCR17DOMEA004Configuration.Rows.Add(i.ToString(), i.ToString(), "From_" + i.ToString(), "", i.ToString(), "To_" + i.ToString(), "");
             //}
-            loadConfigTable();
 
-            dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex = 0;
+            Cursor.Current = Cursors.WaitCursor;
+            loadOrganisationTable();
+            loadProcessInstanceTable();
+
+            dgvCR17DOMEA004OE.FirstDisplayedScrollingRowIndex = 0;
+            Cursor.Current = Cursors.Default;
         }
 
         private void btnMovePI_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
+            //tabControl1.SelectedTab = tpProcessInstance;
             bwMoveProcessInstances.RunWorkerAsync();
         }
 
         private void btnCreateOEAndWG_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
+            //tabControl1.SelectedTab = tpOrganisation;
             using (Forms.frmParentOrganisation parentOE = new Forms.frmParentOrganisation())
             {
                 parentOE.ShowDialog();
@@ -2324,7 +2330,8 @@ namespace myAdminTool
 
                 HConsole.WriteLine(">> btnCreateOEAndWG_Click() --> parentOENr=" + parentOENr);
                 #region SELEKTIEREN DER NEUEN ORGANISATIONEN
-                string stmtOE = "select oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by oebez_neu, oe_kurzbez_neu order by 2";
+                //string stmtOE = "select OENR, OEBEZ, oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by OENR, OEBEZ, oebez_neu, oe_kurzbez_neu order by 2";
+                string stmtOE = "select OENR, OEBEZ, oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING where oe_kurzbez_neu Like 'KTN' group by OENR, OEBEZ, oebez_neu, oe_kurzbez_neu order by 2";
                 using (OracleCommand cmd = new OracleCommand(stmtOE, oraConn))
                 {
                     #region HelperRegion 1
@@ -2342,6 +2349,8 @@ namespace myAdminTool
                             int oeID;
                             int wgID;
                             int userID;
+                            string oldOEBez = "";
+                            int oldOENr;
                             #endregion
                             while (reader.Read())
                             {
@@ -2363,6 +2372,18 @@ namespace myAdminTool
                                     {
                                         HConsole.WriteLine(">> Organisation '" + OEBez + "' already exists");
                                     }
+                                    #region USER der alten Organisation der Neuen zuordnen
+                                    try
+                                    {
+                                        oldOEBez = reader["oebez"].ToString();
+                                        oldOENr = Convert.ToInt32(reader["oenr"].ToString());
+                                        session.assignUserFromOeToOe(session.getOrganizationByID(oldOENr), session.getOrganizationByID(oeID));
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        HConsole.WriteError(ex);
+                                    }
+                                    #endregion
                                     #endregion
 
                                     #region ARBEITSGRUPPE
@@ -2408,7 +2429,7 @@ namespace myAdminTool
 
                                                                 using (OracleCommand cmdUser = new OracleCommand(stmtUser, oraConn))
                                                                 {
-                                                                    using (OracleDataReader readerUser = cmdWG.ExecuteReader())
+                                                                    using (OracleDataReader readerUser = cmdUser.ExecuteReader())
                                                                     {
                                                                         if (readerUser != null)
                                                                         {
@@ -2475,14 +2496,55 @@ namespace myAdminTool
         private void bwMoveProcessInstances_DoWork(object sender, DoWorkEventArgs e)
         {
             Util.WriteMethodInfoToConsole();
-            for (int idx = 0; idx < dgvCR17DOMEA004Configuration.Rows.Count; idx++)
+            try
             {
-                bwMoveProcessInstances.ReportProgress(idx, idx);
+                string newOEBez = "";
+                int oldWGNr = -1;
+                string oldWGName = "";
+                string newWGName = "";
+                int reportCounter = 0;
 
-                #region moving ProcessInstances
-                ///<hier wird dann das wirkliche Verschieben durchgeführt>
-                System.Threading.Thread.Sleep(500);
-                #endregion
+                Color defaultColor = dgvCR17DOMEA004PI.Rows[0].DefaultCellStyle.BackColor;
+                foreach(DataGridViewRow row in dgvCR17DOMEA004PI.Rows)
+                {
+                    try
+                    {
+                        row.Cells["STATUS"].Value = "RUNNING";
+                        row.DefaultCellStyle.BackColor = Color.LightYellow;
+                        row.DefaultCellStyle.ForeColor = Color.Black;
+                        newOEBez = row.Cells["oebez_neu"].Value.ToString();
+                        oldWGNr = Convert.ToInt32(row.Cells["source_id"].Value.ToString());
+                        oldWGName = row.Cells["source_name"].Value.ToString();
+                        newWGName = row.Cells["destination_name"].Value.ToString();
+
+                        HConsole.WriteLine(">> neue Organisation: " + newOEBez);
+                        HConsole.WriteLine(">> alte Arbeitsgruppe: " + oldWGName + " (" + oldWGNr + ")");
+                        HConsole.WriteLine(">> neue Arbeitsgruppe: " + newWGName);
+
+                        row.Cells["SOURCE_PI_COUNT"].Value = session.WorkItemCount(session.getWorkGroupByID(oldWGNr));
+                        moveProcessInstance(newOEBez, oldWGNr, oldWGName, newWGName);
+                        bwMoveProcessInstances.ReportProgress(reportCounter,reportCounter);
+                        reportCounter += 1;
+                        row.Cells["STATUS"].Value = "FINISHED";
+                        row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                    catch(Exception ex)
+                    {
+                        HConsole.WriteError(ex);
+                        row.Cells["STATUS"].Value = "ERROR";
+                        row.DefaultCellStyle.BackColor = Color.LightPink;
+                        row.DefaultCellStyle.ForeColor = Color.Black;
+                        if(MessageBox.Show(ex.Message + Environment.NewLine + "Soll der Durchlauf abgebrochen werden?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Yes)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                HConsole.WriteError(ex);
             }
         }
 
@@ -2490,8 +2552,8 @@ namespace myAdminTool
         {
             Util.WriteMethodInfoToConsole();
             //ChangeImage(Convert.ToInt32(e.UserState));
-
-            SetFirstVisibleRow(Convert.ToInt32(e.UserState));
+            int workingRowID = Convert.ToInt32(e.UserState);
+            SetFirstVisibleRow(workingRowID);
         }
 
         private void bwMoveProcessInstances_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -2529,10 +2591,64 @@ namespace myAdminTool
         private void SetFirstVisibleRow(int workingRowID)
         {
             Util.WriteMethodInfoToConsole();
-            if (dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex + dgvCR17DOMEA004Configuration.DisplayedRowCount(false) <= workingRowID)
+            //tabControl1.SelectedTab = tpProcessInstance;
+            if (dgvCR17DOMEA004PI.FirstDisplayedScrollingRowIndex + dgvCR17DOMEA004PI.DisplayedRowCount(false) <= workingRowID)
             {
-                dgvCR17DOMEA004Configuration.FirstDisplayedScrollingRowIndex =
-                    workingRowID - dgvCR17DOMEA004Configuration.DisplayedRowCount(false) + 1;
+                dgvCR17DOMEA004PI.FirstDisplayedScrollingRowIndex =
+                    workingRowID - dgvCR17DOMEA004PI.DisplayedRowCount(false) + 1;
+            }
+        }
+
+        private void moveProcessInstance(string newOEBez,int oldWGNr,string oldWGName,string newWGName)
+        {
+            Util.WriteMethodInfoToConsole();
+            string msg = "";
+            //System.Threading.Thread.Sleep(500);
+            int outNewOENr = -1;
+            int outOldWGNr = -1;
+            int outNewWGNr = -1;
+            if (session.OrganisationExists(newOEBez, out outNewOENr )) // <-- prüfen ob die neue OE bereits existiert
+            {
+                if (session.WorkGroupExists(oldWGName, out outOldWGNr)) // <-- alte Arbeitsgruppe
+                { // Alte Arbeitsgruppe gefunden
+                    if (oldWGNr == outOldWGNr)
+                    { // nochmalige Prüfung = OK 
+                        if (session.WorkGroupExists(newWGName, out outNewWGNr)) // <-- neue Arbeitsgruppe
+                        {
+                            //outOldWGNr /*als Quelle für das PI-verschieben*/
+                            //outNewWGNr /*als Ziel für das PI-verschieben*/
+                            //outNewOENr /*für die verantw. OE und die Zugriffsrechte*/
+                            session.MoveWorkItem(
+                                    session.getWorkGroupByID(outOldWGNr), 
+                                    session.getWorkGroupByID(outNewWGNr), 
+                                    session.getOrganizationByID(outNewOENr));
+                        }
+                        else
+                        {
+                            msg = "Neue Arbeitsgruppe '" + newWGName + "' nicht gefunden!";
+                            HConsole.WriteLine(msg);
+                            throw new Exception(msg);
+                        }
+                    }
+                    else
+                    {
+                        msg = "Übergebene ArbeitsgruppeNr=" + oldWGNr + " stimmt nicht mit der gefundenen ArbeitsgruppenNr=" + outOldWGNr + " überein!";
+                        HConsole.WriteLine(msg);
+                        throw new Exception(msg);
+                    }
+                }
+                else
+                {
+                    msg = "Alte Arbeitsgruppe '" + oldWGName + "' nicht gefunden!";
+                    HConsole.WriteLine(msg);
+                    throw new Exception(msg);
+                }
+            }
+            else
+            {
+                msg = "Neue Organisation '" + newOEBez + "' nicht gefunden!";
+                HConsole.WriteLine(msg);
+                throw new Exception(msg);
             }
         }
 
@@ -2543,24 +2659,57 @@ namespace myAdminTool
 
         private void OpenConnection()
         {
+            Util.WriteMethodInfoToConsole();
             oraConn = new OracleConnection(oraConnString);
             oraConn.Open();
         }
 
-        private void loadConfigTable()
+        private void loadOrganisationTable()
         {
             Util.WriteMethodInfoToConsole();
             try
             {
+                string stmt = "select * from V_BIG_WORKGROUP_MAPPING";
                 using (OracleConnection conn = new OracleConnection(oraConnString))
-                using (OracleCommand cmd = new OracleCommand("select * from V_BIG_WORKGROUP_MAPPING", conn))
+                using (OracleCommand cmd = new OracleCommand(stmt, conn))
                 {
                     conn.Open();
                     using (OracleDataReader reader = cmd.ExecuteReader())
                     {
                         DataTable dataTable = new DataTable();
                         dataTable.Load(reader);
-                        dgvCR17DOMEA004Configuration.DataSource = dataTable;
+                        dgvCR17DOMEA004OE.DataSource = dataTable;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void loadProcessInstanceTable()
+        {
+            Util.WriteMethodInfoToConsole();
+            try
+            {
+                string stmt = "select oebez_neu, " + /*zum Hinzufügen als Berechtigte OE und verwantw. OE*/
+                                   "source_id, " + /*alte WorkGroup ID*/
+                                   "source_name, " + /*alte WorkGroup*/
+                                   "destination_name " + /*neue WorkGroup*/
+                            "from V_BIG_WORKGROUP_MAPPING where oenr > 0 and trim(source_name) is not null and trim(destination_name) is not null order by OENR";
+
+                using (OracleConnection conn = new OracleConnection(oraConnString))
+                using (OracleCommand cmd = new OracleCommand(stmt, conn))
+                {
+                    conn.Open();
+                    using (OracleDataReader reader = cmd.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        dataTable.Columns.Add("SOURCE_PI_COUNT", typeof(String));
+                        dataTable.Columns.Add("STATUS", typeof(String));
+                        dgvCR17DOMEA004PI.DataSource = dataTable;
                     }
                 }
             }
@@ -2570,6 +2719,66 @@ namespace myAdminTool
             }
         }
         #endregion
+
+        private void btnCSVExport_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            SaveToCSV(dgvCR17DOMEA004PI);
+        }
+
+        private void SaveToCSV(DataGridView DGV)
+        {
+            Util.WriteMethodInfoToConsole();
+            string filename = "";
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "CSV (*.csv)|*.csv";
+            sfd.FileName = DGV.Name + "_Output.csv";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Data will be exported and you will be notified when it is ready.", "CSV Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (File.Exists(filename))
+                {
+                    try
+                    {
+                        File.Delete(filename);
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show("It wasn't possible to write the data to the disk." + ex.Message, "CSV Export", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                int columnCount = DGV.ColumnCount;
+                string columnNames = "";
+                string[] output = new string[DGV.RowCount + 1];
+                for (int i = 0; i < columnCount; i++)
+                {
+                    columnNames += DGV.Columns[i].Name.ToString() + ";";
+                }
+                output[0] += columnNames;
+                for (int i = 1; (i - 1) < DGV.RowCount; i++)
+                {
+                    for (int j = 0; j < columnCount; j++)
+                    {
+                        if (DGV.Rows[i - 1].Cells[j].Value != null)
+                        {
+                            output[i] += DGV.Rows[i - 1].Cells[j].Value.ToString() + ";";
+                        }
+                        else
+                        {
+                            output[i] += ";";
+                        }
+                    }
+                }
+                System.IO.File.WriteAllLines(sfd.FileName, output, System.Text.Encoding.UTF8);
+                MessageBox.Show("Your file was generated and its ready for use.", "CSV Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnCSVExportOE_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            SaveToCSV(dgvCR17DOMEA004OE);
+        }
 
         //select m.usernr, m.username, m.kurzz, m.oenr, o.oebez, o.OE_KURZBEZ from 
         //mitarbeiter m, organisation o
@@ -2650,7 +2859,6 @@ namespace myAdminTool
         //  order by 1;  
          
         #endregion
-
     }
 
     #region Certificate Policy

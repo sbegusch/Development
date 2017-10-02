@@ -17,7 +17,7 @@ namespace myAdminTool.SystemImplementation.DOMEA
     public class DOMEA
     {
         private const string APP_CODE = "BIG";
-
+       
         private Session session { get; set; }
 
         public string ConnectionInfo { get; set; }
@@ -37,7 +37,7 @@ namespace myAdminTool.SystemImplementation.DOMEA
             }
         }
 
-        public bool Login()
+        public bool Login(bool CreateSysSession = false)
         {
             Util.WriteMethodInfoToConsole();
             try
@@ -45,7 +45,20 @@ namespace myAdminTool.SystemImplementation.DOMEA
                 CcdLogin Login = new CcdLogin();
                 if (Login.DoLogin())
                 {
-                    session = Login.Session;
+                    if (!CreateSysSession)
+                    {
+                        session = Login.Session;
+                    }
+                    else
+                    {
+                        //session = new Session(Login.Session.GetApiServer());
+                        //Password pwd = new Password(APP_CODE);
+                        //session.Login(0, pwd);
+                        CCD.Domea.Fw.Base.Api.ApiServer apiServer = new CCD.Domea.Fw.Base.Api.ApiServer(Login.Session.HostName, Login.Session.PortNo);
+                        Session sysSession = new Session(apiServer);
+                        sysSession.Login(1, new Password(APP_CODE));
+                        session = sysSession;
+                    }
                 }
                 ConnectionInfo = "DOMEA: " + session.GetLoggedOnUser().Name + "@" + session.HostName;
                 
@@ -163,6 +176,32 @@ namespace myAdminTool.SystemImplementation.DOMEA
             oe.Create();
             return oe.Id;
         }
+
+        public void assignUserFromOeToOe(Organization fromOE, Organization toOE)
+        {
+            try
+            {
+                foreach(User user in fromOE.GetUsers())
+                {
+                    try
+                    {
+                        User u = toOE.GetUsers().First(f => f.Id == user.Id);
+                        HConsole.WriteLine(u.Name + " already assigned to Organisation " + toOE.Name);
+                    }
+                    catch
+                    {
+                        user.SetOrganization(toOE);
+                        user.Update();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                HConsole.WriteError(ex);
+            }
+        }
+
+
         #endregion
 
         #region WorkGroup
@@ -238,6 +277,75 @@ namespace myAdminTool.SystemImplementation.DOMEA
                 return false;
             }
         }
+
+        public WorkGroup getWorkGroupByID(int ID)
+        {
+            return new WorkGroup(session, ID);
+        }
+
+        public Organization getOrganizationByID(int ID)
+        {
+            return new Organization(session, ID);
+        }
+
+        public int WorkItemCount(WorkGroup wg)
+        {
+            if (wg.GetWorkItems() == null || wg.GetWorkItems().Count < 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return wg.GetWorkItems().Count;
+            }
+        }
+
+        public void MoveWorkItem(WorkGroup fromWorkGroup, WorkGroup toWorkGroup, Organization oe)
+        {
+            Util.WriteMethodInfoToConsole();
+            ProcessInstance PI = null;
+            
+            List<AccessRule> Rules = new List<AccessRule>();
+            AccessRule arRead = new AccessRule(session, CCD.Domea.Fw.Base.AccessType.Read, RuleType.SpecificOrganization, oe);
+            AccessRule arWrite = new AccessRule(session, CCD.Domea.Fw.Base.AccessType.Write, RuleType.SpecificOrganization, oe);
+
+            //Rules.Add(new AccessRule(session, CCD.Domea.Fw.Base.AccessType.Read, RuleType.SpecificOrganization, oe));
+            //Rules.Add(new AccessRule(session, CCD.Domea.Fw.Base.AccessType.Write, RuleType.SpecificOrganization, oe));
+
+            foreach (WorkItem wi in fromWorkGroup.GetWorkItems())
+            {
+                try
+                {
+                    PI = wi.GetProcessInstance();
+
+                    Rules.Clear();
+                    Rules.AddRange(PI.GetAccessRules(CCD.Domea.Fw.Base.AccessType.Read));
+                    Rules.Add(arRead);
+                    Rules.AddRange(PI.GetAccessRules(CCD.Domea.Fw.Base.AccessType.Write));
+                    Rules.Add(arWrite);
+
+                    HConsole.WriteLine(">> Verschieben des Aktes " + PI.Name + " beginnt...");
+                    PI.SetActiveWorkItem(wi);
+                    PI.SetLock(ProcessInstanceLockLevel.Whole);
+                    wi.WriteHistoryLogEvent(30, "Start BIG Changes 2.0", new HistoryLogEventType(session, 99));
+                    PI.SetCustomAttribute("CSVERANTWOE", oe.Id.ToString());
+                    PI.AssignAccessRules(Rules.ToArray(), true);
+                    PI.Update();
+
+                    wi.SetLock(WorkItemLockLevel.WorkItem);
+                    wi.DelegateTo(toWorkGroup);
+                    wi.ReleaseLock(WorkItemLockLevel.WorkItem);
+                    
+                    wi.WriteHistoryLogEvent(30, "BIG Changes 2.0 erfolgreich durchgeführt", new HistoryLogEventType(session, 99));
+                    PI.ReleaseLock(ProcessInstanceLockLevel.Whole);
+                }
+                catch(Exception ex)
+                {
+                    HConsole.WriteError(ex);
+                }
+            }
+        }
+
         #endregion
     }
 }

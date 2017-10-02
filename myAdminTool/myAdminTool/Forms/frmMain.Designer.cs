@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable4 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
@@ -38,13 +37,14 @@
             DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates2 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
             DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable5 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.dotNetBarMainManager = new DevComponents.DotNetBar.DotNetBarManager(this.components);
             this.dockSite4 = new DevComponents.DotNetBar.DockSite();
             this.dockSite1 = new DevComponents.DotNetBar.DockSite();
@@ -100,10 +100,17 @@
             this.dockSite3 = new DevComponents.DotNetBar.DockSite();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel6 = new DevComponents.DotNetBar.SuperTabControlPanel();
-            this.btnCreateOEAndWG = new System.Windows.Forms.Button();
-            this.btnMovePI = new System.Windows.Forms.Button();
-            this.dgvCR17DOMEA004Configuration = new System.Windows.Forms.DataGridView();
+            this.gpCR17DOMEA004 = new System.Windows.Forms.GroupBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tpOrganisation = new System.Windows.Forms.TabPage();
+            this.btnCSVExportOE = new System.Windows.Forms.Button();
+            this.dgvCR17DOMEA004OE = new System.Windows.Forms.DataGridView();
             this.colStatus = new System.Windows.Forms.DataGridViewImageColumn();
+            this.btnCreateOEAndWG = new System.Windows.Forms.Button();
+            this.tpProcessInstance = new System.Windows.Forms.TabPage();
+            this.btnCSVExportPI = new System.Windows.Forms.Button();
+            this.dgvCR17DOMEA004PI = new System.Windows.Forms.DataGridView();
+            this.btnMovePI = new System.Windows.Forms.Button();
             this.tiCR17DOMEA004 = new DevComponents.DotNetBar.SuperTabItem();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.btnLoadProcessInstances = new System.Windows.Forms.Button();
@@ -221,7 +228,6 @@
             this.imgListDOMEA = new System.Windows.Forms.ImageList(this.components);
             this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
             this.bwMoveProcessInstances = new System.ComponentModel.BackgroundWorker();
-            this.gpCR17DOMEA004 = new System.Windows.Forms.GroupBox();
             this.dockSite1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barOTCS)).BeginInit();
             this.barOTCS.SuspendLayout();
@@ -241,7 +247,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
             this.superTabControlPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004Configuration)).BeginInit();
+            this.gpCR17DOMEA004.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tpOrganisation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004OE)).BeginInit();
+            this.tpProcessInstance.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004PI)).BeginInit();
             this.superTabControlPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -283,7 +294,6 @@
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdressaten)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            this.gpCR17DOMEA004.SuspendLayout();
             this.SuspendLayout();
             // 
             // dotNetBarMainManager
@@ -1103,55 +1113,79 @@
             this.superTabControlPanel6.TabIndex = 0;
             this.superTabControlPanel6.TabItem = this.tiCR17DOMEA004;
             // 
-            // btnCreateOEAndWG
+            // gpCR17DOMEA004
             // 
-            this.btnCreateOEAndWG.BackColor = System.Drawing.Color.White;
-            this.btnCreateOEAndWG.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateOEAndWG.Image")));
-            this.btnCreateOEAndWG.Location = new System.Drawing.Point(3, 8);
-            this.btnCreateOEAndWG.Name = "btnCreateOEAndWG";
-            this.btnCreateOEAndWG.Size = new System.Drawing.Size(57, 57);
-            this.btnCreateOEAndWG.TabIndex = 11;
-            this.ttButtonInfo.SetToolTip(this.btnCreateOEAndWG, "create Organisation, Workgroups and assign User to Workgroups");
-            this.btnCreateOEAndWG.UseVisualStyleBackColor = false;
-            this.btnCreateOEAndWG.Click += new System.EventHandler(this.btnCreateOEAndWG_Click);
+            this.gpCR17DOMEA004.Controls.Add(this.tabControl1);
+            this.gpCR17DOMEA004.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gpCR17DOMEA004.Location = new System.Drawing.Point(0, 0);
+            this.gpCR17DOMEA004.Name = "gpCR17DOMEA004";
+            this.gpCR17DOMEA004.Size = new System.Drawing.Size(537, 441);
+            this.gpCR17DOMEA004.TabIndex = 12;
+            this.gpCR17DOMEA004.TabStop = false;
             // 
-            // btnMovePI
+            // tabControl1
             // 
-            this.btnMovePI.BackColor = System.Drawing.Color.White;
-            this.btnMovePI.Image = ((System.Drawing.Image)(resources.GetObject("btnMovePI.Image")));
-            this.btnMovePI.Location = new System.Drawing.Point(66, 8);
-            this.btnMovePI.Name = "btnMovePI";
-            this.btnMovePI.Size = new System.Drawing.Size(57, 57);
-            this.btnMovePI.TabIndex = 10;
-            this.ttButtonInfo.SetToolTip(this.btnMovePI, "Move ProcessInstances");
-            this.btnMovePI.UseVisualStyleBackColor = false;
-            this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
-            // 
-            // dgvCR17DOMEA004Configuration
-            // 
-            this.dgvCR17DOMEA004Configuration.AllowUserToAddRows = false;
-            this.dgvCR17DOMEA004Configuration.AllowUserToDeleteRows = false;
-            this.dgvCR17DOMEA004Configuration.AllowUserToResizeRows = false;
-            this.dgvCR17DOMEA004Configuration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvCR17DOMEA004Configuration.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCR17DOMEA004Configuration.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvCR17DOMEA004Configuration.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCR17DOMEA004Configuration.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.tabControl1.Controls.Add(this.tpOrganisation);
+            this.tabControl1.Controls.Add(this.tpProcessInstance);
+            this.tabControl1.Location = new System.Drawing.Point(3, 8);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(532, 408);
+            this.tabControl1.TabIndex = 12;
+            // 
+            // tpOrganisation
+            // 
+            this.tpOrganisation.BackColor = System.Drawing.SystemColors.Control;
+            this.tpOrganisation.Controls.Add(this.btnCSVExportOE);
+            this.tpOrganisation.Controls.Add(this.dgvCR17DOMEA004OE);
+            this.tpOrganisation.Controls.Add(this.btnCreateOEAndWG);
+            this.tpOrganisation.Location = new System.Drawing.Point(4, 22);
+            this.tpOrganisation.Name = "tpOrganisation";
+            this.tpOrganisation.Padding = new System.Windows.Forms.Padding(3);
+            this.tpOrganisation.Size = new System.Drawing.Size(524, 382);
+            this.tpOrganisation.TabIndex = 0;
+            this.tpOrganisation.Text = "create Organisation";
+            // 
+            // btnCSVExportOE
+            // 
+            this.btnCSVExportOE.BackColor = System.Drawing.Color.White;
+            this.btnCSVExportOE.Image = ((System.Drawing.Image)(resources.GetObject("btnCSVExportOE.Image")));
+            this.btnCSVExportOE.Location = new System.Drawing.Point(62, 3);
+            this.btnCSVExportOE.Name = "btnCSVExportOE";
+            this.btnCSVExportOE.Size = new System.Drawing.Size(57, 57);
+            this.btnCSVExportOE.TabIndex = 12;
+            this.ttButtonInfo.SetToolTip(this.btnCSVExportOE, "Move ProcessInstances from old to new Workgroups");
+            this.btnCSVExportOE.UseVisualStyleBackColor = false;
+            this.btnCSVExportOE.Click += new System.EventHandler(this.btnCSVExportOE_Click);
+            // 
+            // dgvCR17DOMEA004OE
+            // 
+            this.dgvCR17DOMEA004OE.AllowUserToAddRows = false;
+            this.dgvCR17DOMEA004OE.AllowUserToDeleteRows = false;
+            this.dgvCR17DOMEA004OE.AllowUserToResizeRows = false;
+            this.dgvCR17DOMEA004OE.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvCR17DOMEA004OE.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCR17DOMEA004OE.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.dgvCR17DOMEA004OE.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCR17DOMEA004OE.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStatus});
-            this.dgvCR17DOMEA004Configuration.Location = new System.Drawing.Point(3, 67);
-            this.dgvCR17DOMEA004Configuration.Name = "dgvCR17DOMEA004Configuration";
-            this.dgvCR17DOMEA004Configuration.RowHeadersVisible = false;
-            this.dgvCR17DOMEA004Configuration.Size = new System.Drawing.Size(529, 346);
-            this.dgvCR17DOMEA004Configuration.TabIndex = 10;
+            this.dgvCR17DOMEA004OE.Location = new System.Drawing.Point(3, 64);
+            this.dgvCR17DOMEA004OE.Name = "dgvCR17DOMEA004OE";
+            this.dgvCR17DOMEA004OE.RowHeadersVisible = false;
+            this.dgvCR17DOMEA004OE.Size = new System.Drawing.Size(518, 316);
+            this.dgvCR17DOMEA004OE.TabIndex = 10;
             // 
             // colStatus
             // 
@@ -1161,6 +1195,71 @@
             this.colStatus.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colStatus.Visible = false;
             this.colStatus.Width = 20;
+            // 
+            // btnCreateOEAndWG
+            // 
+            this.btnCreateOEAndWG.BackColor = System.Drawing.Color.White;
+            this.btnCreateOEAndWG.Image = ((System.Drawing.Image)(resources.GetObject("btnCreateOEAndWG.Image")));
+            this.btnCreateOEAndWG.Location = new System.Drawing.Point(3, 3);
+            this.btnCreateOEAndWG.Name = "btnCreateOEAndWG";
+            this.btnCreateOEAndWG.Size = new System.Drawing.Size(57, 57);
+            this.btnCreateOEAndWG.TabIndex = 11;
+            this.ttButtonInfo.SetToolTip(this.btnCreateOEAndWG, "create Organisation, Workgroups and assign User to Workgroups");
+            this.btnCreateOEAndWG.UseVisualStyleBackColor = false;
+            this.btnCreateOEAndWG.Click += new System.EventHandler(this.btnCreateOEAndWG_Click);
+            // 
+            // tpProcessInstance
+            // 
+            this.tpProcessInstance.BackColor = System.Drawing.SystemColors.Control;
+            this.tpProcessInstance.Controls.Add(this.btnCSVExportPI);
+            this.tpProcessInstance.Controls.Add(this.dgvCR17DOMEA004PI);
+            this.tpProcessInstance.Controls.Add(this.btnMovePI);
+            this.tpProcessInstance.Location = new System.Drawing.Point(4, 22);
+            this.tpProcessInstance.Name = "tpProcessInstance";
+            this.tpProcessInstance.Padding = new System.Windows.Forms.Padding(3);
+            this.tpProcessInstance.Size = new System.Drawing.Size(524, 382);
+            this.tpProcessInstance.TabIndex = 1;
+            this.tpProcessInstance.Text = "move ProcessInstance";
+            // 
+            // btnCSVExportPI
+            // 
+            this.btnCSVExportPI.BackColor = System.Drawing.Color.White;
+            this.btnCSVExportPI.Image = ((System.Drawing.Image)(resources.GetObject("btnCSVExportPI.Image")));
+            this.btnCSVExportPI.Location = new System.Drawing.Point(63, 3);
+            this.btnCSVExportPI.Name = "btnCSVExportPI";
+            this.btnCSVExportPI.Size = new System.Drawing.Size(57, 57);
+            this.btnCSVExportPI.TabIndex = 11;
+            this.ttButtonInfo.SetToolTip(this.btnCSVExportPI, "Move ProcessInstances from old to new Workgroups");
+            this.btnCSVExportPI.UseVisualStyleBackColor = false;
+            this.btnCSVExportPI.Click += new System.EventHandler(this.btnCSVExport_Click);
+            // 
+            // dgvCR17DOMEA004PI
+            // 
+            this.dgvCR17DOMEA004PI.AllowUserToAddRows = false;
+            this.dgvCR17DOMEA004PI.AllowUserToDeleteRows = false;
+            this.dgvCR17DOMEA004PI.AllowUserToResizeRows = false;
+            this.dgvCR17DOMEA004PI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvCR17DOMEA004PI.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.dgvCR17DOMEA004PI.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCR17DOMEA004PI.Location = new System.Drawing.Point(3, 64);
+            this.dgvCR17DOMEA004PI.Name = "dgvCR17DOMEA004PI";
+            this.dgvCR17DOMEA004PI.RowHeadersVisible = false;
+            this.dgvCR17DOMEA004PI.Size = new System.Drawing.Size(518, 316);
+            this.dgvCR17DOMEA004PI.TabIndex = 0;
+            // 
+            // btnMovePI
+            // 
+            this.btnMovePI.BackColor = System.Drawing.Color.White;
+            this.btnMovePI.Image = ((System.Drawing.Image)(resources.GetObject("btnMovePI.Image")));
+            this.btnMovePI.Location = new System.Drawing.Point(3, 3);
+            this.btnMovePI.Name = "btnMovePI";
+            this.btnMovePI.Size = new System.Drawing.Size(57, 57);
+            this.btnMovePI.TabIndex = 10;
+            this.ttButtonInfo.SetToolTip(this.btnMovePI, "Move ProcessInstances from old to new Workgroups");
+            this.btnMovePI.UseVisualStyleBackColor = false;
+            this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
             // 
             // tiCR17DOMEA004
             // 
@@ -1592,8 +1691,8 @@
             this.dgvDOMEAWorkList.AllowUserToDeleteRows = false;
             this.dgvDOMEAWorkList.AllowUserToOrderColumns = true;
             this.dgvDOMEAWorkList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEAWorkList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEAWorkList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvDOMEAWorkList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1616,8 +1715,8 @@
             this.dgvDOMEAWorkList.MultiSelect = false;
             this.dgvDOMEAWorkList.Name = "dgvDOMEAWorkList";
             this.dgvDOMEAWorkList.RowHeadersVisible = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvDOMEAWorkList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDOMEAWorkList.Size = new System.Drawing.Size(352, 95);
             this.dgvDOMEAWorkList.TabIndex = 0;
@@ -1723,8 +1822,8 @@
             this.dgvDOMEADocumentList.Location = new System.Drawing.Point(0, 23);
             this.dgvDOMEADocumentList.Name = "dgvDOMEADocumentList";
             this.dgvDOMEADocumentList.RowHeadersVisible = false;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvDOMEADocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDOMEADocumentList.Size = new System.Drawing.Size(352, 293);
             this.dgvDOMEADocumentList.TabIndex = 0;
@@ -2436,18 +2535,6 @@
             this.bwMoveProcessInstances.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwMoveProcessInstances_ProgressChanged);
             this.bwMoveProcessInstances.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwMoveProcessInstances_RunWorkerCompleted);
             // 
-            // gpCR17DOMEA004
-            // 
-            this.gpCR17DOMEA004.Controls.Add(this.btnCreateOEAndWG);
-            this.gpCR17DOMEA004.Controls.Add(this.btnMovePI);
-            this.gpCR17DOMEA004.Controls.Add(this.dgvCR17DOMEA004Configuration);
-            this.gpCR17DOMEA004.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gpCR17DOMEA004.Location = new System.Drawing.Point(0, 0);
-            this.gpCR17DOMEA004.Name = "gpCR17DOMEA004";
-            this.gpCR17DOMEA004.Size = new System.Drawing.Size(537, 441);
-            this.gpCR17DOMEA004.TabIndex = 12;
-            this.gpCR17DOMEA004.TabStop = false;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2487,7 +2574,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
             this.superTabControlPanel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004Configuration)).EndInit();
+            this.gpCR17DOMEA004.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tpOrganisation.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004OE)).EndInit();
+            this.tpProcessInstance.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004PI)).EndInit();
             this.superTabControlPanel1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -2535,7 +2627,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAdressaten)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.gpCR17DOMEA004.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2715,12 +2806,18 @@
         private DevComponents.DotNetBar.SuperTabControlPanel superTabControlPanel6;
         private DevComponents.DotNetBar.SuperTabItem tiCR17DOMEA004;
         private DevComponents.DotNetBar.ButtonItem btnItemDOMEACR17DOMEA004;
-        private System.Windows.Forms.DataGridView dgvCR17DOMEA004Configuration;
+        private System.Windows.Forms.DataGridView dgvCR17DOMEA004OE;
         private System.ComponentModel.BackgroundWorker bwMoveProcessInstances;
         private System.Windows.Forms.Button btnMovePI;
         private System.Windows.Forms.DataGridViewImageColumn colStatus;
         private System.Windows.Forms.Button btnCreateOEAndWG;
         private System.Windows.Forms.GroupBox gpCR17DOMEA004;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tpOrganisation;
+        private System.Windows.Forms.TabPage tpProcessInstance;
+        private System.Windows.Forms.DataGridView dgvCR17DOMEA004PI;
+        private System.Windows.Forms.Button btnCSVExportPI;
+        private System.Windows.Forms.Button btnCSVExportOE;
 
 
     }
