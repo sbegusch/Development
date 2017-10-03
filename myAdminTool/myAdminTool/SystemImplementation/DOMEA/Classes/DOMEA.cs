@@ -249,6 +249,7 @@ namespace myAdminTool.SystemImplementation.DOMEA
                 if (wg != null)
                 {
                     user.AssignWorkGroup(wg);
+                    user.Update();
                 }
             }
         }

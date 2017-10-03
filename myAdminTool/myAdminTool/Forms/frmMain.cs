@@ -12,6 +12,7 @@ using System.IO;
 
 using System.Data.SqlClient;
 using Oracle.ManagedDataAccess.Client;
+using System.Diagnostics;
 
 namespace myAdminTool
 {
@@ -2233,6 +2234,8 @@ namespace myAdminTool
         #region privat Member
         int rowID = -1;
         string oraConnString = "";
+        Stopwatch sWatch;
+        TimeSpan timeSpan;
         #endregion
 
         private void btnItemDOMEALogin_Click(object sender, EventArgs e)
@@ -2307,7 +2310,7 @@ namespace myAdminTool
             loadOrganisationTable();
             loadProcessInstanceTable();
 
-            dgvCR17DOMEA004OE.FirstDisplayedScrollingRowIndex = 0;
+            if (dgvCR17DOMEA004OE.Rows.Count > 0) { dgvCR17DOMEA004OE.FirstDisplayedScrollingRowIndex = 0; }
             Cursor.Current = Cursors.Default;
         }
 
@@ -2315,10 +2318,22 @@ namespace myAdminTool
         {
             Util.WriteMethodInfoToConsole();
             //tabControl1.SelectedTab = tpProcessInstance;
+            sWatch = new Stopwatch();
+            lblElapsedTime.Text = "0";
+            sWatch.Start();
+            runtimeTimer.Start();
             bwMoveProcessInstances.RunWorkerAsync();
         }
 
         private void btnCreateOEAndWG_Click(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            
+            bwCreateOrganisation.RunWorkerAsync();
+            //createOEviaSQL();
+        }
+
+        private void createOEviaSQL()
         {
             Util.WriteMethodInfoToConsole();
             //tabControl1.SelectedTab = tpOrganisation;
@@ -2330,8 +2345,8 @@ namespace myAdminTool
 
                 HConsole.WriteLine(">> btnCreateOEAndWG_Click() --> parentOENr=" + parentOENr);
                 #region SELEKTIEREN DER NEUEN ORGANISATIONEN
-                //string stmtOE = "select OENR, OEBEZ, oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by OENR, OEBEZ, oebez_neu, oe_kurzbez_neu order by 2";
-                string stmtOE = "select OENR, OEBEZ, oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING where oe_kurzbez_neu Like 'KTN' group by OENR, OEBEZ, oebez_neu, oe_kurzbez_neu order by 2";
+                string stmtOE = "select OENR, OEBEZ, oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING group by OENR, OEBEZ, oebez_neu, oe_kurzbez_neu order by 2";
+                //string stmtOE = "select OENR, OEBEZ, oebez_neu, oe_kurzbez_neu, count(*) ANZAHL_ARBEITSGRUPPEN from V_BIG_WORKGROUP_MAPPING where oe_kurzbez_neu Like 'KTN' group by OENR, OEBEZ, oebez_neu, oe_kurzbez_neu order by 2";
                 using (OracleCommand cmd = new OracleCommand(stmtOE, oraConn))
                 {
                     #region HelperRegion 1
@@ -2379,7 +2394,7 @@ namespace myAdminTool
                                         oldOENr = Convert.ToInt32(reader["oenr"].ToString());
                                         session.assignUserFromOeToOe(session.getOrganizationByID(oldOENr), session.getOrganizationByID(oeID));
                                     }
-                                    catch(Exception ex)
+                                    catch (Exception ex)
                                     {
                                         HConsole.WriteError(ex);
                                     }
@@ -2523,8 +2538,8 @@ namespace myAdminTool
 
                         row.Cells["SOURCE_PI_COUNT"].Value = session.WorkItemCount(session.getWorkGroupByID(oldWGNr));
                         moveProcessInstance(newOEBez, oldWGNr, oldWGName, newWGName);
-                        bwMoveProcessInstances.ReportProgress(reportCounter,reportCounter);
-                        reportCounter += 1;
+                        //bwMoveProcessInstances.ReportProgress(reportCounter,reportCounter);
+                        //reportCounter += 1;
                         row.Cells["STATUS"].Value = "FINISHED";
                         row.DefaultCellStyle.BackColor = Color.LightGreen;
                     }
@@ -2534,10 +2549,18 @@ namespace myAdminTool
                         row.Cells["STATUS"].Value = "ERROR";
                         row.DefaultCellStyle.BackColor = Color.LightPink;
                         row.DefaultCellStyle.ForeColor = Color.Black;
-                        if(MessageBox.Show(ex.Message + Environment.NewLine + "Soll der Durchlauf abgebrochen werden?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Yes)
+                        if (cbShowMsgBoxOnError.Checked)
                         {
-                            break;
+                            if (MessageBox.Show(ex.Message + Environment.NewLine + "Soll der Durchlauf abgebrochen werden?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error) == System.Windows.Forms.DialogResult.Yes)
+                            {
+                                break;
+                            }
                         }
+                    }
+                    finally
+                    {
+                        bwMoveProcessInstances.ReportProgress(reportCounter, reportCounter);
+                        reportCounter += 1;
                     }
                 }
 
@@ -2553,12 +2576,15 @@ namespace myAdminTool
             Util.WriteMethodInfoToConsole();
             //ChangeImage(Convert.ToInt32(e.UserState));
             int workingRowID = Convert.ToInt32(e.UserState);
+            lblRowCount.Text = dgvCR17DOMEA004PI.Rows.Count.ToString() + " / " + (workingRowID + 1).ToString();
             SetFirstVisibleRow(workingRowID);
         }
 
         private void bwMoveProcessInstances_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             Util.WriteMethodInfoToConsole();
+            sWatch.Stop();
+            runtimeTimer.Stop();
             //ChangeImage(dgvCR17DOMEA004Configuration.Rows.Count, true);
         }
 
@@ -2664,6 +2690,36 @@ namespace myAdminTool
             oraConn.Open();
         }
 
+        private bool isOracleConnected
+        {
+            get
+            {
+                try
+                {
+                    using (OracleCommand cmd = new OracleCommand("select 'x' from dual", oraConn))
+                    {
+                        using (OracleDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader != null)
+                            {
+                                while (reader.Read())
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    return true;
+                }
+                catch(Exception ex)
+                {
+                    HConsole.WriteError(ex);
+                    return false;
+                }
+            }
+        }
+
+
         private void loadOrganisationTable()
         {
             Util.WriteMethodInfoToConsole();
@@ -2678,6 +2734,8 @@ namespace myAdminTool
                     {
                         DataTable dataTable = new DataTable();
                         dataTable.Load(reader);
+                        dataTable.Columns.Add("STATUS", typeof(String));
+                        dataTable.Columns.Add("INFO", typeof(String));
                         dgvCR17DOMEA004OE.DataSource = dataTable;
                     }
                 }
@@ -2780,6 +2838,226 @@ namespace myAdminTool
             SaveToCSV(dgvCR17DOMEA004OE);
         }
 
+        private void runtimeTimer_Tick(object sender, EventArgs e)
+        {
+            timeSpan = sWatch.Elapsed;
+            lblElapsedTime.Text = string.Format("{0}h {1}m {2}s {3}ms", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds);
+        }
+
+        private void dgvCR17DOMEA004PI_RowsChanged(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            lblRowCount.Text = dgvCR17DOMEA004PI.Rows.Count.ToString();
+        }
+
+        private void dgvCR17DOMEA004PI_RowsChanged(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            lblRowCount.Text = dgvCR17DOMEA004PI.Rows.Count.ToString();
+        }
+
+        private void bwCreateOrganisation_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            using (Forms.frmParentOrganisation parentOE = new Forms.frmParentOrganisation())
+            {
+                parentOE.ShowDialog();
+                int parentOENr = parentOE.OENr;
+                OpenConnection();
+
+                HConsole.WriteLine(">> btnCreateOEAndWG_Click() --> parentOENr=" + parentOENr);
+
+                string OEBez = "";
+                string OEKurzbez = "";
+                string WGName = "";
+                string userName = "";
+                int oeID = -1;
+                int wgID;
+                int userID;
+                string oldOEBez = "";
+                int oldOENr;
+
+                foreach (DataGridViewRow row in dgvCR17DOMEA004OE.Rows)
+                {
+                    try
+                    {
+                        row.Cells["STATUS"].Value = "RUNNING";
+                        row.DefaultCellStyle.BackColor = Color.LightYellow;
+                        OEBez = row.Cells["oebez_neu"].Value.ToString();
+                        OEKurzbez = row.Cells["oe_kurzbez_neu"].Value.ToString();
+                        oeID = -1;
+                        if (OEBez.Trim() != "")
+                        {
+                            /*******************************************************************************************************/
+                            #region ORGANISATION
+                            if (cbCreateOE.Checked)
+                            {
+                                row.Cells["INFO"].Value = "Organisation anlegen";
+                                if (!session.OrganisationExists(OEBez, out oeID))
+                                {
+                                    #region OE NEU ERSTELLEN
+                                    HConsole.WriteLine(">> create Organisation '" + OEBez + "'");
+                                    //row.Cells["INFO"].Value = ">> create Organisation '" + OEBez + "'";
+                                    oeID = session.createOrganisation(parentOENr, OEBez, OEKurzbez);
+                                    #endregion
+                                }
+                                else
+                                {
+                                    HConsole.WriteLine(">> Organisation '" + OEBez + "' already exists");
+                                    //row.Cells["INFO"].Value = ">> Organisation '" + OEBez + "' already exists";
+                                }
+                            }
+                            #endregion
+                            /*******************************************************************************************************/
+                            #region USER der alten Organisation der Neuen zuordnen
+                            if (cbAssignUserToOE.Checked && oeID != -1)
+                            {
+                                row.Cells["INFO"].Value = "Benutzer der Organisation zuordnen";
+                                try
+                                {
+                                    oldOEBez = row.Cells["oebez"].Value.ToString();
+                                    oldOENr = Convert.ToInt32(row.Cells["oenr"].Value.ToString());
+                                    //row.Cells["INFO"].Value = "assign User to Organisation";
+                                    session.assignUserFromOeToOe(session.getOrganizationByID(oldOENr), session.getOrganizationByID(oeID));
+                                }
+                                catch (Exception ex)
+                                {
+                                    HConsole.WriteError(ex);
+                                    //row.Cells["INFO"].Value = "ERROR IN ASSIGN USER TO ORGANISATION";
+                                }
+                            }
+                            #endregion
+                            /*******************************************************************************************************/
+                            #region ARBEITSGRUPPE
+                            wgID = -1;
+                            WGName = row.Cells["destination_name"].Value.ToString();
+
+                            if (cbCreateWorkGroup.Checked)
+                            {
+                                row.Cells["INFO"].Value = "Arbeitsgruppen anlegen";
+                                if (WGName.Trim() != "")
+                                {
+                                    #region PRÜFEN OB DIE ARBEITSGRUPPE EXISTIERT
+                                    if (!session.WorkGroupExists(WGName, out wgID))
+                                    {
+                                        #region ARBEITSGRUPPE NEU ERSTELLEN
+                                        HConsole.WriteLine(">> create WorkGroup '" + WGName + "'");
+                                        //row.Cells["INFO"].Value = ">> create WorkGroup '" + WGName + "'";
+                                        wgID = session.createWorkGroup(oeID, WGName);
+                                        #endregion
+                                    }
+                                    else
+                                    {
+                                        HConsole.WriteLine(">> WorkGroup '" + WGName + "' already exists");
+                                        //row.Cells["INFO"].Value = ">> WorkGroup '" + WGName + "' already exists";
+                                    }
+                                    #endregion
+                                }
+                            }
+                            #endregion
+                            /*******************************************************************************************************/
+                            #region BENUTZER ZUORDNEN
+                            if (cbAssignUserToWorkgroup.Checked)
+                            {
+                                row.Cells["INFO"].Value = "Benutzer zuordnen";
+                                try
+                                {
+                                    if (WGName.Trim() != "")
+                                    {
+                                        string stmtUser = "select m.usernr, m.username " +
+                                                        "from V_BIG_WORKGROUP_MAPPING v, stellvertreter s, mitarbeiter m " +
+                                                        "where v.DESTINATION_NAME = '" + WGName + "' " +
+                                                        "and s.usernr = v.source_id " +
+                                                        "and m.usernr = s.stellvertreternr " +
+                                                        "and m.status = 0 " +
+                                                        "and m.ist_rolle = 0";
+
+                                        if (oraConn == null || !isOracleConnected)
+                                        {
+                                            OpenConnection();
+                                        }
+                                        using (OracleCommand cmdUser = new OracleCommand(stmtUser, oraConn))
+                                        {
+                                            using (OracleDataReader readerUser = cmdUser.ExecuteReader())
+                                            {
+                                                if (readerUser != null)
+                                                {
+                                                    while (readerUser.Read())
+                                                    {
+                                                        #region OracleDataReader-User --> Read()
+                                                        try
+                                                        {
+                                                            userID = Convert.ToInt32(readerUser["usernr"].ToString());
+                                                            userName = readerUser["username"].ToString();
+                                                            HConsole.WriteLine(">> check User '" + userName + "' and WorkGroup '" + WGName + "'");
+                                                            //row.Cells["INFO"].Value = ">> is User assigned? " + userName + " --> " + WGName;
+                                                            if (!session.isUserAssignedToWorkGroup(userID, wgID))
+                                                            {
+                                                                //row.Cells["INFO"].Value = ">> add User '" + userName + "' to WorkGroup '" + WGName + "'";
+                                                                HConsole.WriteLine(">> add User '" + userName + "' to WorkGroup '" + WGName + "'");
+                                                                session.assignUserToWorkGroup(userID, wgID);
+                                                            }
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            HConsole.WriteError(ex);
+                                                            row.Cells["INFO"].Value = ex.Message;
+                                                        }
+                                                        #endregion
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        row.Cells["INFO"].Value = "";
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    HConsole.WriteError(ex);
+                                    row.Cells["STATUS"].Value = "ERROR (Benutzer zuordnen)";
+                                    row.Cells["INFO"].Value = ex.Message;
+                                }
+                            }
+                            #endregion
+                            /*******************************************************************************************************/
+                        }
+                        row.Cells["STATUS"].Value = "FINISHED";
+                        row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                    catch (Exception ex)
+                    {
+                        HConsole.WriteError(ex);
+                        row.Cells["STATUS"].Value = "ERROR";
+                        row.Cells["INFO"].Value = ex.Message;
+                        row.DefaultCellStyle.BackColor = Color.LightPink;
+                    }
+                }
+            }
+        }
+
+        private void cbAssignUserToOE_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAssignUserToOE.Checked)
+            {
+                cbCreateOE.Checked = true;
+                cbCreateOE.Enabled = false;
+            }
+            else
+            {
+                cbCreateOE.Enabled = true;
+            }
+        }
+
+        private void cbCreateOE_CheckedChanged(object sender, EventArgs e)
+        {
+            if(!cbCreateOE.Checked)
+            {
+                cbAssignUserToOE.Checked = false;
+            }
+        }
+
+        
         //select m.usernr, m.username, m.kurzz, m.oenr, o.oebez, o.OE_KURZBEZ from 
         //mitarbeiter m, organisation o
         //where m.ist_rolle = 1 and m.status = 0

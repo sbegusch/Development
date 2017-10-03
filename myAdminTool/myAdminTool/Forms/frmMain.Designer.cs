@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable4 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabItemColorTable superTabItemColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabItemColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates2 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
-            DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
-            DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable5 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
             DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
+            DevComponents.DotNetBar.Rendering.SuperTabItemColorTable superTabItemColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabColorStates superTabColorStates1 = new DevComponents.DotNetBar.Rendering.SuperTabColorStates();
+            DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable superTabItemStateColorTable1 = new DevComponents.DotNetBar.Rendering.SuperTabItemStateColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable superTabPanelColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabPanelColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable superTabPanelItemColorTable2 = new DevComponents.DotNetBar.Rendering.SuperTabPanelItemColorTable();
+            DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable superTabLinearGradientColorTable3 = new DevComponents.DotNetBar.Rendering.SuperTabLinearGradientColorTable();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.dotNetBarMainManager = new DevComponents.DotNetBar.DotNetBarManager(this.components);
             this.dockSite4 = new DevComponents.DotNetBar.DockSite();
             this.dockSite1 = new DevComponents.DotNetBar.DockSite();
@@ -103,11 +103,21 @@
             this.gpCR17DOMEA004 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpOrganisation = new System.Windows.Forms.TabPage();
+            this.cbAssignUserToOE = new System.Windows.Forms.CheckBox();
+            this.cbCreateOE = new System.Windows.Forms.CheckBox();
+            this.cbCreateWorkGroup = new System.Windows.Forms.CheckBox();
+            this.cbAssignUserToWorkgroup = new System.Windows.Forms.CheckBox();
             this.btnCSVExportOE = new System.Windows.Forms.Button();
             this.dgvCR17DOMEA004OE = new System.Windows.Forms.DataGridView();
             this.colStatus = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnCreateOEAndWG = new System.Windows.Forms.Button();
             this.tpProcessInstance = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbShowMsgBoxOnError = new System.Windows.Forms.CheckBox();
+            this.lblRowCount = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.lblElapsedTime = new System.Windows.Forms.Label();
             this.btnCSVExportPI = new System.Windows.Forms.Button();
             this.dgvCR17DOMEA004PI = new System.Windows.Forms.DataGridView();
             this.btnMovePI = new System.Windows.Forms.Button();
@@ -228,6 +238,9 @@
             this.imgListDOMEA = new System.Windows.Forms.ImageList(this.components);
             this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
             this.bwMoveProcessInstances = new System.ComponentModel.BackgroundWorker();
+            this.runtimeTimer = new System.Windows.Forms.Timer(this.components);
+            this.bwCreateOrganisation = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dockSite1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.barOTCS)).BeginInit();
             this.barOTCS.SuspendLayout();
@@ -252,6 +265,7 @@
             this.tpOrganisation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004OE)).BeginInit();
             this.tpProcessInstance.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004PI)).BeginInit();
             this.superTabControlPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -326,9 +340,9 @@
             this.dockSite4.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.dockSite4.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.dockSite4.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer();
-            this.dockSite4.Location = new System.Drawing.Point(0, 491);
+            this.dockSite4.Location = new System.Drawing.Point(0, 532);
             this.dockSite4.Name = "dockSite4";
-            this.dockSite4.Size = new System.Drawing.Size(838, 0);
+            this.dockSite4.Size = new System.Drawing.Size(945, 0);
             this.dockSite4.TabIndex = 3;
             this.dockSite4.TabStop = false;
             // 
@@ -338,10 +352,10 @@
             this.dockSite1.Controls.Add(this.barOTCS);
             this.dockSite1.Dock = System.Windows.Forms.DockStyle.Left;
             this.dockSite1.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer(new DevComponents.DotNetBar.DocumentBaseContainer[] {
-            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barOTCS, 150, 466)))}, DevComponents.DotNetBar.eOrientation.Horizontal);
+            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barOTCS, 150, 507)))}, DevComponents.DotNetBar.eOrientation.Horizontal);
             this.dockSite1.Location = new System.Drawing.Point(0, 25);
             this.dockSite1.Name = "dockSite1";
-            this.dockSite1.Size = new System.Drawing.Size(153, 466);
+            this.dockSite1.Size = new System.Drawing.Size(153, 507);
             this.dockSite1.TabIndex = 0;
             this.dockSite1.TabStop = false;
             // 
@@ -400,7 +414,7 @@
             this.barOTCS.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
             this.barOTCS.Location = new System.Drawing.Point(0, 0);
             this.barOTCS.Name = "barOTCS";
-            this.barOTCS.Size = new System.Drawing.Size(150, 466);
+            this.barOTCS.Size = new System.Drawing.Size(150, 507);
             this.barOTCS.Stretch = true;
             this.barOTCS.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barOTCS.TabIndex = 0;
@@ -412,7 +426,7 @@
             this.panelDockContainer1.Controls.Add(this.sideBarDockContainerItem1);
             this.panelDockContainer1.Location = new System.Drawing.Point(6, 26);
             this.panelDockContainer1.Name = "panelDockContainer1";
-            this.panelDockContainer1.Size = new System.Drawing.Size(138, 434);
+            this.panelDockContainer1.Size = new System.Drawing.Size(138, 475);
             this.panelDockContainer1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelDockContainer1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.panelDockContainer1.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
@@ -442,7 +456,7 @@
             this.sideBarDockContainerItem1.Name = "sideBarDockContainerItem1";
             this.sideBarDockContainerItem1.Panels.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.sideBarPanelItem1});
-            this.sideBarDockContainerItem1.Size = new System.Drawing.Size(138, 434);
+            this.sideBarDockContainerItem1.Size = new System.Drawing.Size(138, 475);
             this.sideBarDockContainerItem1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.sideBarDockContainerItem1.TabIndex = 0;
             // 
@@ -512,12 +526,12 @@
             this.dockSite2.Controls.Add(this.barSQLServer);
             this.dockSite2.Dock = System.Windows.Forms.DockStyle.Right;
             this.dockSite2.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer(new DevComponents.DotNetBar.DocumentBaseContainer[] {
-            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barDOMEA, 145, 196))),
-            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barOracle, 145, 130))),
-            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barSQLServer, 145, 134)))}, DevComponents.DotNetBar.eOrientation.Vertical);
-            this.dockSite2.Location = new System.Drawing.Point(690, 25);
+            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barDOMEA, 145, 213))),
+            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barOracle, 145, 141))),
+            ((DevComponents.DotNetBar.DocumentBaseContainer)(new DevComponents.DotNetBar.DocumentBarContainer(this.barSQLServer, 145, 147)))}, DevComponents.DotNetBar.eOrientation.Vertical);
+            this.dockSite2.Location = new System.Drawing.Point(797, 25);
             this.dockSite2.Name = "dockSite2";
-            this.dockSite2.Size = new System.Drawing.Size(148, 466);
+            this.dockSite2.Size = new System.Drawing.Size(148, 507);
             this.dockSite2.TabIndex = 1;
             this.dockSite2.TabStop = false;
             // 
@@ -577,7 +591,7 @@
             this.barDOMEA.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
             this.barDOMEA.Location = new System.Drawing.Point(3, 0);
             this.barDOMEA.Name = "barDOMEA";
-            this.barDOMEA.Size = new System.Drawing.Size(145, 196);
+            this.barDOMEA.Size = new System.Drawing.Size(145, 213);
             this.barDOMEA.Stretch = true;
             this.barDOMEA.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barDOMEA.TabIndex = 0;
@@ -589,7 +603,7 @@
             this.panelDockContainer2.Controls.Add(this.sideBar1);
             this.panelDockContainer2.Location = new System.Drawing.Point(6, 26);
             this.panelDockContainer2.Name = "panelDockContainer2";
-            this.panelDockContainer2.Size = new System.Drawing.Size(133, 164);
+            this.panelDockContainer2.Size = new System.Drawing.Size(133, 181);
             this.panelDockContainer2.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelDockContainer2.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.panelDockContainer2.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
@@ -607,7 +621,7 @@
             this.sideBar1.Name = "sideBar1";
             this.sideBar1.Panels.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.sideBarPanelItem2});
-            this.sideBar1.Size = new System.Drawing.Size(133, 164);
+            this.sideBar1.Size = new System.Drawing.Size(133, 181);
             this.sideBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.sideBar1.TabIndex = 1;
             // 
@@ -715,9 +729,9 @@
             this.barOracle.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.dockContainerItem3});
             this.barOracle.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
-            this.barOracle.Location = new System.Drawing.Point(3, 199);
+            this.barOracle.Location = new System.Drawing.Point(3, 216);
             this.barOracle.Name = "barOracle";
-            this.barOracle.Size = new System.Drawing.Size(145, 130);
+            this.barOracle.Size = new System.Drawing.Size(145, 141);
             this.barOracle.Stretch = true;
             this.barOracle.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barOracle.TabIndex = 1;
@@ -729,7 +743,7 @@
             this.panelDockContainer3.Controls.Add(this.sideBar2);
             this.panelDockContainer3.Location = new System.Drawing.Point(6, 26);
             this.panelDockContainer3.Name = "panelDockContainer3";
-            this.panelDockContainer3.Size = new System.Drawing.Size(133, 98);
+            this.panelDockContainer3.Size = new System.Drawing.Size(133, 109);
             this.panelDockContainer3.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelDockContainer3.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.panelDockContainer3.Style.BackColor2.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
@@ -759,7 +773,7 @@
             this.sideBar2.Name = "sideBar2";
             this.sideBar2.Panels.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.sideBarPanelItem3});
-            this.sideBar2.Size = new System.Drawing.Size(133, 98);
+            this.sideBar2.Size = new System.Drawing.Size(133, 109);
             this.sideBar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.sideBar2.TabIndex = 2;
             // 
@@ -825,9 +839,9 @@
             this.barSQLServer.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.dockContainerItem4});
             this.barSQLServer.LayoutType = DevComponents.DotNetBar.eLayoutType.DockContainer;
-            this.barSQLServer.Location = new System.Drawing.Point(3, 332);
+            this.barSQLServer.Location = new System.Drawing.Point(3, 360);
             this.barSQLServer.Name = "barSQLServer";
-            this.barSQLServer.Size = new System.Drawing.Size(145, 134);
+            this.barSQLServer.Size = new System.Drawing.Size(145, 147);
             this.barSQLServer.Stretch = true;
             this.barSQLServer.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.barSQLServer.TabIndex = 2;
@@ -839,7 +853,7 @@
             this.panelDockContainer4.Controls.Add(this.sideBar3);
             this.panelDockContainer4.Location = new System.Drawing.Point(3, 23);
             this.panelDockContainer4.Name = "panelDockContainer4";
-            this.panelDockContainer4.Size = new System.Drawing.Size(139, 108);
+            this.panelDockContainer4.Size = new System.Drawing.Size(139, 121);
             this.panelDockContainer4.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelDockContainer4.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
             this.panelDockContainer4.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarDockedBorder;
@@ -857,7 +871,7 @@
             this.sideBar3.Name = "sideBar3";
             this.sideBar3.Panels.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.sideBarPanelItem4});
-            this.sideBar3.Size = new System.Drawing.Size(139, 108);
+            this.sideBar3.Size = new System.Drawing.Size(139, 121);
             this.sideBar3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.sideBar3.TabIndex = 3;
             // 
@@ -896,9 +910,9 @@
             // 
             this.dockSite8.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.dockSite8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dockSite8.Location = new System.Drawing.Point(0, 491);
+            this.dockSite8.Location = new System.Drawing.Point(0, 532);
             this.dockSite8.Name = "dockSite8";
-            this.dockSite8.Size = new System.Drawing.Size(838, 0);
+            this.dockSite8.Size = new System.Drawing.Size(945, 0);
             this.dockSite8.TabIndex = 7;
             this.dockSite8.TabStop = false;
             // 
@@ -908,7 +922,7 @@
             this.dockSite5.Dock = System.Windows.Forms.DockStyle.Left;
             this.dockSite5.Location = new System.Drawing.Point(0, 25);
             this.dockSite5.Name = "dockSite5";
-            this.dockSite5.Size = new System.Drawing.Size(0, 466);
+            this.dockSite5.Size = new System.Drawing.Size(0, 507);
             this.dockSite5.TabIndex = 4;
             this.dockSite5.TabStop = false;
             // 
@@ -916,9 +930,9 @@
             // 
             this.dockSite6.AccessibleRole = System.Windows.Forms.AccessibleRole.Window;
             this.dockSite6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dockSite6.Location = new System.Drawing.Point(838, 25);
+            this.dockSite6.Location = new System.Drawing.Point(945, 25);
             this.dockSite6.Name = "dockSite6";
-            this.dockSite6.Size = new System.Drawing.Size(0, 466);
+            this.dockSite6.Size = new System.Drawing.Size(0, 507);
             this.dockSite6.TabIndex = 5;
             this.dockSite6.TabStop = false;
             // 
@@ -929,7 +943,7 @@
             this.dockSite7.Dock = System.Windows.Forms.DockStyle.Top;
             this.dockSite7.Location = new System.Drawing.Point(0, 0);
             this.dockSite7.Name = "dockSite7";
-            this.dockSite7.Size = new System.Drawing.Size(838, 25);
+            this.dockSite7.Size = new System.Drawing.Size(945, 25);
             this.dockSite7.TabIndex = 6;
             this.dockSite7.TabStop = false;
             // 
@@ -988,7 +1002,7 @@
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.MenuBar = true;
             this.mainMenu.Name = "mainMenu";
-            this.mainMenu.Size = new System.Drawing.Size(838, 24);
+            this.mainMenu.Size = new System.Drawing.Size(945, 24);
             this.mainMenu.Stretch = true;
             this.mainMenu.Style = DevComponents.DotNetBar.eDotNetBarStyle.Office2003;
             this.mainMenu.TabIndex = 0;
@@ -1054,7 +1068,7 @@
             this.dockSite3.DocumentDockContainer = new DevComponents.DotNetBar.DocumentDockContainer();
             this.dockSite3.Location = new System.Drawing.Point(0, 25);
             this.dockSite3.Name = "dockSite3";
-            this.dockSite3.Size = new System.Drawing.Size(838, 0);
+            this.dockSite3.Size = new System.Drawing.Size(945, 0);
             this.dockSite3.TabIndex = 2;
             this.dockSite3.TabStop = false;
             // 
@@ -1087,7 +1101,7 @@
             this.superTabControl1.ReorderTabsEnabled = true;
             this.superTabControl1.SelectedTabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.superTabControl1.SelectedTabIndex = 1;
-            this.superTabControl1.Size = new System.Drawing.Size(537, 466);
+            this.superTabControl1.Size = new System.Drawing.Size(644, 507);
             this.superTabControl1.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.superTabControl1.TabIndex = 8;
             this.superTabControl1.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -1109,7 +1123,7 @@
             this.superTabControlPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel6.Location = new System.Drawing.Point(0, 25);
             this.superTabControlPanel6.Name = "superTabControlPanel6";
-            this.superTabControlPanel6.Size = new System.Drawing.Size(537, 441);
+            this.superTabControlPanel6.Size = new System.Drawing.Size(644, 482);
             this.superTabControlPanel6.TabIndex = 0;
             this.superTabControlPanel6.TabItem = this.tiCR17DOMEA004;
             // 
@@ -1119,7 +1133,7 @@
             this.gpCR17DOMEA004.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gpCR17DOMEA004.Location = new System.Drawing.Point(0, 0);
             this.gpCR17DOMEA004.Name = "gpCR17DOMEA004";
-            this.gpCR17DOMEA004.Size = new System.Drawing.Size(537, 441);
+            this.gpCR17DOMEA004.Size = new System.Drawing.Size(644, 482);
             this.gpCR17DOMEA004.TabIndex = 12;
             this.gpCR17DOMEA004.TabStop = false;
             // 
@@ -1133,21 +1147,75 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 8);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(532, 408);
+            this.tabControl1.Size = new System.Drawing.Size(639, 449);
             this.tabControl1.TabIndex = 12;
             // 
             // tpOrganisation
             // 
             this.tpOrganisation.BackColor = System.Drawing.SystemColors.Control;
+            this.tpOrganisation.Controls.Add(this.cbAssignUserToOE);
+            this.tpOrganisation.Controls.Add(this.cbCreateOE);
+            this.tpOrganisation.Controls.Add(this.cbCreateWorkGroup);
+            this.tpOrganisation.Controls.Add(this.cbAssignUserToWorkgroup);
             this.tpOrganisation.Controls.Add(this.btnCSVExportOE);
             this.tpOrganisation.Controls.Add(this.dgvCR17DOMEA004OE);
             this.tpOrganisation.Controls.Add(this.btnCreateOEAndWG);
             this.tpOrganisation.Location = new System.Drawing.Point(4, 22);
             this.tpOrganisation.Name = "tpOrganisation";
             this.tpOrganisation.Padding = new System.Windows.Forms.Padding(3);
-            this.tpOrganisation.Size = new System.Drawing.Size(524, 382);
+            this.tpOrganisation.Size = new System.Drawing.Size(631, 423);
             this.tpOrganisation.TabIndex = 0;
             this.tpOrganisation.Text = "create Organisation";
+            // 
+            // cbAssignUserToOE
+            // 
+            this.cbAssignUserToOE.AutoSize = true;
+            this.cbAssignUserToOE.Checked = true;
+            this.cbAssignUserToOE.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAssignUserToOE.Location = new System.Drawing.Point(300, 16);
+            this.cbAssignUserToOE.Name = "cbAssignUserToOE";
+            this.cbAssignUserToOE.Size = new System.Drawing.Size(155, 17);
+            this.cbAssignUserToOE.TabIndex = 10;
+            this.cbAssignUserToOE.Text = "assign User to Organisation";
+            this.cbAssignUserToOE.UseVisualStyleBackColor = true;
+            this.cbAssignUserToOE.CheckedChanged += new System.EventHandler(this.cbAssignUserToOE_CheckedChanged);
+            // 
+            // cbCreateOE
+            // 
+            this.cbCreateOE.AutoSize = true;
+            this.cbCreateOE.Checked = true;
+            this.cbCreateOE.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCreateOE.Location = new System.Drawing.Point(146, 16);
+            this.cbCreateOE.Name = "cbCreateOE";
+            this.cbCreateOE.Size = new System.Drawing.Size(118, 17);
+            this.cbCreateOE.TabIndex = 10;
+            this.cbCreateOE.Text = "create Organisation";
+            this.cbCreateOE.UseVisualStyleBackColor = true;
+            this.cbCreateOE.CheckedChanged += new System.EventHandler(this.cbCreateOE_CheckedChanged);
+            // 
+            // cbCreateWorkGroup
+            // 
+            this.cbCreateWorkGroup.AutoSize = true;
+            this.cbCreateWorkGroup.Checked = true;
+            this.cbCreateWorkGroup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCreateWorkGroup.Location = new System.Drawing.Point(146, 37);
+            this.cbCreateWorkGroup.Name = "cbCreateWorkGroup";
+            this.cbCreateWorkGroup.Size = new System.Drawing.Size(114, 17);
+            this.cbCreateWorkGroup.TabIndex = 11;
+            this.cbCreateWorkGroup.Text = "create WorkGroup";
+            this.cbCreateWorkGroup.UseVisualStyleBackColor = true;
+            // 
+            // cbAssignUserToWorkgroup
+            // 
+            this.cbAssignUserToWorkgroup.AutoSize = true;
+            this.cbAssignUserToWorkgroup.Checked = true;
+            this.cbAssignUserToWorkgroup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAssignUserToWorkgroup.Location = new System.Drawing.Point(300, 37);
+            this.cbAssignUserToWorkgroup.Name = "cbAssignUserToWorkgroup";
+            this.cbAssignUserToWorkgroup.Size = new System.Drawing.Size(151, 17);
+            this.cbAssignUserToWorkgroup.TabIndex = 12;
+            this.cbAssignUserToWorkgroup.Text = "assign User to WorkGroup";
+            this.cbAssignUserToWorkgroup.UseVisualStyleBackColor = true;
             // 
             // btnCSVExportOE
             // 
@@ -1164,27 +1232,27 @@
             // dgvCR17DOMEA004OE
             // 
             this.dgvCR17DOMEA004OE.AllowUserToAddRows = false;
-            this.dgvCR17DOMEA004OE.AllowUserToDeleteRows = false;
             this.dgvCR17DOMEA004OE.AllowUserToResizeRows = false;
             this.dgvCR17DOMEA004OE.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCR17DOMEA004OE.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCR17DOMEA004OE.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvCR17DOMEA004OE.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCR17DOMEA004OE.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCR17DOMEA004OE.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colStatus});
             this.dgvCR17DOMEA004OE.Location = new System.Drawing.Point(3, 64);
             this.dgvCR17DOMEA004OE.Name = "dgvCR17DOMEA004OE";
             this.dgvCR17DOMEA004OE.RowHeadersVisible = false;
-            this.dgvCR17DOMEA004OE.Size = new System.Drawing.Size(518, 316);
+            this.dgvCR17DOMEA004OE.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCR17DOMEA004OE.Size = new System.Drawing.Size(625, 359);
             this.dgvCR17DOMEA004OE.TabIndex = 10;
             // 
             // colStatus
@@ -1211,15 +1279,80 @@
             // tpProcessInstance
             // 
             this.tpProcessInstance.BackColor = System.Drawing.SystemColors.Control;
+            this.tpProcessInstance.Controls.Add(this.groupBox4);
             this.tpProcessInstance.Controls.Add(this.btnCSVExportPI);
             this.tpProcessInstance.Controls.Add(this.dgvCR17DOMEA004PI);
             this.tpProcessInstance.Controls.Add(this.btnMovePI);
             this.tpProcessInstance.Location = new System.Drawing.Point(4, 22);
             this.tpProcessInstance.Name = "tpProcessInstance";
             this.tpProcessInstance.Padding = new System.Windows.Forms.Padding(3);
-            this.tpProcessInstance.Size = new System.Drawing.Size(524, 382);
+            this.tpProcessInstance.Size = new System.Drawing.Size(631, 423);
             this.tpProcessInstance.TabIndex = 1;
             this.tpProcessInstance.Text = "move ProcessInstance";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.cbShowMsgBoxOnError);
+            this.groupBox4.Controls.Add(this.lblRowCount);
+            this.groupBox4.Controls.Add(this.label12);
+            this.groupBox4.Controls.Add(this.label11);
+            this.groupBox4.Controls.Add(this.lblElapsedTime);
+            this.groupBox4.Location = new System.Drawing.Point(126, 2);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(502, 58);
+            this.groupBox4.TabIndex = 12;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Information";
+            // 
+            // cbShowMsgBoxOnError
+            // 
+            this.cbShowMsgBoxOnError.AutoSize = true;
+            this.cbShowMsgBoxOnError.Checked = true;
+            this.cbShowMsgBoxOnError.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbShowMsgBoxOnError.Location = new System.Drawing.Point(229, 34);
+            this.cbShowMsgBoxOnError.Name = "cbShowMsgBoxOnError";
+            this.cbShowMsgBoxOnError.Size = new System.Drawing.Size(160, 17);
+            this.cbShowMsgBoxOnError.TabIndex = 4;
+            this.cbShowMsgBoxOnError.Text = "On Error show Message Box";
+            this.cbShowMsgBoxOnError.UseVisualStyleBackColor = true;
+            // 
+            // lblRowCount
+            // 
+            this.lblRowCount.AutoSize = true;
+            this.lblRowCount.Location = new System.Drawing.Point(165, 35);
+            this.lblRowCount.Name = "lblRowCount";
+            this.lblRowCount.Size = new System.Drawing.Size(13, 13);
+            this.lblRowCount.TabIndex = 3;
+            this.lblRowCount.Text = "0";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(35, 35);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(60, 13);
+            this.label12.TabIndex = 2;
+            this.label12.Text = "RowCount:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(35, 16);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 13);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "ElapsedTime:";
+            // 
+            // lblElapsedTime
+            // 
+            this.lblElapsedTime.AutoSize = true;
+            this.lblElapsedTime.Location = new System.Drawing.Point(165, 16);
+            this.lblElapsedTime.Name = "lblElapsedTime";
+            this.lblElapsedTime.Size = new System.Drawing.Size(13, 13);
+            this.lblElapsedTime.TabIndex = 0;
+            this.lblElapsedTime.Text = "0";
             // 
             // btnCSVExportPI
             // 
@@ -1236,7 +1369,6 @@
             // dgvCR17DOMEA004PI
             // 
             this.dgvCR17DOMEA004PI.AllowUserToAddRows = false;
-            this.dgvCR17DOMEA004PI.AllowUserToDeleteRows = false;
             this.dgvCR17DOMEA004PI.AllowUserToResizeRows = false;
             this.dgvCR17DOMEA004PI.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -1246,8 +1378,11 @@
             this.dgvCR17DOMEA004PI.Location = new System.Drawing.Point(3, 64);
             this.dgvCR17DOMEA004PI.Name = "dgvCR17DOMEA004PI";
             this.dgvCR17DOMEA004PI.RowHeadersVisible = false;
-            this.dgvCR17DOMEA004PI.Size = new System.Drawing.Size(518, 316);
+            this.dgvCR17DOMEA004PI.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvCR17DOMEA004PI.Size = new System.Drawing.Size(625, 356);
             this.dgvCR17DOMEA004PI.TabIndex = 0;
+            this.dgvCR17DOMEA004PI.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvCR17DOMEA004PI_RowsChanged);
+            this.dgvCR17DOMEA004PI.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvCR17DOMEA004PI_RowsChanged);
             // 
             // btnMovePI
             // 
@@ -1283,12 +1418,12 @@
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel1.Location = new System.Drawing.Point(0, 25);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
-            superTabLinearGradientColorTable4.Colors = new System.Drawing.Color[] {
+            superTabLinearGradientColorTable1.Colors = new System.Drawing.Color[] {
         System.Drawing.SystemColors.Control};
-            superTabPanelItemColorTable3.Background = superTabLinearGradientColorTable4;
-            superTabPanelColorTable3.Default = superTabPanelItemColorTable3;
-            this.superTabControlPanel1.PanelColor = superTabPanelColorTable3;
-            this.superTabControlPanel1.Size = new System.Drawing.Size(537, 441);
+            superTabPanelItemColorTable1.Background = superTabLinearGradientColorTable1;
+            superTabPanelColorTable1.Default = superTabPanelItemColorTable1;
+            this.superTabControlPanel1.PanelColor = superTabPanelColorTable1;
+            this.superTabControlPanel1.Size = new System.Drawing.Size(644, 482);
             this.superTabControlPanel1.TabIndex = 1;
             this.superTabControlPanel1.TabItem = this.tiOTContentServer;
             // 
@@ -1410,8 +1545,8 @@
             this.splitContainer2.Panel2.Controls.Add(this.txtCreateDate);
             this.splitContainer2.Panel2.Controls.Add(this.txtModifyDate);
             this.splitContainer2.Panel2.Controls.Add(this.txtName);
-            this.splitContainer2.Size = new System.Drawing.Size(537, 391);
-            this.splitContainer2.SplitterDistance = 266;
+            this.splitContainer2.Size = new System.Drawing.Size(644, 432);
+            this.splitContainer2.SplitterDistance = 319;
             this.splitContainer2.TabIndex = 1;
             // 
             // treeViewLivelink
@@ -1421,7 +1556,7 @@
             this.treeViewLivelink.HideSelection = false;
             this.treeViewLivelink.Location = new System.Drawing.Point(0, 0);
             this.treeViewLivelink.Name = "treeViewLivelink";
-            this.treeViewLivelink.Size = new System.Drawing.Size(266, 391);
+            this.treeViewLivelink.Size = new System.Drawing.Size(319, 432);
             this.treeViewLivelink.TabIndex = 0;
             this.treeViewLivelink.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewLivelink_BeforeExpand);
             this.treeViewLivelink.NodeMouseHover += new System.Windows.Forms.TreeNodeMouseHoverEventHandler(this.treeViewLivelink_NodeMouseHover);
@@ -1437,7 +1572,7 @@
             this.groupBox3.Controls.Add(this.tcCategories);
             this.groupBox3.Location = new System.Drawing.Point(11, 242);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(249, 128);
+            this.groupBox3.Size = new System.Drawing.Size(303, 169);
             this.groupBox3.TabIndex = 23;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Kategorie";
@@ -1450,7 +1585,7 @@
             this.tcCategories.Location = new System.Drawing.Point(6, 17);
             this.tcCategories.Name = "tcCategories";
             this.tcCategories.SelectedIndex = 0;
-            this.tcCategories.Size = new System.Drawing.Size(241, 101);
+            this.tcCategories.Size = new System.Drawing.Size(295, 142);
             this.tcCategories.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tcCategories.TabIndex = 21;
             // 
@@ -1480,7 +1615,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.btn_Kategorie.Location = new System.Drawing.Point(11, 365);
             this.btn_Kategorie.Name = "btn_Kategorie";
-            this.btn_Kategorie.Size = new System.Drawing.Size(98, 23);
+            this.btn_Kategorie.Size = new System.Drawing.Size(98, 64);
             this.btn_Kategorie.TabIndex = 20;
             this.btn_Kategorie.Text = "Kat. hinzufügen";
             this.btn_Kategorie.UseVisualStyleBackColor = true;
@@ -1547,7 +1682,7 @@
             this.txtCreator.Location = new System.Drawing.Point(73, 62);
             this.txtCreator.Name = "txtCreator";
             this.txtCreator.ReadOnly = true;
-            this.txtCreator.Size = new System.Drawing.Size(185, 20);
+            this.txtCreator.Size = new System.Drawing.Size(239, 20);
             this.txtCreator.TabIndex = 10;
             // 
             // txtComment
@@ -1557,7 +1692,7 @@
             this.txtComment.Location = new System.Drawing.Point(73, 140);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
-            this.txtComment.Size = new System.Drawing.Size(188, 91);
+            this.txtComment.Size = new System.Drawing.Size(242, 91);
             this.txtComment.TabIndex = 4;
             // 
             // txtID
@@ -1568,7 +1703,7 @@
             this.txtID.Location = new System.Drawing.Point(73, 10);
             this.txtID.Name = "txtID";
             this.txtID.ReadOnly = true;
-            this.txtID.Size = new System.Drawing.Size(188, 20);
+            this.txtID.Size = new System.Drawing.Size(242, 20);
             this.txtID.TabIndex = 3;
             // 
             // txtCreateDate
@@ -1578,7 +1713,7 @@
             this.txtCreateDate.Location = new System.Drawing.Point(73, 114);
             this.txtCreateDate.Name = "txtCreateDate";
             this.txtCreateDate.ReadOnly = true;
-            this.txtCreateDate.Size = new System.Drawing.Size(188, 20);
+            this.txtCreateDate.Size = new System.Drawing.Size(242, 20);
             this.txtCreateDate.TabIndex = 2;
             // 
             // txtModifyDate
@@ -1588,7 +1723,7 @@
             this.txtModifyDate.Location = new System.Drawing.Point(73, 88);
             this.txtModifyDate.Name = "txtModifyDate";
             this.txtModifyDate.ReadOnly = true;
-            this.txtModifyDate.Size = new System.Drawing.Size(188, 20);
+            this.txtModifyDate.Size = new System.Drawing.Size(242, 20);
             this.txtModifyDate.TabIndex = 1;
             // 
             // txtName
@@ -1597,7 +1732,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(73, 36);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(188, 20);
+            this.txtName.Size = new System.Drawing.Size(242, 20);
             this.txtName.TabIndex = 0;
             // 
             // tiOTContentServer
@@ -1605,12 +1740,12 @@
             this.tiOTContentServer.AttachedControl = this.superTabControlPanel1;
             this.tiOTContentServer.GlobalItem = false;
             this.tiOTContentServer.Name = "tiOTContentServer";
-            superTabLinearGradientColorTable5.Colors = new System.Drawing.Color[] {
+            superTabLinearGradientColorTable2.Colors = new System.Drawing.Color[] {
         System.Drawing.SystemColors.Control};
-            superTabItemStateColorTable2.Background = superTabLinearGradientColorTable5;
-            superTabColorStates2.Normal = superTabItemStateColorTable2;
-            superTabItemColorTable2.Default = superTabColorStates2;
-            this.tiOTContentServer.TabColor = superTabItemColorTable2;
+            superTabItemStateColorTable1.Background = superTabLinearGradientColorTable2;
+            superTabColorStates1.Normal = superTabItemStateColorTable1;
+            superTabItemColorTable1.Default = superTabColorStates1;
+            this.tiOTContentServer.TabColor = superTabItemColorTable1;
             this.tiOTContentServer.Text = "ContentServer";
             // 
             // superTabControlPanel2
@@ -1620,7 +1755,7 @@
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel2.Location = new System.Drawing.Point(0, 0);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(537, 466);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(644, 507);
             this.superTabControlPanel2.TabIndex = 0;
             this.superTabControlPanel2.TabItem = this.tiDOMEA;
             // 
@@ -1639,8 +1774,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(534, 440);
-            this.splitContainer3.SplitterDistance = 178;
+            this.splitContainer3.Size = new System.Drawing.Size(641, 481);
+            this.splitContainer3.SplitterDistance = 213;
             this.splitContainer3.TabIndex = 10;
             // 
             // tvDOMEAMain
@@ -1649,7 +1784,7 @@
             this.tvDOMEAMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvDOMEAMain.Location = new System.Drawing.Point(0, 0);
             this.tvDOMEAMain.Name = "tvDOMEAMain";
-            this.tvDOMEAMain.Size = new System.Drawing.Size(178, 440);
+            this.tvDOMEAMain.Size = new System.Drawing.Size(213, 481);
             this.tvDOMEAMain.TabIndex = 0;
             this.tvDOMEAMain.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDOMEAMain_AfterSelect);
             this.tvDOMEAMain.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvDOMEAMain_NodeMouseClick);
@@ -1670,8 +1805,8 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.btnAddDocumentsToOTCS);
             this.splitContainer4.Panel2.Controls.Add(this.dgvDOMEADocumentList);
-            this.splitContainer4.Size = new System.Drawing.Size(352, 440);
-            this.splitContainer4.SplitterDistance = 118;
+            this.splitContainer4.Size = new System.Drawing.Size(424, 481);
+            this.splitContainer4.SplitterDistance = 128;
             this.splitContainer4.TabIndex = 0;
             // 
             // btnAddProcessInstanceToOTCS
@@ -1691,8 +1826,8 @@
             this.dgvDOMEAWorkList.AllowUserToDeleteRows = false;
             this.dgvDOMEAWorkList.AllowUserToOrderColumns = true;
             this.dgvDOMEAWorkList.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEAWorkList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEAWorkList.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvDOMEAWorkList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1715,10 +1850,10 @@
             this.dgvDOMEAWorkList.MultiSelect = false;
             this.dgvDOMEAWorkList.Name = "dgvDOMEAWorkList";
             this.dgvDOMEAWorkList.RowHeadersVisible = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEAWorkList.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvDOMEAWorkList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDOMEAWorkList.Size = new System.Drawing.Size(352, 95);
+            this.dgvDOMEAWorkList.Size = new System.Drawing.Size(424, 105);
             this.dgvDOMEAWorkList.TabIndex = 0;
             this.dgvDOMEAWorkList.SelectionChanged += new System.EventHandler(this.dgvDOMEAWorkList_SelectionChanged);
             // 
@@ -1822,10 +1957,10 @@
             this.dgvDOMEADocumentList.Location = new System.Drawing.Point(0, 23);
             this.dgvDOMEADocumentList.Name = "dgvDOMEADocumentList";
             this.dgvDOMEADocumentList.RowHeadersVisible = false;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            this.dgvDOMEADocumentList.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvDOMEADocumentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDOMEADocumentList.Size = new System.Drawing.Size(352, 293);
+            this.dgvDOMEADocumentList.Size = new System.Drawing.Size(424, 324);
             this.dgvDOMEADocumentList.TabIndex = 0;
             // 
             // colDocChecked
@@ -1884,7 +2019,7 @@
             this.superTabControlPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel5.Location = new System.Drawing.Point(0, 0);
             this.superTabControlPanel5.Name = "superTabControlPanel5";
-            this.superTabControlPanel5.Size = new System.Drawing.Size(537, 466);
+            this.superTabControlPanel5.Size = new System.Drawing.Size(644, 507);
             this.superTabControlPanel5.TabIndex = 0;
             this.superTabControlPanel5.TabItem = this.tiEditTable;
             // 
@@ -1901,8 +2036,8 @@
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.Controls.Add(this.dgvDBObject);
-            this.splitContainer5.Size = new System.Drawing.Size(537, 466);
-            this.splitContainer5.SplitterDistance = 179;
+            this.splitContainer5.Size = new System.Drawing.Size(644, 507);
+            this.splitContainer5.SplitterDistance = 214;
             this.splitContainer5.TabIndex = 0;
             // 
             // tvDatabaseObjects
@@ -1916,7 +2051,7 @@
             this.tvDatabaseObjects.Location = new System.Drawing.Point(0, 0);
             this.tvDatabaseObjects.Name = "tvDatabaseObjects";
             this.tvDatabaseObjects.SelectedImageIndex = 0;
-            this.tvDatabaseObjects.Size = new System.Drawing.Size(179, 441);
+            this.tvDatabaseObjects.Size = new System.Drawing.Size(214, 482);
             this.tvDatabaseObjects.TabIndex = 0;
             this.tvDatabaseObjects.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.tvDatabaseObjects_AfterSelect);
             // 
@@ -1938,7 +2073,7 @@
             this.dgvDBObject.ContextMenuStrip = this.contextMenuFilter;
             this.dgvDBObject.Location = new System.Drawing.Point(0, 1);
             this.dgvDBObject.Name = "dgvDBObject";
-            this.dgvDBObject.Size = new System.Drawing.Size(354, 440);
+            this.dgvDBObject.Size = new System.Drawing.Size(426, 481);
             this.dgvDBObject.TabIndex = 10;
             // 
             // contextMenuFilter
@@ -1968,12 +2103,12 @@
             this.superTabControlPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel4.Location = new System.Drawing.Point(0, 0);
             this.superTabControlPanel4.Name = "superTabControlPanel4";
-            superTabLinearGradientColorTable1.Colors = new System.Drawing.Color[] {
+            superTabLinearGradientColorTable3.Colors = new System.Drawing.Color[] {
         System.Drawing.SystemColors.Control};
-            superTabPanelItemColorTable1.Background = superTabLinearGradientColorTable1;
-            superTabPanelColorTable1.Default = superTabPanelItemColorTable1;
-            this.superTabControlPanel4.PanelColor = superTabPanelColorTable1;
-            this.superTabControlPanel4.Size = new System.Drawing.Size(537, 466);
+            superTabPanelItemColorTable2.Background = superTabLinearGradientColorTable3;
+            superTabPanelColorTable2.Default = superTabPanelItemColorTable2;
+            this.superTabControlPanel4.PanelColor = superTabPanelColorTable2;
+            this.superTabControlPanel4.Size = new System.Drawing.Size(644, 507);
             this.superTabControlPanel4.TabIndex = 0;
             this.superTabControlPanel4.TabItem = this.tiOTfindMember;
             // 
@@ -1991,7 +2126,7 @@
             this._groupBoxSearchCriteria.Controls.Add(this._comboBoxSearchMatching);
             this._groupBoxSearchCriteria.Location = new System.Drawing.Point(9, 10);
             this._groupBoxSearchCriteria.Name = "_groupBoxSearchCriteria";
-            this._groupBoxSearchCriteria.Size = new System.Drawing.Size(519, 122);
+            this._groupBoxSearchCriteria.Size = new System.Drawing.Size(626, 122);
             this._groupBoxSearchCriteria.TabIndex = 8;
             this._groupBoxSearchCriteria.TabStop = false;
             this._groupBoxSearchCriteria.Text = "Search Criteria";
@@ -2082,7 +2217,7 @@
             this._groupBoxSearchResults.Controls.Add(this._splitContainerSearchResults);
             this._groupBoxSearchResults.Location = new System.Drawing.Point(9, 147);
             this._groupBoxSearchResults.Name = "_groupBoxSearchResults";
-            this._groupBoxSearchResults.Size = new System.Drawing.Size(519, 288);
+            this._groupBoxSearchResults.Size = new System.Drawing.Size(626, 329);
             this._groupBoxSearchResults.TabIndex = 9;
             this._groupBoxSearchResults.TabStop = false;
             this._groupBoxSearchResults.Text = "Search Results";
@@ -2103,8 +2238,8 @@
             // _splitContainerSearchResults.Panel2
             // 
             this._splitContainerSearchResults.Panel2.AutoScroll = true;
-            this._splitContainerSearchResults.Size = new System.Drawing.Size(513, 269);
-            this._splitContainerSearchResults.SplitterDistance = 244;
+            this._splitContainerSearchResults.Size = new System.Drawing.Size(620, 310);
+            this._splitContainerSearchResults.SplitterDistance = 294;
             this._splitContainerSearchResults.TabIndex = 0;
             // 
             // _listViewMembers
@@ -2112,12 +2247,12 @@
             this._listViewMembers.BackColor = System.Drawing.SystemColors.Control;
             this._listViewMembers.Dock = System.Windows.Forms.DockStyle.Fill;
             this._listViewMembers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this._listViewMembers.LabelWrap = false;
             this._listViewMembers.Location = new System.Drawing.Point(0, 0);
             this._listViewMembers.MultiSelect = false;
             this._listViewMembers.Name = "_listViewMembers";
-            this._listViewMembers.Size = new System.Drawing.Size(244, 269);
+            this._listViewMembers.Size = new System.Drawing.Size(294, 310);
             this._listViewMembers.TabIndex = 0;
             this._listViewMembers.UseCompatibleStateImageBehavior = false;
             this._listViewMembers.View = System.Windows.Forms.View.List;
@@ -2143,7 +2278,7 @@
             this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel3.Location = new System.Drawing.Point(0, 0);
             this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(537, 466);
+            this.superTabControlPanel3.Size = new System.Drawing.Size(644, 507);
             this.superTabControlPanel3.TabIndex = 0;
             this.superTabControlPanel3.TabItem = this.tiVSVMError;
             // 
@@ -2165,8 +2300,8 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(537, 466);
-            this.splitContainer1.SplitterDistance = 125;
+            this.splitContainer1.Size = new System.Drawing.Size(644, 507);
+            this.splitContainer1.SplitterDistance = 135;
             this.splitContainer1.TabIndex = 8;
             // 
             // dgvSST
@@ -2190,7 +2325,7 @@
             this.dgvSST.Name = "dgvSST";
             this.dgvSST.RowHeadersVisible = false;
             this.dgvSST.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSST.Size = new System.Drawing.Size(528, 87);
+            this.dgvSST.Size = new System.Drawing.Size(635, 97);
             this.dgvSST.TabIndex = 3;
             this.dgvSST.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSST_CellClick);
             // 
@@ -2260,9 +2395,9 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.txtAddressID);
             this.groupBox1.Controls.Add(this.dgvGBF);
-            this.groupBox1.Location = new System.Drawing.Point(4, 167);
+            this.groupBox1.Location = new System.Drawing.Point(4, 198);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(534, 145);
+            this.groupBox1.Size = new System.Drawing.Size(641, 145);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "FB_GEBAHRUNGSFAELLE";
@@ -2321,7 +2456,7 @@
             this.dgvGBF.Name = "dgvGBF";
             this.dgvGBF.RowHeadersVisible = false;
             this.dgvGBF.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvGBF.Size = new System.Drawing.Size(528, 98);
+            this.dgvGBF.Size = new System.Drawing.Size(635, 98);
             this.dgvGBF.TabIndex = 4;
             // 
             // colGBFIGZ
@@ -2369,7 +2504,7 @@
             this.groupBox2.Controls.Add(this.dgvAdressaten);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(534, 158);
+            this.groupBox2.Size = new System.Drawing.Size(641, 189);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "DOM_ADDRESS_SST";
@@ -2395,7 +2530,7 @@
             this.dgvAdressaten.Name = "dgvAdressaten";
             this.dgvAdressaten.RowHeadersVisible = false;
             this.dgvAdressaten.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAdressaten.Size = new System.Drawing.Size(528, 139);
+            this.dgvAdressaten.Size = new System.Drawing.Size(635, 170);
             this.dgvAdressaten.TabIndex = 5;
             this.dgvAdressaten.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAdressaten_CellClick);
             // 
@@ -2448,9 +2583,9 @@
             this.lblStatusInfoDOMEA,
             this.lblStatusInfoSQLServer,
             this.labelGeneralInfo});
-            this.statusStrip1.Location = new System.Drawing.Point(153, 469);
+            this.statusStrip1.Location = new System.Drawing.Point(153, 510);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(537, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(644, 22);
             this.statusStrip1.TabIndex = 9;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2535,11 +2670,20 @@
             this.bwMoveProcessInstances.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwMoveProcessInstances_ProgressChanged);
             this.bwMoveProcessInstances.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwMoveProcessInstances_RunWorkerCompleted);
             // 
+            // runtimeTimer
+            // 
+            this.runtimeTimer.Interval = 1000;
+            this.runtimeTimer.Tick += new System.EventHandler(this.runtimeTimer_Tick);
+            // 
+            // bwCreateOrganisation
+            // 
+            this.bwCreateOrganisation.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwCreateOrganisation_DoWork);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 491);
+            this.ClientSize = new System.Drawing.Size(945, 532);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.superTabControl1);
             this.Controls.Add(this.dockSite2);
@@ -2577,8 +2721,11 @@
             this.gpCR17DOMEA004.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tpOrganisation.ResumeLayout(false);
+            this.tpOrganisation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004OE)).EndInit();
             this.tpProcessInstance.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCR17DOMEA004PI)).EndInit();
             this.superTabControlPanel1.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
@@ -2818,6 +2965,19 @@
         private System.Windows.Forms.DataGridView dgvCR17DOMEA004PI;
         private System.Windows.Forms.Button btnCSVExportPI;
         private System.Windows.Forms.Button btnCSVExportOE;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblElapsedTime;
+        private System.Windows.Forms.Timer runtimeTimer;
+        private System.Windows.Forms.Label lblRowCount;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox cbShowMsgBoxOnError;
+        private System.ComponentModel.BackgroundWorker bwCreateOrganisation;
+        private System.Windows.Forms.CheckBox cbCreateOE;
+        private System.Windows.Forms.CheckBox cbCreateWorkGroup;
+        private System.Windows.Forms.CheckBox cbAssignUserToWorkgroup;
+        private System.Windows.Forms.CheckBox cbAssignUserToOE;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
 
 
     }
