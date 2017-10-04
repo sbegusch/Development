@@ -113,6 +113,8 @@
             this.btnCreateOEAndWG = new System.Windows.Forms.Button();
             this.tpProcessInstance = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.rbRunning = new System.Windows.Forms.RadioButton();
+            this.rbStop = new System.Windows.Forms.RadioButton();
             this.cbShowMsgBoxOnError = new System.Windows.Forms.CheckBox();
             this.lblRowCount = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -1252,7 +1254,7 @@
             this.dgvCR17DOMEA004OE.Name = "dgvCR17DOMEA004OE";
             this.dgvCR17DOMEA004OE.RowHeadersVisible = false;
             this.dgvCR17DOMEA004OE.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCR17DOMEA004OE.Size = new System.Drawing.Size(625, 359);
+            this.dgvCR17DOMEA004OE.Size = new System.Drawing.Size(625, 354);
             this.dgvCR17DOMEA004OE.TabIndex = 10;
             // 
             // colStatus
@@ -1294,6 +1296,8 @@
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.rbRunning);
+            this.groupBox4.Controls.Add(this.rbStop);
             this.groupBox4.Controls.Add(this.cbShowMsgBoxOnError);
             this.groupBox4.Controls.Add(this.lblRowCount);
             this.groupBox4.Controls.Add(this.label12);
@@ -1305,6 +1309,32 @@
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Information";
+            // 
+            // rbRunning
+            // 
+            this.rbRunning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbRunning.AutoSize = true;
+            this.rbRunning.Location = new System.Drawing.Point(411, 14);
+            this.rbRunning.Name = "rbRunning";
+            this.rbRunning.Size = new System.Drawing.Size(65, 17);
+            this.rbRunning.TabIndex = 13;
+            this.rbRunning.Text = "Running";
+            this.rbRunning.UseVisualStyleBackColor = true;
+            this.rbRunning.CheckedChanged += new System.EventHandler(this.rbRunning_CheckedChanged);
+            // 
+            // rbStop
+            // 
+            this.rbStop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbStop.AutoSize = true;
+            this.rbStop.Checked = true;
+            this.rbStop.Location = new System.Drawing.Point(411, 33);
+            this.rbStop.Name = "rbStop";
+            this.rbStop.Size = new System.Drawing.Size(47, 17);
+            this.rbStop.TabIndex = 14;
+            this.rbStop.TabStop = true;
+            this.rbStop.Text = "Stop";
+            this.rbStop.UseVisualStyleBackColor = true;
+            this.rbStop.CheckedChanged += new System.EventHandler(this.rbStop_CheckedChanged);
             // 
             // cbShowMsgBoxOnError
             // 
@@ -2978,6 +3008,8 @@
         private System.Windows.Forms.CheckBox cbAssignUserToWorkgroup;
         private System.Windows.Forms.CheckBox cbAssignUserToOE;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.RadioButton rbRunning;
+        private System.Windows.Forms.RadioButton rbStop;
 
 
     }

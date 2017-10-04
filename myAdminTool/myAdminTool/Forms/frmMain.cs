@@ -2322,15 +2322,18 @@ namespace myAdminTool
             lblElapsedTime.Text = "0";
             sWatch.Start();
             runtimeTimer.Start();
+            rbRunning.Checked = true;
             bwMoveProcessInstances.RunWorkerAsync();
         }
 
         private void btnCreateOEAndWG_Click(object sender, EventArgs e)
         {
             Util.WriteMethodInfoToConsole();
-            
-            bwCreateOrganisation.RunWorkerAsync();
-            //createOEviaSQL();
+            if (MessageBox.Show("ACHTUNG: Haben Sie die Prüfung auf Namensgleichheit SOURCE und DESTINATION durchgeführt? Wollen Sie die Prüfung erneut durchführen? (JA = ABBRUCH)", "ACHTUNG", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+            {
+                bwCreateOrganisation.RunWorkerAsync();
+                //createOEviaSQL();
+            }
         }
 
         private void createOEviaSQL()
@@ -2543,6 +2546,18 @@ namespace myAdminTool
                         row.Cells["SOURCE_PI_COUNT"].Value = session.WorkItemCount(session.getWorkGroupByID(oldWGNr));
                         row.Cells["STATUS"].Value = "FINISHED";
                         row.DefaultCellStyle.BackColor = Color.LightGreen;
+                        if (rbStop.Checked)
+                        {
+                            if(MessageBox.Show("Soll der aktuelle Lauf abgebrochen werden?", "Abbruch", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                            {
+                                HConsole.WriteLine(">> ABBRUCH DURCH DEN BENUTZER <<");
+                                break;
+                            }
+                            else
+                            {
+                                rbRunning.Checked = true;
+                            }
+                        }
                     }
                     catch(Exception ex)
                     {
@@ -2586,6 +2601,8 @@ namespace myAdminTool
             Util.WriteMethodInfoToConsole();
             sWatch.Stop();
             runtimeTimer.Stop();
+            rbStop.Checked = true;
+            HConsole.WriteLine(">> VERSCHIEBEN DER AKTEN ABGESCHLOSSEN <<");
             //ChangeImage(dgvCR17DOMEA004Configuration.Rows.Count, true);
         }
 
@@ -3046,6 +3063,7 @@ namespace myAdminTool
 
         private void cbAssignUserToOE_CheckedChanged(object sender, EventArgs e)
         {
+            Util.WriteMethodInfoToConsole();
             if (cbAssignUserToOE.Checked)
             {
                 cbCreateOE.Checked = true;
@@ -3059,9 +3077,36 @@ namespace myAdminTool
 
         private void cbCreateOE_CheckedChanged(object sender, EventArgs e)
         {
+            Util.WriteMethodInfoToConsole();
             if(!cbCreateOE.Checked)
             {
                 cbAssignUserToOE.Checked = false;
+            }
+        }
+
+        private void rbStop_CheckedChanged(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            if(rbStop.Checked)
+            {
+                rbStop.BackColor = Color.Red;
+            }
+            else
+            {
+                rbStop.BackColor = SystemColors.Control;
+            }
+        }
+
+        private void rbRunning_CheckedChanged(object sender, EventArgs e)
+        {
+            Util.WriteMethodInfoToConsole();
+            if (rbRunning.Checked)
+            {
+                rbRunning.BackColor = Color.Green;
+            }
+            else
+            {
+                rbRunning.BackColor = SystemColors.Control;
             }
         }
 
