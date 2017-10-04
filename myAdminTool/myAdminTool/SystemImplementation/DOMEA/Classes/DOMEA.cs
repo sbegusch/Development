@@ -12,12 +12,17 @@ using CCD.Domea.Fw.Base;
 using CCD.Domea.Fw.Base.CcdBase;
 using CCD.Domea.Fw.Base.Obj;
 using System.IO;
+using System.Diagnostics;
 namespace myAdminTool.SystemImplementation.DOMEA
 {
     public class DOMEA
     {
         private const string APP_CODE = "BIG";
-       
+
+        private const int c_StandardProfileID = 4;
+        
+        public List<Profile> DOMEAProfiles { get; set; }
+
         private Session session { get; set; }
 
         public string ConnectionInfo { get; set; }
@@ -59,6 +64,7 @@ namespace myAdminTool.SystemImplementation.DOMEA
                         sysSession.Login(1, new Password(APP_CODE));
                         session = sysSession;
                     }
+                    DOMEAProfiles = new List<Profile>();
                 }
                 ConnectionInfo = "DOMEA: " + session.GetLoggedOnUser().Name + "@" + session.HostName;
                 
@@ -227,16 +233,47 @@ namespace myAdminTool.SystemImplementation.DOMEA
                 return false;
             }
         }
+        
+        private int getProfileID(string subString)
+        {
+            int retValue = -1;
+            try
+            {
+                string stmt = "select profile_id from PROFILE_REP where upper(PROFILE_NAME) like '%" + subString.ToUpper() + "'";
+                SQLTransaction transaction = new SQLTransaction(this.session, APP_CODE, stmt);
+                foreach (SQLRow row in transaction.GetResultRows())
+                {
+                    retValue = Convert.ToInt32(row.GetColumn(0));
+                    break;
+                }
+                return retValue;
+            }
+            catch(Exception ex)
+            {
+                HConsole.WriteError(ex);
+                return retValue;
+            }
+        }
 
         public int createWorkGroup(int OEID, string WGBEZ)
         {
+            DOMEAProfiles.Clear();
             Organization oe = session.GetOrganizations().First(o => o.Id == OEID);
 
             WorkGroup wg = new WorkGroup(session);
             wg.Name = WGBEZ;
             wg.SetOrganization(oe);
             wg.Create();
-            wg.AssignProfile(new Profile(session, 4));
+            DOMEAProfiles.Add(new Profile(session, c_StandardProfileID));
+            
+            if (WGBEZ.ToUpper().EndsWith("_FOM") ||
+                WGBEZ.ToUpper().EndsWith("_MV") ||
+                WGBEZ.ToUpper().EndsWith("_ZDA"))
+            {
+                DOMEAProfiles.Add(new Profile(session, getProfileID(WGBEZ.Substring(WGBEZ.IndexOf("_") + 1))));
+            }
+            wg.AssignProfile(DOMEAProfiles.ToArray());
+
             return wg.Id;
         }
 
@@ -300,7 +337,8 @@ namespace myAdminTool.SystemImplementation.DOMEA
                 return wg.GetWorkItems().Count;
             }
         }
-
+        int counter = 0;
+        Stopwatch sWatchMovePI;
         public void MoveWorkItem(WorkGroup fromWorkGroup, WorkGroup toWorkGroup, Organization oe)
         {
             Util.WriteMethodInfoToConsole();
@@ -312,12 +350,17 @@ namespace myAdminTool.SystemImplementation.DOMEA
 
             //Rules.Add(new AccessRule(session, CCD.Domea.Fw.Base.AccessType.Read, RuleType.SpecificOrganization, oe));
             //Rules.Add(new AccessRule(session, CCD.Domea.Fw.Base.AccessType.Write, RuleType.SpecificOrganization, oe));
-
+            counter = 0;
+            sWatchMovePI = new Stopwatch();
             foreach (WorkItem wi in fromWorkGroup.GetWorkItems())
             {
                 try
                 {
+                    sWatchMovePI.Reset();
+                    sWatchMovePI.Start();
+                    counter = counter + 1;
                     PI = wi.GetProcessInstance();
+                    HConsole.WriteLine(">> Verschieben des Aktes " + PI.Name + " beginnt...");
 
                     Rules.Clear();
                     Rules.AddRange(PI.GetAccessRules(CCD.Domea.Fw.Base.AccessType.Read));
@@ -325,7 +368,6 @@ namespace myAdminTool.SystemImplementation.DOMEA
                     Rules.AddRange(PI.GetAccessRules(CCD.Domea.Fw.Base.AccessType.Write));
                     Rules.Add(arWrite);
 
-                    HConsole.WriteLine(">> Verschieben des Aktes " + PI.Name + " beginnt...");
                     PI.SetActiveWorkItem(wi);
                     PI.SetLock(ProcessInstanceLockLevel.Whole);
                     wi.WriteHistoryLogEvent(30, "Start BIG Changes 2.0", new HistoryLogEventType(session, 99));
@@ -339,6 +381,8 @@ namespace myAdminTool.SystemImplementation.DOMEA
                     
                     wi.WriteHistoryLogEvent(30, "BIG Changes 2.0 erfolgreich durchgeführt", new HistoryLogEventType(session, 99));
                     PI.ReleaseLock(ProcessInstanceLockLevel.Whole);
+                    sWatchMovePI.Stop();
+                    HConsole.WriteLine(">> Verschieben des Aktes " + PI.Name + " abgeschlossen... (Zähler: "+ counter + " / Stopwatch: " + sWatchMovePI.Elapsed.ToString("ss\\.ff") + ")");
                 }
                 catch(Exception ex)
                 {

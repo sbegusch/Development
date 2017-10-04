@@ -2540,6 +2540,7 @@ namespace myAdminTool
                         moveProcessInstance(newOEBez, oldWGNr, oldWGName, newWGName);
                         //bwMoveProcessInstances.ReportProgress(reportCounter,reportCounter);
                         //reportCounter += 1;
+                        row.Cells["SOURCE_PI_COUNT"].Value = session.WorkItemCount(session.getWorkGroupByID(oldWGNr));
                         row.Cells["STATUS"].Value = "FINISHED";
                         row.DefaultCellStyle.BackColor = Color.LightGreen;
                     }
@@ -2932,24 +2933,31 @@ namespace myAdminTool
 
                             if (cbCreateWorkGroup.Checked)
                             {
-                                row.Cells["INFO"].Value = "Arbeitsgruppen anlegen";
-                                if (WGName.Trim() != "")
+                                if (oeID != -1)
                                 {
-                                    #region PRÜFEN OB DIE ARBEITSGRUPPE EXISTIERT
-                                    if (!session.WorkGroupExists(WGName, out wgID))
+                                    row.Cells["INFO"].Value = "Arbeitsgruppen anlegen";
+                                    if (WGName.Trim() != "")
                                     {
-                                        #region ARBEITSGRUPPE NEU ERSTELLEN
-                                        HConsole.WriteLine(">> create WorkGroup '" + WGName + "'");
-                                        //row.Cells["INFO"].Value = ">> create WorkGroup '" + WGName + "'";
-                                        wgID = session.createWorkGroup(oeID, WGName);
+                                        #region PRÜFEN OB DIE ARBEITSGRUPPE EXISTIERT
+                                        if (!session.WorkGroupExists(WGName, out wgID))
+                                        {
+                                            #region ARBEITSGRUPPE NEU ERSTELLEN
+                                            HConsole.WriteLine(">> create WorkGroup '" + WGName + "'");
+                                            //row.Cells["INFO"].Value = ">> create WorkGroup '" + WGName + "'";
+                                            wgID = session.createWorkGroup(oeID, WGName);
+                                            #endregion
+                                        }
+                                        else
+                                        {
+                                            HConsole.WriteLine(">> WorkGroup '" + WGName + "' already exists");                                            
+                                            //row.Cells["INFO"].Value = ">> WorkGroup '" + WGName + "' already exists";
+                                        }
                                         #endregion
                                     }
-                                    else
-                                    {
-                                        HConsole.WriteLine(">> WorkGroup '" + WGName + "' already exists");
-                                        //row.Cells["INFO"].Value = ">> WorkGroup '" + WGName + "' already exists";
-                                    }
-                                    #endregion
+                                }
+                                else
+                                {
+                                    throw new Exception(">> zum Erstellen der WorkGroup '" + WGName + "' wird eine OENr benötigt");
                                 }
                             }
                             #endregion
@@ -2987,7 +2995,7 @@ namespace myAdminTool
                                                         {
                                                             userID = Convert.ToInt32(readerUser["usernr"].ToString());
                                                             userName = readerUser["username"].ToString();
-                                                            HConsole.WriteLine(">> check User '" + userName + "' and WorkGroup '" + WGName + "'");
+                                                            HConsole.WriteLine(">> check User '" + userName + "' and WorkGroup '" + WGName + "' = already assigned");
                                                             //row.Cells["INFO"].Value = ">> is User assigned? " + userName + " --> " + WGName;
                                                             if (!session.isUserAssignedToWorkGroup(userID, wgID))
                                                             {
