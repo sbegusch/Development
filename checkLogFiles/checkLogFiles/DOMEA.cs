@@ -60,11 +60,11 @@ namespace checkLogFiles
                 if (o != null)
                 {
                     SysSession.System.SQLCommand("insert into BIG_FOLDER_RESTORE_TMP values(" + WGNr + ", '" + WGName + "', '" + FolderName + "', '" + GZ + "', ' ', " + WGNr + ", '" + o.PFAD_GESAMT + "', '" +
-                                                                                            o.PFAD + "', '" + o.VATER_FOLDERBEZ + "', '" + o.FOLDERBEZ + "', " + o.FOLDERNR + ", " + o.VATER_FOLDERNR + ", " + o.FOLDER_LEVEL + ")");
+                                                                                            o.PFAD + "', '" + o.VATER_FOLDERBEZ + "', '" + o.FOLDERBEZ + "', " + o.FOLDERNR + ", " + o.VATER_FOLDERNR + ", " + o.FOLDER_LEVEL + ", -1)");
                 }
                 else
                 {
-                    SysSession.System.SQLCommand("insert into BIG_FOLDER_RESTORE_TMP values(" + WGNr + ", '" + WGName + "', '" + FolderName + "', '" + GZ + "', ' ', " + WGNr + ", ' ', ' ', ' ', ' ', -200, -200, -200)");
+                    SysSession.System.SQLCommand("insert into BIG_FOLDER_RESTORE_TMP values(" + WGNr + ", '" + WGName + "', '" + FolderName + "', '" + GZ + "', ' ', " + WGNr + ", ' ', ' ', ' ', ' ', -200, -200, -200, -1)");
                 }
 
                 Console.Title = "Insertierte Datensätze " + Counter++;
