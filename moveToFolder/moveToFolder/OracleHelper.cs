@@ -32,17 +32,10 @@ namespace moveToFolder
             }
         }
 
-        public DataTable GetData()
+        public DataTable GetData(string stmt)
         {
             try
             {
-                string stmt = "select distinct g.igz, g.gz, f.wgnr, f.wgname, f.PFAD_GESAMT, f.folderbez, f.FOLDERNR " +
-                                "from BIG_FOLDER_RESTORE_TMP f, gst g " +
-                                "where f.foldernr >= 0 " +
-                                  "and g.gz = f.gz " +
-                                  "and f.wgnr = f.usernr " +
-                                "order by f.pfad_gesamt";
-
                 using (OracleCommand cmd = new OracleCommand(stmt, Connection))
                 {
                     using (OracleDataReader reader = cmd.ExecuteReader())
