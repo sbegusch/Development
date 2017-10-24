@@ -36,11 +36,13 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.lblWorkGroups = new System.Windows.Forms.Label();
             this.dgvWorkGroups = new System.Windows.Forms.DataGridView();
             this.dgvCreateFolder = new System.Windows.Forms.DataGridView();
             this.btnCreateFolder = new System.Windows.Forms.Button();
-            this.lblWorkGroups = new System.Windows.Forms.Label();
             this.lblFolder4Workgroup = new System.Windows.Forms.Label();
+            this.bwMoveProcessInstance = new System.ComponentModel.BackgroundWorker();
+            this.btnMovePI = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBIG_FOLDER_RESTORE_TMP)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -112,6 +114,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.btnMovePI);
             this.tabPage1.Controls.Add(this.dgvBIG_FOLDER_RESTORE_TMP);
             this.tabPage1.Controls.Add(this.lblRowCount);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -153,6 +156,16 @@
             this.splitContainer1.Size = new System.Drawing.Size(950, 446);
             this.splitContainer1.SplitterDistance = 316;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // lblWorkGroups
+            // 
+            this.lblWorkGroups.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblWorkGroups.AutoSize = true;
+            this.lblWorkGroups.Location = new System.Drawing.Point(3, 425);
+            this.lblWorkGroups.Name = "lblWorkGroups";
+            this.lblWorkGroups.Size = new System.Drawing.Size(35, 13);
+            this.lblWorkGroups.TabIndex = 1;
+            this.lblWorkGroups.Text = "label1";
             // 
             // dgvWorkGroups
             // 
@@ -199,16 +212,6 @@
             this.btnCreateFolder.UseVisualStyleBackColor = true;
             this.btnCreateFolder.Click += new System.EventHandler(this.btnCreateFolder_Click);
             // 
-            // lblWorkGroups
-            // 
-            this.lblWorkGroups.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblWorkGroups.AutoSize = true;
-            this.lblWorkGroups.Location = new System.Drawing.Point(3, 425);
-            this.lblWorkGroups.Name = "lblWorkGroups";
-            this.lblWorkGroups.Size = new System.Drawing.Size(35, 13);
-            this.lblWorkGroups.TabIndex = 1;
-            this.lblWorkGroups.Text = "label1";
-            // 
             // lblFolder4Workgroup
             // 
             this.lblFolder4Workgroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -218,6 +221,24 @@
             this.lblFolder4Workgroup.Size = new System.Drawing.Size(35, 13);
             this.lblFolder4Workgroup.TabIndex = 2;
             this.lblFolder4Workgroup.Text = "TEST";
+            // 
+            // bwMoveProcessInstance
+            // 
+            this.bwMoveProcessInstance.WorkerReportsProgress = true;
+            this.bwMoveProcessInstance.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwMoveProcessInstance_DoWork);
+            this.bwMoveProcessInstance.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwMoveProcessInstance_ProgressChanged);
+            this.bwMoveProcessInstance.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwMoveProcessInstance_RunWorkerCompleted);
+            // 
+            // btnMovePI
+            // 
+            this.btnMovePI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMovePI.Location = new System.Drawing.Point(826, 426);
+            this.btnMovePI.Name = "btnMovePI";
+            this.btnMovePI.Size = new System.Drawing.Size(130, 23);
+            this.btnMovePI.TabIndex = 5;
+            this.btnMovePI.Text = "move ProcessInstance";
+            this.btnMovePI.UseVisualStyleBackColor = true;
+            this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
             // 
             // frmMain
             // 
@@ -265,6 +286,8 @@
         private System.Windows.Forms.DataGridView dgvWorkGroups;
         private System.Windows.Forms.Label lblWorkGroups;
         private System.Windows.Forms.Label lblFolder4Workgroup;
+        private System.Windows.Forms.Button btnMovePI;
+        private System.ComponentModel.BackgroundWorker bwMoveProcessInstance;
     }
 }
 

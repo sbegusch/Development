@@ -52,5 +52,22 @@ namespace moveToFolder
                 return null;
             }
         }
+
+        public bool Execute(string stmt)
+        {
+            try
+            {
+                using (OracleCommand cmd = new OracleCommand(stmt, Connection))
+                {
+                    cmd.ExecuteNonQuery();
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+        }
     }
 }
