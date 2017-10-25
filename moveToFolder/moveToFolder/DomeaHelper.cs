@@ -33,8 +33,15 @@ namespace moveToFolder
 
         private SCBWflSession getWorkGroupSession(int workGroupID)
         {
-            SCBWflWorkGroup wg = sysSession.System.GetWorkGroupByID(sysSession.System.NewIDByLocalKey(workGroupID));
-            return sysSession.StartWorkGroupSession(wg); 
+            try
+            {
+                SCBWflWorkGroup wg = sysSession.System.GetWorkGroupByID(sysSession.System.NewIDByLocalKey(workGroupID));
+                return sysSession.StartWorkGroupSession(wg);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
 
         }
 
@@ -43,8 +50,9 @@ namespace moveToFolder
             sysSession.StopWorkGroup();
         }
 
-        public bool moveWorkItem(int igz, int workGroupID, int destFolderID)
+        public bool moveWorkItem(int igz, int workGroupID, int destFolderID, out string message)
         {
+            message = "";
             try
             {
                 if (igz > 0)
@@ -57,9 +65,16 @@ namespace moveToFolder
                     if (folder == null)
                     {
                         workGroupSession = getWorkGroupSession(workGroupID);
-                        folder = FindFolder(workGroupSession.WorkList, destFolderID);
-                        stopWorkGroupSession();
-                        if (folder != null) { allFolders.Add(folder); }
+                        if (workGroupSession != null)
+                        {
+                            folder = FindFolder(workGroupSession.WorkList, destFolderID);
+                            stopWorkGroupSession();
+                            if (folder != null) { allFolders.Add(folder); }
+                        }
+                        else
+                        {
+                            message = "WorkGroupSession is null: " + workGroupID;
+                        }
                     }
                     if (folder != null)
                     {
@@ -68,11 +83,18 @@ namespace moveToFolder
 
                         SCBWflProcessInstance pi = sysSession.System.GetProcessInstanceByID(sysSession.System.NewIDByLocalKey(igz));
                         SCBWflWorkItem wi = pi.GetWorkItems().Item(1);
-                        
-                        pi.SetLock(LockTypeOfProcInst.wflProcInstWhole);
-                        wi.MoveToFolder(folder);
-                        pi.ReleaseLock(LockTypeOfProcInst.wflProcInstWhole);
-                        return true;
+                        if (wi.GetCurrentActor().ID.ToLong(IDType.wflLocalKey) == workGroupID)
+                        {
+                            pi.SetLock(LockTypeOfProcInst.wflProcInstWhole);
+                            wi.MoveToFolder(folder);
+                            pi.ReleaseLock(LockTypeOfProcInst.wflProcInstWhole);
+                            return true;
+                        }
+                        else
+                        {
+                            message = "Aktueller Benutzer stimmt nicht mit Arbeitsgruppe überein! CurrentActor: " + wi.GetCurrentActor().ID.ToLong(IDType.wflLocalKey) + " WorkGroupID: " + workGroupID;
+                            return false;
+                        }
                     }
                     else
                     {
@@ -87,6 +109,7 @@ namespace moveToFolder
             catch(Exception ex)
             {
                 Console.WriteLine("IGZ: " + igz + ": " + ex.Message);
+                message = "IGZ: " + igz + ": " + ex.Message;
                 return false;
             }
         }

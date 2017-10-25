@@ -66,7 +66,7 @@ namespace moveToFolder
                                   "and f.wgnr = f.usernr " +
                                 //"order by f.pfad_gesamt";
                                 "order by f.tmp_ID";
-                     */
+                     
                     string stmt = "select distinct f.tmp_ID ID, g.igz, g.gz, f.wgnr, f.wgname, f.PFAD_GESAMT, f.PFAD, f.folderbez, f.FOLDERNR, f.VATER_FOLDERBEZ, f.PATH STATUS, " +
                                                    "m.DESTINATION_ID, m.DESTINATION_NAME, m.DESTINATION_NAME || '\' || f.PFAD PFAD_NEU " +
                                     "from BIG_FOLDER_RESTORE_TMP f, gst g, V_BIG_WORKGROUP_OLD_NEW m  " +
@@ -75,10 +75,22 @@ namespace moveToFolder
                                     "and f.wgnr = f.usernr  " +
                                     "and m.source_id = f.wgnr " +
                                     "order by f.tmp_ID";
+                    */
+                    string stmt = "select distinct f.tmp_ID ID, g.igz, g.gz, f.wgnr, f.wgname, f.PFAD_GESAMT, f.PFAD, f.folderbez, f.FOLDERNR, f.VATER_FOLDERBEZ, f.PATH STATUS, " +
+                                                   "m.DESTINATION_ID, m.DESTINATION_NAME, m.DESTINATION_NAME || '\\' || f.PFAD PFAD_NEU " +
+                                    "from BIG_FOLDER_RESTORE_TMP f, gst g, V_BIG_WORKGROUP_OLD_NEW m  " +
+                                    "where trim(f.path) is null " +  // nur solche die noch nicht verarbeitet wurden
+                                    "and f.foldernr >= 0  " +
+                                    "and g.gz = f.gz  " +
+                                    "and f.wgnr = f.usernr  " +
+                                    "and m.source_id = f.wgnr " +
+                                    "order by f.tmp_ID";
 
-                    bindingSource1.DataSource = ora.GetData(stmt);
+                    //bindingSource1.DataSource = ora.GetData(stmt);
 
-                    dgvBIG_FOLDER_RESTORE_TMP.DataBindingComplete += new DataGridViewBindingCompleteEventHandler(dgvBIG_FOLDER_RESTORE_TMP_DataBindingComplete);
+                    //dgvBIG_FOLDER_RESTORE_TMP.DataBindingComplete += new DataGridViewBindingCompleteEventHandler(dgvBIG_FOLDER_RESTORE_TMP_DataBindingComplete);
+                    
+                    dgvBIG_FOLDER_RESTORE_TMP.DataSource = ora.GetData(stmt);
 
                     DataCount = dgvBIG_FOLDER_RESTORE_TMP.Rows.Count;
                     Tab2Loaded = false;
@@ -132,17 +144,17 @@ namespace moveToFolder
         {
             try
             {
-                if (dgvBIG_FOLDER_RESTORE_TMP.DataSource == null) return;
+                //if (dgvBIG_FOLDER_RESTORE_TMP.DataSource == null) return;
 
-                foreach (DataGridViewColumn col in dgvBIG_FOLDER_RESTORE_TMP.Columns)
-                {
-                    if (col.Name == "WGNAME")
-                    {
-                        col.HeaderCell = new
-                                DataGridViewAutoFilterColumnHeaderCell(col.HeaderCell);
-                    }
-                }
-                dgvBIG_FOLDER_RESTORE_TMP.AutoResizeColumns();
+                //foreach (DataGridViewColumn col in dgvBIG_FOLDER_RESTORE_TMP.Columns)
+                //{
+                //    if (col.Name == "WGNAME")
+                //    {
+                //        col.HeaderCell = new
+                //                DataGridViewAutoFilterColumnHeaderCell(col.HeaderCell);
+                //    }
+                //}
+                //dgvBIG_FOLDER_RESTORE_TMP.AutoResizeColumns();
             }
             catch(Exception ex)
             {
@@ -153,7 +165,7 @@ namespace moveToFolder
 
         private void dgvBIG_FOLDER_RESTORE_TMP_DataBindingComplete(object sender, EventArgs e)
         {
-            lblRowCount.Text = dgvBIG_FOLDER_RESTORE_TMP.Rows.Count + " Datensätze von " + DataCount + " geladen...";
+            //lblRowCount.Text = dgvBIG_FOLDER_RESTORE_TMP.Rows.Count + " Datensätze von " + DataCount + " geladen...";
         }
 
         private void btnMovePI_Click(object sender, EventArgs e)
@@ -229,6 +241,7 @@ namespace moveToFolder
             string GZ = "";
             string DESTINATION_NAME = "";
             string PFAD_NEU = "";
+            string message = "";
             logger.WriteFile(string.Format("IGZ;GZ;DESTINATION_ID;DESTINATION_NAME;PFAD_NEU"));
             DomeaHelper domea = new DomeaHelper(sysSession);
             foreach(DataGridViewRow row in dgvBIG_FOLDER_RESTORE_TMP.Rows)
@@ -241,7 +254,7 @@ namespace moveToFolder
                     IGZ = 0;
                     workGroupID = 0;
                     folderID = 0;
-
+                    message = "";
                     IGZ = Convert.ToInt32(row.Cells["IGZ"].Value);
 
                     try
@@ -254,18 +267,29 @@ namespace moveToFolder
                         PFAD_NEU = row.Cells["PFAD_NEU"].Value.ToString();
                     
                         //move WorkItem
-                        if (domea.moveWorkItem(IGZ, workGroupID, folderID))
+                        if (domea.moveWorkItem(IGZ, workGroupID, folderID, out message))
                         {
-                            counter = counter + 1;
-                            percent = (counter * 100) / maxRows;
-                            bwMoveProcessInstance.ReportProgress(percent, row);
+                            row.Cells["STATUS"].Value = "finished";
                             logger.WriteFile(string.Format("{0};{1};{2};{3};{4}",IGZ,GZ,workGroupID,DESTINATION_NAME,PFAD_NEU));
                             InfoLogger.WriteFile(string.Format("Akt {0} mit der IGZ {1} nach {2} verschoben...", GZ, IGZ, PFAD_NEU));
                         }
                         else
                         {
                             ErrorLogger.WriteFile(string.Format("{0};{1};{2};{3};{4}", IGZ, GZ, workGroupID, DESTINATION_NAME, PFAD_NEU));
+                            if (message != "")
+                            {
+                                ErrorLogger.WriteFile(GZ + ": " + message);
+                                Console.WriteLine(GZ + ": " + message);
+                                row.Cells["STATUS"].Value = message;
+                            }
+                            else
+                            {
+                                row.Cells["STATUS"].Value = "Warning";
+                            }
                         }
+                        counter = counter + 1;
+                        percent = (counter * 100) / maxRows;
+                        bwMoveProcessInstance.ReportProgress(percent, row);
                     }
                     catch(Exception ex)
                     {
@@ -289,11 +313,12 @@ namespace moveToFolder
                 if (rowID > 0)
                 {
                     //updateStmt = "update BIG_FOLDER_RESTORE_TMP set path = ' ' where tmp_id = " + rowID;
-                    updateStmt = "update BIG_FOLDER_RESTORE_TMP set path = 'finished' where tmp_id = " + rowID;
+                    //updateStmt = "update BIG_FOLDER_RESTORE_TMP set path = 'finished' where tmp_id = " + rowID;
+                    updateStmt = "update BIG_FOLDER_RESTORE_TMP set path = '" + row.Cells["STATUS"].Value.ToString() + "' where tmp_id = " + rowID;
                     
                     if (ora.Execute(updateStmt))
                     {
-                        row.Cells["STATUS"].Value = "finished";
+                        //row.Cells["STATUS"].Value = "finished";
                         Console.Title = e.ProgressPercentage + "% finished";
                     }
                     else
