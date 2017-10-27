@@ -121,11 +121,38 @@ namespace moveToFolder
             {
                 Console.WriteLine("KONFIGURATION WIRD GELADEN....");
 
-                string stmt = "select distinct f.wgnr usernr, m.username " +
+                /*string stmt = "select distinct f.wgnr usernr, m.username " +
                                 "from BIG_FOLDER_RESTORE_TMP f, mitarbeiter m " +
                                  "where m.usernr = f.wgnr " +
                                  "and m.ist_rolle = 1 " +
-                                 "order by 2";
+                                 "order by 2";*/
+                
+                ///<missing folder>
+                /*
+                string stmt = "select o.oebez, m.username, m.usernr " +
+                                "from organisation o, mitarbeiter m " + 
+                                "where o.vater_oe = 18 " + 
+                                  "and o.status = 2 " + 
+                                  "and m.oenr = o.oenr " +
+                                  "and m.ist_rolle = 1 " +
+                                  "and exists (select * from folder where usernr = m.usernr) " +
+                                "order by o.oebez";*/
+                string stmt = "select a.OEBEZ, a.OLD_WG, a.OLD_WG_ID, " +
+                              "w.username NEW_WG, w.usernr NEW_WG_ID " +
+                                "from( " +
+                                  "select o.oebez, m.username OLD_WG, m.usernr OLD_WG_ID " +
+                                  "from organisation o, mitarbeiter m " +
+                                  "where o.vater_oe = 18 " +
+                                    "and o.status = 2 " +
+                                    "and m.oenr = o.oenr " +
+                                    "and m.ist_rolle = 1 " +
+                                    "and exists (select * from folder where usernr = m.usernr) " +
+                                  ") a, V_BIG_WORKGROUP_MAPPING v, MITARBEITER w " +
+                                "where v.source_id = a.OLD_WG_ID " +
+                                  "and w.username = v.DESTINATION_NAME " +
+                                  "and w.status = 0 " +
+                                  "and w.ist_rolle = 1 " +
+                                "order by a.oebez";
 
                 lblWorkGroups.Text = "";
 
@@ -177,14 +204,20 @@ namespace moveToFolder
 
         #region 2. Tab
 
+        private int newSelectedWorkGroupID { get; set; }
+        private string newSelectedWorkGroupName { get; set; }
+        private int oldSelectedWorkGroupID { get; set; }
+        private string oldSelectedWorkGroupName { get; set; }
+
         private void dgvWorkGroups_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            //dgvCreateFolder.Rows.Clear();
+            oldSelectedWorkGroupName = dgvWorkGroups.Rows[e.RowIndex].Cells[1].Value.ToString();    
+            oldSelectedWorkGroupID = Convert.ToInt32(dgvWorkGroups.Rows[e.RowIndex].Cells[2].Value);
+            newSelectedWorkGroupName = dgvWorkGroups.Rows[e.RowIndex].Cells[3].Value.ToString();
+            newSelectedWorkGroupID = Convert.ToInt32(dgvWorkGroups.Rows[e.RowIndex].Cells[4].Value);
+            
 
-            int WorkGroupID = Convert.ToInt32(dgvWorkGroups.Rows[e.RowIndex].Cells[0].Value);
-            string WorkGroup = dgvWorkGroups.Rows[e.RowIndex].Cells[1].Value.ToString();
-
-            Console.WriteLine("\nKONFIGURATION FÜR " + WorkGroup + " WIRD GELADEN....");
+            Console.WriteLine("\nKONFIGURATION FÜR " + oldSelectedWorkGroupName + " WIRD GELADEN....");
             
             string stmt = "SELECT distinct usernr,pfad_gesamt, pfad,vater_folderbez, folderbez,foldernr,vater_foldernr,FOLDER_LEVEL " +
                             "FROM( " +
@@ -200,25 +233,53 @@ namespace moveToFolder
                             "FROM " +
                                "(SELECT f.USERNR, m.USERNAME, f.FOLDERNR, f.VATER_FOLDERNR, f.FOLDERBEZ " +
                                 "FROM FOLDER f, MITARBEITER m " +
-                                "WHERE f.USERNR = " + WorkGroupID + " " +  // --> USERNUMMER
+                                "WHERE f.USERNR = " + oldSelectedWorkGroupID + " " +  // --> USERNUMMER
                                 "AND m.USERNR = f.USERNR " +
                                   "AND m.IST_ROLLE = 1) f " +
                             "START WITH f.VATER_FOLDERNR = 0 " +
                             "CONNECT BY PRIOR f.FOLDERNR=f.VATER_FOLDERNR " +
-                            ")";
+                            "ORDER BY USERNR, PFAD_GESAMT)";
             
             dgvCreateFolder.DataSource = ora.GetData(stmt);
+            dgvCreateFolder.Sort(dgvCreateFolder.Columns["PFAD_GESAMT"], ListSortDirection.Ascending);
             lblFolder4Workgroup.Text = dgvCreateFolder.Rows.Count + " Ordner zum Erstellen...";
+
         }
         
         private void btnCreateFolder_Click(object sender, EventArgs e)
         {
             try
             {
+                string[] Pfad;
+                int lastLevel = 0;
+                int Level = 0;
+                DomeaHelper domea = new DomeaHelper(sysSession);
+                domea.startWorkGroupSession(newSelectedWorkGroupID);
+                
                 foreach (DataGridViewRow row in dgvCreateFolder.Rows)
                 {
-                    Console.WriteLine(row.Cells["PFAD_GESAMT"].Value.ToString());
+                    Pfad = row.Cells["PFAD_GESAMT"].Value.ToString().Split('\\');
+                    Console.WriteLine(oldSelectedWorkGroupID + " --> " + row.Cells["PFAD_GESAMT"].Value.ToString() + " --> " + newSelectedWorkGroupID);
+                    Level = Convert.ToInt32(row.Cells["FOLDER_LEVEL"].Value.ToString());
+                    if (Level == 1)
+                    {
+                        domea.SubFolder = domea.createFolderInWorkList(newSelectedWorkGroupID, Pfad[Pfad.Length - 1]);
+                    }
+                    else
+                    {
+                        if (Level == lastLevel)
+                        {
+                            domea.createFolderInFolder(domea.SubFolder, Pfad[Pfad.Length - 1]);
+                        }
+                        else
+                        {
+                            domea.SubFolder = domea.createFolderInFolder(domea.SubFolder, Pfad[Pfad.Length - 1]);
+                        }
+                    }
+                    
+                    lastLevel = Level;
                 }
+                domea.stopWorkGroupSession();
             }
             catch (Exception ex)
             {

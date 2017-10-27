@@ -24,14 +24,15 @@ namespace moveToFolder
         private SCBWflSession sysSession;
         private SCBWflSession workGroupSession;
 
+        public SCBWflFolder SubFolder { get; set; }
+
         public DomeaHelper(SCBWflSession _sysSession)
         {
             sysSession = _sysSession;
             allFolders = new List<SCBWflFolder>();
         }
 
-
-        private SCBWflSession getWorkGroupSession(int workGroupID)
+        public SCBWflSession getWorkGroupSession(int workGroupID)
         {
             try
             {
@@ -45,7 +46,21 @@ namespace moveToFolder
 
         }
 
-        private void stopWorkGroupSession()
+        public void startWorkGroupSession(int workGroupID)
+        {
+            try
+            {
+                SCBWflWorkGroup wg = sysSession.System.GetWorkGroupByID(sysSession.System.NewIDByLocalKey(workGroupID));
+                workGroupSession = sysSession.StartWorkGroupSession(wg);
+            }
+            catch (Exception ex)
+            {
+                workGroupSession = null;
+            }
+
+        }
+
+        public void stopWorkGroupSession()
         {
             sysSession.StopWorkGroup();
         }
@@ -156,6 +171,57 @@ namespace moveToFolder
                 }
             }
             return null;
+        }
+
+        public SCBWflFolder createFolderInWorkList(int newWorkGroupID, string OrdnerName)
+        {
+            SCBWflFolder folder = null;
+            try
+            {
+                if (workGroupSession != null)
+                {
+                    foreach(SCBWflFolder subFolder in workGroupSession.WorkList.GetSubFolders())
+                    {
+                        if (subFolder.Name == OrdnerName)
+                        {
+                            Console.WriteLine("Folder '" + OrdnerName + "' existiert bereits!");
+                            return subFolder;
+                        }
+                    }
+                    folder = workGroupSession.WorkList.CreateSubFolder(OrdnerName);
+                }
+                return folder;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return folder;
+            }
+        }
+
+        public SCBWflFolder createFolderInFolder(SCBWflFolder folder, string OrdnerName)
+        {
+            try
+            {
+                foreach (SCBWflFolder subFolder in folder.GetSubFolders())
+                {
+                    if (subFolder.Name == OrdnerName)
+                    {
+                        Console.WriteLine("Folder '" + OrdnerName + "' existiert bereits!");
+                        return subFolder;
+                    }
+                }
+                if (folder != null)
+                {
+                    return folder.CreateSubFolder(OrdnerName);
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
     }
 }

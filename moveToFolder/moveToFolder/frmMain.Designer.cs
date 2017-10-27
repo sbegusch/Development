@@ -34,6 +34,7 @@
             this.lblRowCount = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnMovePI = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lblWorkGroups = new System.Windows.Forms.Label();
@@ -42,7 +43,6 @@
             this.btnCreateFolder = new System.Windows.Forms.Button();
             this.lblFolder4Workgroup = new System.Windows.Forms.Label();
             this.bwMoveProcessInstance = new System.ComponentModel.BackgroundWorker();
-            this.btnMovePI = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBIG_FOLDER_RESTORE_TMP)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -123,6 +123,17 @@
             this.tabPage1.Size = new System.Drawing.Size(962, 456);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "BIG_FOLDER_RESTORE_TMP";
+            // 
+            // btnMovePI
+            // 
+            this.btnMovePI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMovePI.Location = new System.Drawing.Point(826, 426);
+            this.btnMovePI.Name = "btnMovePI";
+            this.btnMovePI.Size = new System.Drawing.Size(130, 23);
+            this.btnMovePI.TabIndex = 5;
+            this.btnMovePI.Text = "move ProcessInstance";
+            this.btnMovePI.UseVisualStyleBackColor = true;
+            this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
             // 
             // tabPage2
             // 
@@ -228,17 +239,6 @@
             this.bwMoveProcessInstance.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwMoveProcessInstance_DoWork);
             this.bwMoveProcessInstance.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwMoveProcessInstance_ProgressChanged);
             this.bwMoveProcessInstance.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwMoveProcessInstance_RunWorkerCompleted);
-            // 
-            // btnMovePI
-            // 
-            this.btnMovePI.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMovePI.Location = new System.Drawing.Point(826, 426);
-            this.btnMovePI.Name = "btnMovePI";
-            this.btnMovePI.Size = new System.Drawing.Size(130, 23);
-            this.btnMovePI.TabIndex = 5;
-            this.btnMovePI.Text = "move ProcessInstance";
-            this.btnMovePI.UseVisualStyleBackColor = true;
-            this.btnMovePI.Click += new System.EventHandler(this.btnMovePI_Click);
             // 
             // frmMain
             // 
