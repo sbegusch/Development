@@ -251,8 +251,8 @@ namespace moveToFolder
             try
             {
                 string[] Pfad;
-                int lastLevel = 0;
-                int Level = 0;
+                //int lastLevel = 0;
+                //int Level = 0;
                 DomeaHelper domea = new DomeaHelper(sysSession);
                 domea.startWorkGroupSession(newSelectedWorkGroupID);
                 
@@ -260,24 +260,29 @@ namespace moveToFolder
                 {
                     Pfad = row.Cells["PFAD_GESAMT"].Value.ToString().Split('\\');
                     Console.WriteLine(oldSelectedWorkGroupID + " --> " + row.Cells["PFAD_GESAMT"].Value.ToString() + " --> " + newSelectedWorkGroupID);
-                    Level = Convert.ToInt32(row.Cells["FOLDER_LEVEL"].Value.ToString());
-                    if (Level == 1)
-                    {
-                        domea.SubFolder = domea.createFolderInWorkList(newSelectedWorkGroupID, Pfad[Pfad.Length - 1]);
-                    }
-                    else
-                    {
-                        if (Level == lastLevel)
-                        {
-                            domea.createFolderInFolder(domea.SubFolder, Pfad[Pfad.Length - 1]);
-                        }
-                        else
-                        {
-                            domea.SubFolder = domea.createFolderInFolder(domea.SubFolder, Pfad[Pfad.Length - 1]);
-                        }
-                    }
-                    
-                    lastLevel = Level;
+
+                    domea.createFolder(Pfad);
+
+                    #region Version 1
+                    //Level = Convert.ToInt32(row.Cells["FOLDER_LEVEL"].Value.ToString());
+                    //if (Level == 1)
+                    //{
+                    //    domea.SubFolder = domea.createFolderInWorkList(newSelectedWorkGroupID, Pfad[Pfad.Length - 1]);
+                    //}
+                    //else
+                    //{
+                    //    if (Level == lastLevel)
+                    //    {
+                    //        domea.createFolderInFolder(domea.SubFolder, Pfad[Pfad.Length - 1]);
+                    //    }
+                    //    else
+                    //    {
+                    //        domea.SubFolder = domea.createFolderInFolder(domea.SubFolder, Pfad[Pfad.Length - 1]);
+                    //    }
+                    //}
+
+                    //lastLevel = Level;
+                    #endregion
                 }
                 domea.stopWorkGroupSession();
             }

@@ -223,5 +223,60 @@ namespace moveToFolder
                 return null;
             }
         }
+
+        public void createFolder(string[] folderNames)
+        {
+            try
+            {
+                if (workGroupSession != null)
+                {
+                    SCBWflFolder subFolder = null;
+                    foreach (SCBWflFolder sub in workGroupSession.WorkList.GetSubFolders())
+                    {
+                        if (sub.Name == folderNames[1]) // => erste Ebene der Ordner
+                        {
+                            Console.WriteLine("Folder '" + sub.Name + "' existiert bereits!");
+                            subFolder = sub;
+                            break;
+                        }
+                    }
+                    if (subFolder == null)
+                    {//create Folder erste Ebene
+                        subFolder = workGroupSession.WorkList.CreateSubFolder(folderNames[1]);
+                        Console.WriteLine("Folder '" + subFolder.Name + "' wurde erstellt!");
+                    }
+                    
+                    if (folderNames.Length > 2)
+                    {
+                        bool folderExists = false;
+                        for (int idx = 2; idx < folderNames.Length; idx++)
+                        {
+                            folderExists = false;
+                            foreach (SCBWflFolder sub in subFolder.GetSubFolders())
+                            {
+                                if (sub.Name == folderNames[idx])
+                                {
+                                    subFolder = sub;
+                                    Console.WriteLine("Folder '" + sub.Name + "' existiert bereits!");
+                                    folderExists = true;
+                                    break;
+                                }
+                            }
+                            if (!folderExists)
+                            {
+                                //create Sub Folders
+                                Console.WriteLine("Folder '" + subFolder.Name + "\\" + folderNames[idx] + "' wird erstellt!");
+                                subFolder = subFolder.CreateSubFolder(folderNames[idx]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("createFolder() " + ex.Message);
+            }
+        }
+        
     }
 }
