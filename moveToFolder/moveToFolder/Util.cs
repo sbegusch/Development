@@ -88,6 +88,7 @@ namespace moveToFolder
         {
             get
             {
+                //return string.Format("{0}sql.log", AppDomain.CurrentDomain.BaseDirectory);
                 return string.Format("{0}info.log", AppDomain.CurrentDomain.BaseDirectory);
             }
         }
@@ -107,6 +108,7 @@ namespace moveToFolder
                 {
                     myFile.AutoFlush = true;
                     myFile.WriteLine(string.Format("{0} - [{1}]: {2}", DateTime.Now.ToString("yyyy.MM.dd HH:mm:ss"), ProcessID, sLines.TrimEnd()));
+                    //myFile.WriteLine(sLines.TrimEnd());
                     myFile.Close();
                 }
             }

@@ -261,7 +261,7 @@ namespace moveToFolder
                     Pfad = row.Cells["PFAD_GESAMT"].Value.ToString().Split('\\');
                     Console.WriteLine(oldSelectedWorkGroupID + " --> " + row.Cells["PFAD_GESAMT"].Value.ToString() + " --> " + newSelectedWorkGroupID);
 
-                    domea.createFolder(Pfad);
+                    domea.createFolder(Pfad); //, row.Cells["PFAD_GESAMT"].Value.ToString(), oldSelectedWorkGroupID);
 
                     #region Version 1
                     //Level = Convert.ToInt32(row.Cells["FOLDER_LEVEL"].Value.ToString());

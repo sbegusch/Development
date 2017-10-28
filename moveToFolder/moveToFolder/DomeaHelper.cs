@@ -223,8 +223,7 @@ namespace moveToFolder
                 return null;
             }
         }
-
-        public void createFolder(string[] folderNames)
+        public void createFolder(string[] folderNames) //, string pfad_gesamt = "", int usernr = -1)
         {
             try
             {
@@ -235,7 +234,8 @@ namespace moveToFolder
                     {
                         if (sub.Name == folderNames[1]) // => erste Ebene der Ordner
                         {
-                            Console.WriteLine("Folder '" + sub.Name + "' existiert bereits!");
+                            Console.WriteLine("Folder '" + sub.Name + "' (" + sub.ID.ToLong(IDType.wflLocalKey) + ") existiert bereits!");
+                            //InfoLogger.WriteFile("update BIG_FOLDER_RESTORE_TMP2 set foldernr = " + sub.ID.ToLong(IDType.wflLocalKey) + " where wgnr = " + usernr + " and pfad_gesamt = '" + pfad_gesamt + "';");
                             subFolder = sub;
                             break;
                         }
@@ -258,6 +258,7 @@ namespace moveToFolder
                                 {
                                     subFolder = sub;
                                     Console.WriteLine("Folder '" + sub.Name + "' existiert bereits!");
+                                    //InfoLogger.WriteFile("update BIG_FOLDER_RESTORE_TMP2 set foldernr = " + sub.ID.ToLong(IDType.wflLocalKey) + " where wgnr = " + usernr + " and pfad_gesamt = '" + pfad_gesamt + "';");
                                     folderExists = true;
                                     break;
                                 }
